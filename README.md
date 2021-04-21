@@ -12,11 +12,17 @@ proven security Ethereum provides as a platform
 * [Solidity](https://docs.soliditylang.org/en/v0.8.0/) <br />
 * [Chainlink VRF](https://docs.chain.link/docs/chainlink-vrf)
 
-## TODO:
+## TODO
 * Smart contract testing with [Mocha](https://mochajs.org) <br />
 * Front-end integration
 * Chainlink VRF Randomness implementation 
 * Vulnerability analysis w/ [Slither](https://github.com/crytic/slither)
+
+## Getting Started
+1. Clone repo: $ git clone https://github.com/JaredBorders/2X <br />
+2. Install Truffle globally: $ npm install -g truffle <br />
+3. Compile contracts: $ truffle compile <br />
+4. Naviagte to 2x/client and install all dependencies: $ npm i <br />
 
 ## Sources
 [OpenZeppelin](https://github.com/OpenZeppelin/openzeppelin-contracts) <br />
