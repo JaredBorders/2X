@@ -1,0 +1,113 @@
+{
+  "contractName": "ERC165NotSupported",
+  "abi": [],
+  "metadata": "{\"compiler\":{\"version\":\"0.8.0+commit.c7dfd78e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/Users/jaredborders/Documents/Work/Blockchain/Truffle-2X/contracts/openzeppelin-solidity/contracts/mocks/ERC165/ERC165NotSupported.sol\":\"ERC165NotSupported\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/jaredborders/Documents/Work/Blockchain/Truffle-2X/contracts/openzeppelin-solidity/contracts/mocks/ERC165/ERC165NotSupported.sol\":{\"keccak256\":\"0xe92ad77e905f6050dfff8b27f052835daf1dcc5ef8a21a20db08eb0e23055bd9\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://100f72563a06e7c73c96f29d0383a8cb0d0081b77522be0acd75b8bc1f126708\",\"dweb:/ipfs/Qma4Hhm5KXg9BfRLvQBfRkMKMgxJJj8v7Y2MwaQaPqMv8D\"]}},\"version\":1}",
+  "bytecode": "0x6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea264697066735822122073bbc86c9a5e099e39491f7cd4a96049b9764b11e9f04fe75b99ebbeb7ab7f6a64736f6c63430008000033",
+  "deployedBytecode": "0x6080604052600080fdfea264697066735822122073bbc86c9a5e099e39491f7cd4a96049b9764b11e9f04fe75b99ebbeb7ab7f6a64736f6c63430008000033",
+  "immutableReferences": {},
+  "generatedSources": [],
+  "deployedGeneratedSources": [],
+  "sourceMap": "58:31:34:-:0;;;;;;;;;;;;;;;;;;;",
+  "deployedSourceMap": "58:31:34:-:0;;;;;",
+  "source": "// SPDX-License-Identifier: MIT\n\npragma solidity ^0.8.0;\n\ncontract ERC165NotSupported { }\n",
+  "sourcePath": "/Users/jaredborders/Documents/Work/Blockchain/Truffle-2X/contracts/openzeppelin-solidity/contracts/mocks/ERC165/ERC165NotSupported.sol",
+  "ast": {
+    "absolutePath": "/Users/jaredborders/Documents/Work/Blockchain/Truffle-2X/contracts/openzeppelin-solidity/contracts/mocks/ERC165/ERC165NotSupported.sol",
+    "exportedSymbols": {
+      "ERC165NotSupported": [
+        4001
+      ]
+    },
+    "id": 4002,
+    "license": "MIT",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 4000,
+        "literals": [
+          "solidity",
+          "^",
+          "0.8",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "33:23:34"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "fullyImplemented": true,
+        "id": 4001,
+        "linearizedBaseContracts": [
+          4001
+        ],
+        "name": "ERC165NotSupported",
+        "nodeType": "ContractDefinition",
+        "nodes": [],
+        "scope": 4002,
+        "src": "58:31:34"
+      }
+    ],
+    "src": "33:57:34"
+  },
+  "legacyAST": {
+    "absolutePath": "/Users/jaredborders/Documents/Work/Blockchain/Truffle-2X/contracts/openzeppelin-solidity/contracts/mocks/ERC165/ERC165NotSupported.sol",
+    "exportedSymbols": {
+      "ERC165NotSupported": [
+        4001
+      ]
+    },
+    "id": 4002,
+    "license": "MIT",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 4000,
+        "literals": [
+          "solidity",
+          "^",
+          "0.8",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "33:23:34"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "fullyImplemented": true,
+        "id": 4001,
+        "linearizedBaseContracts": [
+          4001
+        ],
+        "name": "ERC165NotSupported",
+        "nodeType": "ContractDefinition",
+        "nodes": [],
+        "scope": 4002,
+        "src": "58:31:34"
+      }
+    ],
+    "src": "33:57:34"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.8.0+commit.c7dfd78e.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.3.4",
+  "updatedAt": "2021-04-16T22:50:40.320Z",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  }
+}
