@@ -18,7 +18,7 @@ proven security Ethereum provides as a platform
 * Chainlink VRF Randomness implementation 
 * Vulnerability analysis w/ [Slither](https://github.com/crytic/slither)
 
-## Getting Started
+## Getting Started (MacOS)
 1. Clone repo: $ git clone https://github.com/JaredBorders/2X <br />
 2. Install Truffle globally: $ yarn global add truffle <br />
 3. Compile contracts: $ truffle compile <br />
