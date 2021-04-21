@@ -34,9 +34,9 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.8.0+commit.c7dfd78e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"bytes4\",\"name\":\"interfaceId\",\"type\":\"bytes4\"}],\"name\":\"registerInterface\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes4\",\"name\":\"interfaceId\",\"type\":\"bytes4\"}],\"name\":\"supportsInterface\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{\"supportsInterface(bytes4)\":{\"details\":\"See {IERC165-supportsInterface}.\"}},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/Users/jaredborders/Documents/Work/Blockchain/Truffle-2X/contracts/openzeppelin-solidity/contracts/mocks/ERC165StorageMock.sol\":\"ERC165StorageMock\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/jaredborders/Documents/Work/Blockchain/Truffle-2X/contracts/openzeppelin-solidity/contracts/mocks/ERC165StorageMock.sol\":{\"keccak256\":\"0x3503533c82bf29eb93e3c2ed62f7850f3cd874584ecb8be4ed4715972f44f454\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://810472e592f3fb70aebe0f9a27195c092597844b1f027f70a665df300315a9b7\",\"dweb:/ipfs/QmYaQsxyAzWJEba9uDsYPWEqCKRDtzzNF9fDGPuvWtupJM\"]},\"/Users/jaredborders/Documents/Work/Blockchain/Truffle-2X/contracts/openzeppelin-solidity/contracts/utils/introspection/ERC165.sol\":{\"keccak256\":\"0x5718c5df9bd67ac68a796961df938821bb5dc0cd4c6118d77e9145afb187409b\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://d10e1d9b26042424789246603906ad06143bf9a928f4e99de8b5e3bdc662f549\",\"dweb:/ipfs/Qmejonoaj5MLekPus229rJQHcC6E9dz2xorjHJR84fMfmn\"]},\"/Users/jaredborders/Documents/Work/Blockchain/Truffle-2X/contracts/openzeppelin-solidity/contracts/utils/introspection/ERC165Storage.sol\":{\"keccak256\":\"0x90716b47325c5cd49d4eef5bbe4cba711c81ce317479038e4f0a9a17a206945a\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://abab613a1bff1c82cecf493e2fa4f940a21151f477d46e9593e14ee87a7f8be0\",\"dweb:/ipfs/QmXTm38aLpUaAwxBLXhtcLFmeDNLXQVhqGdbkY3mvZm1zD\"]},\"/Users/jaredborders/Documents/Work/Blockchain/Truffle-2X/contracts/openzeppelin-solidity/contracts/utils/introspection/IERC165.sol\":{\"keccak256\":\"0xa28007762d9da9db878dd421960c8cb9a10471f47ab5c1b3309bfe48e9e79ff4\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://796ab6e88af7bf0e78def0f059310c903af6a312b565344e0ff524a0f26e81c6\",\"dweb:/ipfs/QmcsVgLgzWdor3UnAztUkXKNGcysm1MPneWksF72AvnwBx\"]}},\"version\":1}",
-  "bytecode": "0x608060405234801561001057600080fd5b506103a7806100206000396000f3fe608060405234801561001057600080fd5b50600436106100365760003560e01c806301ffc9a71461003b578063214cdb801461006b575b600080fd5b6100556004803603810190610050919061025e565b610087565b60405161006291906102d6565b60405180910390f35b6100856004803603810190610080919061025e565b6100fe565b005b60006100928261010a565b806100f75750600080837bffffffffffffffffffffffffffffffffffffffffffffffffffffffff19167bffffffffffffffffffffffffffffffffffffffffffffffffffffffff1916815260200190815260200160002060009054906101000a900460ff165b9050919050565b61010781610174565b50565b60007f01ffc9a7000000000000000000000000000000000000000000000000000000007bffffffffffffffffffffffffffffffffffffffffffffffffffffffff1916827bffffffffffffffffffffffffffffffffffffffffffffffffffffffff1916149050919050565b63ffffffff60e01b817bffffffffffffffffffffffffffffffffffffffffffffffffffffffff191614156101dd576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004016101d4906102f1565b60405180910390fd5b6001600080837bffffffffffffffffffffffffffffffffffffffffffffffffffffffff19167bffffffffffffffffffffffffffffffffffffffffffffffffffffffff1916815260200190815260200160002060006101000a81548160ff02191690831515021790555050565b6000813590506102588161035a565b92915050565b60006020828403121561027057600080fd5b600061027e84828501610249565b91505092915050565b61029081610322565b82525050565b60006102a3601c83610311565b91507f4552433136353a20696e76616c696420696e74657266616365206964000000006000830152602082019050919050565b60006020820190506102eb6000830184610287565b92915050565b6000602082019050818103600083015261030a81610296565b9050919050565b600082825260208201905092915050565b60008115159050919050565b60007fffffffff0000000000000000000000000000000000000000000000000000000082169050919050565b6103638161032e565b811461036e57600080fd5b5056fea2646970667358221220dce5b678f3c793a7faf17829ccab09a939b819a5bd7ef3bd8f0e1297c741d34764736f6c63430008000033",
-  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100365760003560e01c806301ffc9a71461003b578063214cdb801461006b575b600080fd5b6100556004803603810190610050919061025e565b610087565b60405161006291906102d6565b60405180910390f35b6100856004803603810190610080919061025e565b6100fe565b005b60006100928261010a565b806100f75750600080837bffffffffffffffffffffffffffffffffffffffffffffffffffffffff19167bffffffffffffffffffffffffffffffffffffffffffffffffffffffff1916815260200190815260200160002060009054906101000a900460ff165b9050919050565b61010781610174565b50565b60007f01ffc9a7000000000000000000000000000000000000000000000000000000007bffffffffffffffffffffffffffffffffffffffffffffffffffffffff1916827bffffffffffffffffffffffffffffffffffffffffffffffffffffffff1916149050919050565b63ffffffff60e01b817bffffffffffffffffffffffffffffffffffffffffffffffffffffffff191614156101dd576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004016101d4906102f1565b60405180910390fd5b6001600080837bffffffffffffffffffffffffffffffffffffffffffffffffffffffff19167bffffffffffffffffffffffffffffffffffffffffffffffffffffffff1916815260200190815260200160002060006101000a81548160ff02191690831515021790555050565b6000813590506102588161035a565b92915050565b60006020828403121561027057600080fd5b600061027e84828501610249565b91505092915050565b61029081610322565b82525050565b60006102a3601c83610311565b91507f4552433136353a20696e76616c696420696e74657266616365206964000000006000830152602082019050919050565b60006020820190506102eb6000830184610287565b92915050565b6000602082019050818103600083015261030a81610296565b9050919050565b600082825260208201905092915050565b60008115159050919050565b60007fffffffff0000000000000000000000000000000000000000000000000000000082169050919050565b6103638161032e565b811461036e57600080fd5b5056fea2646970667358221220dce5b678f3c793a7faf17829ccab09a939b819a5bd7ef3bd8f0e1297c741d34764736f6c63430008000033",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.0+commit.c7dfd78e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"bytes4\",\"name\":\"interfaceId\",\"type\":\"bytes4\"}],\"name\":\"registerInterface\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes4\",\"name\":\"interfaceId\",\"type\":\"bytes4\"}],\"name\":\"supportsInterface\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{\"supportsInterface(bytes4)\":{\"details\":\"See {IERC165-supportsInterface}.\"}},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/Users/jaredborders/Documents/Work/Blockchain/2X/contracts/openzeppelin-solidity/contracts/mocks/ERC165StorageMock.sol\":\"ERC165StorageMock\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/jaredborders/Documents/Work/Blockchain/2X/contracts/openzeppelin-solidity/contracts/mocks/ERC165StorageMock.sol\":{\"keccak256\":\"0x3503533c82bf29eb93e3c2ed62f7850f3cd874584ecb8be4ed4715972f44f454\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://810472e592f3fb70aebe0f9a27195c092597844b1f027f70a665df300315a9b7\",\"dweb:/ipfs/QmYaQsxyAzWJEba9uDsYPWEqCKRDtzzNF9fDGPuvWtupJM\"]},\"/Users/jaredborders/Documents/Work/Blockchain/2X/contracts/openzeppelin-solidity/contracts/utils/introspection/ERC165.sol\":{\"keccak256\":\"0x5718c5df9bd67ac68a796961df938821bb5dc0cd4c6118d77e9145afb187409b\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://d10e1d9b26042424789246603906ad06143bf9a928f4e99de8b5e3bdc662f549\",\"dweb:/ipfs/Qmejonoaj5MLekPus229rJQHcC6E9dz2xorjHJR84fMfmn\"]},\"/Users/jaredborders/Documents/Work/Blockchain/2X/contracts/openzeppelin-solidity/contracts/utils/introspection/ERC165Storage.sol\":{\"keccak256\":\"0x90716b47325c5cd49d4eef5bbe4cba711c81ce317479038e4f0a9a17a206945a\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://abab613a1bff1c82cecf493e2fa4f940a21151f477d46e9593e14ee87a7f8be0\",\"dweb:/ipfs/QmXTm38aLpUaAwxBLXhtcLFmeDNLXQVhqGdbkY3mvZm1zD\"]},\"/Users/jaredborders/Documents/Work/Blockchain/2X/contracts/openzeppelin-solidity/contracts/utils/introspection/IERC165.sol\":{\"keccak256\":\"0xa28007762d9da9db878dd421960c8cb9a10471f47ab5c1b3309bfe48e9e79ff4\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://796ab6e88af7bf0e78def0f059310c903af6a312b565344e0ff524a0f26e81c6\",\"dweb:/ipfs/QmcsVgLgzWdor3UnAztUkXKNGcysm1MPneWksF72AvnwBx\"]}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b506103a7806100206000396000f3fe608060405234801561001057600080fd5b50600436106100365760003560e01c806301ffc9a71461003b578063214cdb801461006b575b600080fd5b6100556004803603810190610050919061025e565b610087565b60405161006291906102d6565b60405180910390f35b6100856004803603810190610080919061025e565b6100fe565b005b60006100928261010a565b806100f75750600080837bffffffffffffffffffffffffffffffffffffffffffffffffffffffff19167bffffffffffffffffffffffffffffffffffffffffffffffffffffffff1916815260200190815260200160002060009054906101000a900460ff165b9050919050565b61010781610174565b50565b60007f01ffc9a7000000000000000000000000000000000000000000000000000000007bffffffffffffffffffffffffffffffffffffffffffffffffffffffff1916827bffffffffffffffffffffffffffffffffffffffffffffffffffffffff1916149050919050565b63ffffffff60e01b817bffffffffffffffffffffffffffffffffffffffffffffffffffffffff191614156101dd576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004016101d4906102f1565b60405180910390fd5b6001600080837bffffffffffffffffffffffffffffffffffffffffffffffffffffffff19167bffffffffffffffffffffffffffffffffffffffffffffffffffffffff1916815260200190815260200160002060006101000a81548160ff02191690831515021790555050565b6000813590506102588161035a565b92915050565b60006020828403121561027057600080fd5b600061027e84828501610249565b91505092915050565b61029081610322565b82525050565b60006102a3601c83610311565b91507f4552433136353a20696e76616c696420696e74657266616365206964000000006000830152602082019050919050565b60006020820190506102eb6000830184610287565b92915050565b6000602082019050818103600083015261030a81610296565b9050919050565b600082825260208201905092915050565b60008115159050919050565b60007fffffffff0000000000000000000000000000000000000000000000000000000082169050919050565b6103638161032e565b811461036e57600080fd5b5056fea2646970667358221220e18e70c200abb00d54399f1c33b5f2b66e92e0ef3a1c47b6dedce61af39fecb764736f6c63430008000033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100365760003560e01c806301ffc9a71461003b578063214cdb801461006b575b600080fd5b6100556004803603810190610050919061025e565b610087565b60405161006291906102d6565b60405180910390f35b6100856004803603810190610080919061025e565b6100fe565b005b60006100928261010a565b806100f75750600080837bffffffffffffffffffffffffffffffffffffffffffffffffffffffff19167bffffffffffffffffffffffffffffffffffffffffffffffffffffffff1916815260200190815260200160002060009054906101000a900460ff165b9050919050565b61010781610174565b50565b60007f01ffc9a7000000000000000000000000000000000000000000000000000000007bffffffffffffffffffffffffffffffffffffffffffffffffffffffff1916827bffffffffffffffffffffffffffffffffffffffffffffffffffffffff1916149050919050565b63ffffffff60e01b817bffffffffffffffffffffffffffffffffffffffffffffffffffffffff191614156101dd576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004016101d4906102f1565b60405180910390fd5b6001600080837bffffffffffffffffffffffffffffffffffffffffffffffffffffffff19167bffffffffffffffffffffffffffffffffffffffffffffffffffffffff1916815260200190815260200160002060006101000a81548160ff02191690831515021790555050565b6000813590506102588161035a565b92915050565b60006020828403121561027057600080fd5b600061027e84828501610249565b91505092915050565b61029081610322565b82525050565b60006102a3601c83610311565b91507f4552433136353a20696e76616c696420696e74657266616365206964000000006000830152602082019050919050565b60006020820190506102eb6000830184610287565b92915050565b6000602082019050818103600083015261030a81610296565b9050919050565b600082825260208201905092915050565b60008115159050919050565b60007fffffffff0000000000000000000000000000000000000000000000000000000082169050919050565b6103638161032e565b811461036e57600080fd5b5056fea2646970667358221220e18e70c200abb00d54399f1c33b5f2b66e92e0ef3a1c47b6dedce61af39fecb764736f6c63430008000033",
   "immutableReferences": {},
   "generatedSources": [],
   "deployedGeneratedSources": [
@@ -1097,29 +1097,29 @@
   "sourceMap": "110:154:37:-:0;;;;;;;;;;;;;;;;;;;",
   "deployedSourceMap": "110:154:37:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;523:188:146;;;;;;;;;;;;;:::i;:::-;;:::i;:::-;;;;;;;:::i;:::-;;;;;;;;160:102:37;;;;;;;;;;;;;:::i;:::-;;:::i;:::-;;523:188:146;608:4;631:36;655:11;631:23;:36::i;:::-;:73;;;;671:20;:33;692:11;671:33;;;;;;;;;;;;;;;;;;;;;;;;;;;631:73;624:80;;523:188;;;:::o;160:102:37:-;224:31;243:11;224:18;:31::i;:::-;160:102;:::o;763:155:144:-;848:4;886:25;871:40;;;:11;:40;;;;864:47;;763:155;;;:::o;1105:198:146:-;1203:10;1188:25;;:11;:25;;;;;1180:66;;;;;;;;;;;;:::i;:::-;;;;;;;;;1292:4;1256:20;:33;1277:11;1256:33;;;;;;;;;;;;;;;;;;:40;;;;;;;;;;;;;;;;;;1105:198;:::o;7:137:157:-;;90:6;77:20;68:29;;106:32;132:5;106:32;:::i;:::-;58:86;;;;:::o;150:260::-;;257:2;245:9;236:7;232:23;228:32;225:2;;;273:1;270;263:12;225:2;316:1;341:52;385:7;376:6;365:9;361:22;341:52;:::i;:::-;331:62;;287:116;215:195;;;;:::o;416:109::-;497:21;512:5;497:21;:::i;:::-;492:3;485:34;475:50;;:::o;531:326::-;;694:67;758:2;753:3;694:67;:::i;:::-;687:74;;791:30;787:1;782:3;778:11;771:51;848:2;843:3;839:12;832:19;;677:180;;;:::o;863:210::-;;988:2;977:9;973:18;965:26;;1001:65;1063:1;1052:9;1048:17;1039:6;1001:65;:::i;:::-;955:118;;;;:::o;1079:419::-;;1283:2;1272:9;1268:18;1260:26;;1332:9;1326:4;1322:20;1318:1;1307:9;1303:17;1296:47;1360:131;1486:4;1360:131;:::i;:::-;1352:139;;1250:248;;;:::o;1504:169::-;;1622:6;1617:3;1610:19;1662:4;1657:3;1653:14;1638:29;;1600:73;;;;:::o;1679:90::-;;1756:5;1749:13;1742:21;1731:32;;1721:48;;;:::o;1775:149::-;;1851:66;1844:5;1840:78;1829:89;;1819:105;;;:::o;1930:120::-;2002:23;2019:5;2002:23;:::i;:::-;1995:5;1992:34;1982:2;;2040:1;2037;2030:12;1982:2;1972:78;:::o",
   "source": "// SPDX-License-Identifier: MIT\n\npragma solidity ^0.8.0;\n\nimport \"../utils/introspection/ERC165Storage.sol\";\n\ncontract ERC165StorageMock is ERC165Storage {\n    function registerInterface(bytes4 interfaceId) public {\n        _registerInterface(interfaceId);\n    }\n}\n",
-  "sourcePath": "/Users/jaredborders/Documents/Work/Blockchain/Truffle-2X/contracts/openzeppelin-solidity/contracts/mocks/ERC165StorageMock.sol",
+  "sourcePath": "/Users/jaredborders/Documents/Work/Blockchain/2X/contracts/openzeppelin-solidity/contracts/mocks/ERC165StorageMock.sol",
   "ast": {
-    "absolutePath": "/Users/jaredborders/Documents/Work/Blockchain/Truffle-2X/contracts/openzeppelin-solidity/contracts/mocks/ERC165StorageMock.sol",
+    "absolutePath": "/Users/jaredborders/Documents/Work/Blockchain/2X/contracts/openzeppelin-solidity/contracts/mocks/ERC165StorageMock.sol",
     "exportedSymbols": {
       "ERC165": [
-        17336
+        17441
       ],
       "ERC165Storage": [
-        17591
+        17696
       ],
       "ERC165StorageMock": [
-        4090
+        4195
       ],
       "IERC165": [
-        17662
+        17767
       ]
     },
-    "id": 4091,
+    "id": 4196,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 4076,
+        "id": 4181,
         "literals": [
           "solidity",
           "^",
@@ -1130,12 +1130,12 @@
         "src": "33:23:37"
       },
       {
-        "absolutePath": "/Users/jaredborders/Documents/Work/Blockchain/Truffle-2X/contracts/openzeppelin-solidity/contracts/utils/introspection/ERC165Storage.sol",
+        "absolutePath": "/Users/jaredborders/Documents/Work/Blockchain/2X/contracts/openzeppelin-solidity/contracts/utils/introspection/ERC165Storage.sol",
         "file": "../utils/introspection/ERC165Storage.sol",
-        "id": 4077,
+        "id": 4182,
         "nodeType": "ImportDirective",
-        "scope": 4091,
-        "sourceUnit": 17592,
+        "scope": 4196,
+        "sourceUnit": 17697,
         "src": "58:50:37",
         "symbolAliases": [],
         "unitAlias": ""
@@ -1145,37 +1145,37 @@
         "baseContracts": [
           {
             "baseName": {
-              "id": 4078,
+              "id": 4183,
               "name": "ERC165Storage",
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 17591,
+              "referencedDeclaration": 17696,
               "src": "140:13:37"
             },
-            "id": 4079,
+            "id": 4184,
             "nodeType": "InheritanceSpecifier",
             "src": "140:13:37"
           }
         ],
         "contractDependencies": [
-          17336,
-          17591,
-          17662
+          17441,
+          17696,
+          17767
         ],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "id": 4090,
+        "id": 4195,
         "linearizedBaseContracts": [
-          4090,
-          17591,
-          17336,
-          17662
+          4195,
+          17696,
+          17441,
+          17767
         ],
         "name": "ERC165StorageMock",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "body": {
-              "id": 4088,
+              "id": 4193,
               "nodeType": "Block",
               "src": "214:48:37",
               "statements": [
@@ -1183,11 +1183,11 @@
                   "expression": {
                     "arguments": [
                       {
-                        "id": 4085,
+                        "id": 4190,
                         "name": "interfaceId",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 4081,
+                        "referencedDeclaration": 4186,
                         "src": "243:11:37",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bytes4",
@@ -1202,18 +1202,18 @@
                           "typeString": "bytes4"
                         }
                       ],
-                      "id": 4084,
+                      "id": 4189,
                       "name": "_registerInterface",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 17590,
+                      "referencedDeclaration": 17695,
                       "src": "224:18:37",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_nonpayable$_t_bytes4_$returns$__$",
                         "typeString": "function (bytes4)"
                       }
                     },
-                    "id": 4086,
+                    "id": 4191,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1228,30 +1228,30 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 4087,
+                  "id": 4192,
                   "nodeType": "ExpressionStatement",
                   "src": "224:31:37"
                 }
               ]
             },
             "functionSelector": "214cdb80",
-            "id": 4089,
+            "id": 4194,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "registerInterface",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 4082,
+              "id": 4187,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 4081,
+                  "id": 4186,
                   "mutability": "mutable",
                   "name": "interfaceId",
                   "nodeType": "VariableDeclaration",
-                  "scope": 4089,
+                  "scope": 4194,
                   "src": "187:18:37",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1260,7 +1260,7 @@
                     "typeString": "bytes4"
                   },
                   "typeName": {
-                    "id": 4080,
+                    "id": 4185,
                     "name": "bytes4",
                     "nodeType": "ElementaryTypeName",
                     "src": "187:6:37",
@@ -1275,46 +1275,46 @@
               "src": "186:20:37"
             },
             "returnParameters": {
-              "id": 4083,
+              "id": 4188,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "214:0:37"
             },
-            "scope": 4090,
+            "scope": 4195,
             "src": "160:102:37",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "public"
           }
         ],
-        "scope": 4091,
+        "scope": 4196,
         "src": "110:154:37"
       }
     ],
     "src": "33:232:37"
   },
   "legacyAST": {
-    "absolutePath": "/Users/jaredborders/Documents/Work/Blockchain/Truffle-2X/contracts/openzeppelin-solidity/contracts/mocks/ERC165StorageMock.sol",
+    "absolutePath": "/Users/jaredborders/Documents/Work/Blockchain/2X/contracts/openzeppelin-solidity/contracts/mocks/ERC165StorageMock.sol",
     "exportedSymbols": {
       "ERC165": [
-        17336
+        17441
       ],
       "ERC165Storage": [
-        17591
+        17696
       ],
       "ERC165StorageMock": [
-        4090
+        4195
       ],
       "IERC165": [
-        17662
+        17767
       ]
     },
-    "id": 4091,
+    "id": 4196,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 4076,
+        "id": 4181,
         "literals": [
           "solidity",
           "^",
@@ -1325,12 +1325,12 @@
         "src": "33:23:37"
       },
       {
-        "absolutePath": "/Users/jaredborders/Documents/Work/Blockchain/Truffle-2X/contracts/openzeppelin-solidity/contracts/utils/introspection/ERC165Storage.sol",
+        "absolutePath": "/Users/jaredborders/Documents/Work/Blockchain/2X/contracts/openzeppelin-solidity/contracts/utils/introspection/ERC165Storage.sol",
         "file": "../utils/introspection/ERC165Storage.sol",
-        "id": 4077,
+        "id": 4182,
         "nodeType": "ImportDirective",
-        "scope": 4091,
-        "sourceUnit": 17592,
+        "scope": 4196,
+        "sourceUnit": 17697,
         "src": "58:50:37",
         "symbolAliases": [],
         "unitAlias": ""
@@ -1340,37 +1340,37 @@
         "baseContracts": [
           {
             "baseName": {
-              "id": 4078,
+              "id": 4183,
               "name": "ERC165Storage",
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 17591,
+              "referencedDeclaration": 17696,
               "src": "140:13:37"
             },
-            "id": 4079,
+            "id": 4184,
             "nodeType": "InheritanceSpecifier",
             "src": "140:13:37"
           }
         ],
         "contractDependencies": [
-          17336,
-          17591,
-          17662
+          17441,
+          17696,
+          17767
         ],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "id": 4090,
+        "id": 4195,
         "linearizedBaseContracts": [
-          4090,
-          17591,
-          17336,
-          17662
+          4195,
+          17696,
+          17441,
+          17767
         ],
         "name": "ERC165StorageMock",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "body": {
-              "id": 4088,
+              "id": 4193,
               "nodeType": "Block",
               "src": "214:48:37",
               "statements": [
@@ -1378,11 +1378,11 @@
                   "expression": {
                     "arguments": [
                       {
-                        "id": 4085,
+                        "id": 4190,
                         "name": "interfaceId",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 4081,
+                        "referencedDeclaration": 4186,
                         "src": "243:11:37",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bytes4",
@@ -1397,18 +1397,18 @@
                           "typeString": "bytes4"
                         }
                       ],
-                      "id": 4084,
+                      "id": 4189,
                       "name": "_registerInterface",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 17590,
+                      "referencedDeclaration": 17695,
                       "src": "224:18:37",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_nonpayable$_t_bytes4_$returns$__$",
                         "typeString": "function (bytes4)"
                       }
                     },
-                    "id": 4086,
+                    "id": 4191,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1423,30 +1423,30 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 4087,
+                  "id": 4192,
                   "nodeType": "ExpressionStatement",
                   "src": "224:31:37"
                 }
               ]
             },
             "functionSelector": "214cdb80",
-            "id": 4089,
+            "id": 4194,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "registerInterface",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 4082,
+              "id": 4187,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 4081,
+                  "id": 4186,
                   "mutability": "mutable",
                   "name": "interfaceId",
                   "nodeType": "VariableDeclaration",
-                  "scope": 4089,
+                  "scope": 4194,
                   "src": "187:18:37",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1455,7 +1455,7 @@
                     "typeString": "bytes4"
                   },
                   "typeName": {
-                    "id": 4080,
+                    "id": 4185,
                     "name": "bytes4",
                     "nodeType": "ElementaryTypeName",
                     "src": "187:6:37",
@@ -1470,19 +1470,19 @@
               "src": "186:20:37"
             },
             "returnParameters": {
-              "id": 4083,
+              "id": 4188,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "214:0:37"
             },
-            "scope": 4090,
+            "scope": 4195,
             "src": "160:102:37",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "public"
           }
         ],
-        "scope": 4091,
+        "scope": 4196,
         "src": "110:154:37"
       }
     ],
@@ -1494,7 +1494,7 @@
   },
   "networks": {},
   "schemaVersion": "3.3.4",
-  "updatedAt": "2021-04-16T22:50:40.323Z",
+  "updatedAt": "2021-04-21T17:54:47.799Z",
   "devdoc": {
     "kind": "dev",
     "methods": {

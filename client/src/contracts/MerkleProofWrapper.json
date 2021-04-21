@@ -31,9 +31,9 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.8.0+commit.c7dfd78e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"bytes32[]\",\"name\":\"proof\",\"type\":\"bytes32[]\"},{\"internalType\":\"bytes32\",\"name\":\"root\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"leaf\",\"type\":\"bytes32\"}],\"name\":\"verify\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"pure\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/Users/jaredborders/Documents/Work/Blockchain/Truffle-2X/contracts/openzeppelin-solidity/contracts/mocks/MerkleProofWrapper.sol\":\"MerkleProofWrapper\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/jaredborders/Documents/Work/Blockchain/Truffle-2X/contracts/openzeppelin-solidity/contracts/mocks/MerkleProofWrapper.sol\":{\"keccak256\":\"0x543f5b4bf5ab45efab9a55c6fa452d7a4d4f548f0800601128b4888e23be6a9c\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://95d266bfe5c338ff74cded82c13afd1591945f6091a759f843b8acb3be7ed278\",\"dweb:/ipfs/Qmc9qFsbvHT8hdMhnJzPTUFE7V2NSYGhGQmfRYjeecxVwp\"]},\"/Users/jaredborders/Documents/Work/Blockchain/Truffle-2X/contracts/openzeppelin-solidity/contracts/utils/cryptography/MerkleProof.sol\":{\"keccak256\":\"0xeee34bfb413657b6cd6c8e1e15c2080ba5ebaac479578515922804346fb63f7c\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://cef1d67dd1eac56d0bbac255eed616e1a5b02e405b2675999df00d0261fecfb9\",\"dweb:/ipfs/Qmco8dwqqQQLJ2ri6moDyL5Usria46eH2mPP763yxPGJfd\"]}},\"version\":1}",
-  "bytecode": "0x608060405234801561001057600080fd5b5061044c806100206000396000f3fe608060405234801561001057600080fd5b506004361061002b5760003560e01c80635a9a49c714610030575b600080fd5b61004a600480360381019061004591906101fd565b610060565b60405161005791906102b6565b60405180910390f35b600061006d848484610076565b90509392505050565b60008082905060005b85518110156101445760008682815181106100c3577f4e487b7100000000000000000000000000000000000000000000000000000000600052603260045260246000fd5b602002602001015190508083116101045782816040516020016100e792919061028a565b604051602081830303815290604052805190602001209250610130565b808360405160200161011792919061028a565b6040516020818303038152906040528051906020012092505b50808061013c9061034e565b91505061007f565b508381149150509392505050565b600061016561016084610302565b6102d1565b9050808382526020820190508285602086028201111561018457600080fd5b60005b858110156101b4578161019a88826101e8565b845260208401935060208301925050600181019050610187565b5050509392505050565b600082601f8301126101cf57600080fd5b81356101df848260208601610152565b91505092915050565b6000813590506101f7816103ff565b92915050565b60008060006060848603121561021257600080fd5b600084013567ffffffffffffffff81111561022c57600080fd5b610238868287016101be565b9350506020610249868287016101e8565b925050604061025a868287016101e8565b9150509250925092565b61026d8161032e565b82525050565b61028461027f8261033a565b610397565b82525050565b60006102968285610273565b6020820191506102a68284610273565b6020820191508190509392505050565b60006020820190506102cb6000830184610264565b92915050565b6000604051905081810181811067ffffffffffffffff821117156102f8576102f76103d0565b5b8060405250919050565b600067ffffffffffffffff82111561031d5761031c6103d0565b5b602082029050602081019050919050565b60008115159050919050565b6000819050919050565b6000819050919050565b600061035982610344565b91507fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff82141561038c5761038b6103a1565b5b600182019050919050565b6000819050919050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601160045260246000fd5b7f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b6104088161033a565b811461041357600080fd5b5056fea2646970667358221220544bd8e151e4484ed7e6b4cc5f91c4ff842bf413dd41659321100174b4e15e5464736f6c63430008000033",
-  "deployedBytecode": "0x608060405234801561001057600080fd5b506004361061002b5760003560e01c80635a9a49c714610030575b600080fd5b61004a600480360381019061004591906101fd565b610060565b60405161005791906102b6565b60405180910390f35b600061006d848484610076565b90509392505050565b60008082905060005b85518110156101445760008682815181106100c3577f4e487b7100000000000000000000000000000000000000000000000000000000600052603260045260246000fd5b602002602001015190508083116101045782816040516020016100e792919061028a565b604051602081830303815290604052805190602001209250610130565b808360405160200161011792919061028a565b6040516020818303038152906040528051906020012092505b50808061013c9061034e565b91505061007f565b508381149150509392505050565b600061016561016084610302565b6102d1565b9050808382526020820190508285602086028201111561018457600080fd5b60005b858110156101b4578161019a88826101e8565b845260208401935060208301925050600181019050610187565b5050509392505050565b600082601f8301126101cf57600080fd5b81356101df848260208601610152565b91505092915050565b6000813590506101f7816103ff565b92915050565b60008060006060848603121561021257600080fd5b600084013567ffffffffffffffff81111561022c57600080fd5b610238868287016101be565b9350506020610249868287016101e8565b925050604061025a868287016101e8565b9150509250925092565b61026d8161032e565b82525050565b61028461027f8261033a565b610397565b82525050565b60006102968285610273565b6020820191506102a68284610273565b6020820191508190509392505050565b60006020820190506102cb6000830184610264565b92915050565b6000604051905081810181811067ffffffffffffffff821117156102f8576102f76103d0565b5b8060405250919050565b600067ffffffffffffffff82111561031d5761031c6103d0565b5b602082029050602081019050919050565b60008115159050919050565b6000819050919050565b6000819050919050565b600061035982610344565b91507fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff82141561038c5761038b6103a1565b5b600182019050919050565b6000819050919050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601160045260246000fd5b7f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b6104088161033a565b811461041357600080fd5b5056fea2646970667358221220544bd8e151e4484ed7e6b4cc5f91c4ff842bf413dd41659321100174b4e15e5464736f6c63430008000033",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.0+commit.c7dfd78e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"bytes32[]\",\"name\":\"proof\",\"type\":\"bytes32[]\"},{\"internalType\":\"bytes32\",\"name\":\"root\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"leaf\",\"type\":\"bytes32\"}],\"name\":\"verify\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"pure\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/Users/jaredborders/Documents/Work/Blockchain/2X/contracts/openzeppelin-solidity/contracts/mocks/MerkleProofWrapper.sol\":\"MerkleProofWrapper\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/jaredborders/Documents/Work/Blockchain/2X/contracts/openzeppelin-solidity/contracts/mocks/MerkleProofWrapper.sol\":{\"keccak256\":\"0x543f5b4bf5ab45efab9a55c6fa452d7a4d4f548f0800601128b4888e23be6a9c\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://95d266bfe5c338ff74cded82c13afd1591945f6091a759f843b8acb3be7ed278\",\"dweb:/ipfs/Qmc9qFsbvHT8hdMhnJzPTUFE7V2NSYGhGQmfRYjeecxVwp\"]},\"/Users/jaredborders/Documents/Work/Blockchain/2X/contracts/openzeppelin-solidity/contracts/utils/cryptography/MerkleProof.sol\":{\"keccak256\":\"0xeee34bfb413657b6cd6c8e1e15c2080ba5ebaac479578515922804346fb63f7c\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://cef1d67dd1eac56d0bbac255eed616e1a5b02e405b2675999df00d0261fecfb9\",\"dweb:/ipfs/Qmco8dwqqQQLJ2ri6moDyL5Usria46eH2mPP763yxPGJfd\"]}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b5061044c806100206000396000f3fe608060405234801561001057600080fd5b506004361061002b5760003560e01c80635a9a49c714610030575b600080fd5b61004a600480360381019061004591906101fd565b610060565b60405161005791906102b6565b60405180910390f35b600061006d848484610076565b90509392505050565b60008082905060005b85518110156101445760008682815181106100c3577f4e487b7100000000000000000000000000000000000000000000000000000000600052603260045260246000fd5b602002602001015190508083116101045782816040516020016100e792919061028a565b604051602081830303815290604052805190602001209250610130565b808360405160200161011792919061028a565b6040516020818303038152906040528051906020012092505b50808061013c9061034e565b91505061007f565b508381149150509392505050565b600061016561016084610302565b6102d1565b9050808382526020820190508285602086028201111561018457600080fd5b60005b858110156101b4578161019a88826101e8565b845260208401935060208301925050600181019050610187565b5050509392505050565b600082601f8301126101cf57600080fd5b81356101df848260208601610152565b91505092915050565b6000813590506101f7816103ff565b92915050565b60008060006060848603121561021257600080fd5b600084013567ffffffffffffffff81111561022c57600080fd5b610238868287016101be565b9350506020610249868287016101e8565b925050604061025a868287016101e8565b9150509250925092565b61026d8161032e565b82525050565b61028461027f8261033a565b610397565b82525050565b60006102968285610273565b6020820191506102a68284610273565b6020820191508190509392505050565b60006020820190506102cb6000830184610264565b92915050565b6000604051905081810181811067ffffffffffffffff821117156102f8576102f76103d0565b5b8060405250919050565b600067ffffffffffffffff82111561031d5761031c6103d0565b5b602082029050602081019050919050565b60008115159050919050565b6000819050919050565b6000819050919050565b600061035982610344565b91507fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff82141561038c5761038b6103a1565b5b600182019050919050565b6000819050919050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601160045260246000fd5b7f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b6104088161033a565b811461041357600080fd5b5056fea26469706673582212202d0a6403fba42a400ed773d3fe822b2428ecf8041268df0b6bd913cfe780fc5664736f6c63430008000033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b506004361061002b5760003560e01c80635a9a49c714610030575b600080fd5b61004a600480360381019061004591906101fd565b610060565b60405161005791906102b6565b60405180910390f35b600061006d848484610076565b90509392505050565b60008082905060005b85518110156101445760008682815181106100c3577f4e487b7100000000000000000000000000000000000000000000000000000000600052603260045260246000fd5b602002602001015190508083116101045782816040516020016100e792919061028a565b604051602081830303815290604052805190602001209250610130565b808360405160200161011792919061028a565b6040516020818303038152906040528051906020012092505b50808061013c9061034e565b91505061007f565b508381149150509392505050565b600061016561016084610302565b6102d1565b9050808382526020820190508285602086028201111561018457600080fd5b60005b858110156101b4578161019a88826101e8565b845260208401935060208301925050600181019050610187565b5050509392505050565b600082601f8301126101cf57600080fd5b81356101df848260208601610152565b91505092915050565b6000813590506101f7816103ff565b92915050565b60008060006060848603121561021257600080fd5b600084013567ffffffffffffffff81111561022c57600080fd5b610238868287016101be565b9350506020610249868287016101e8565b925050604061025a868287016101e8565b9150509250925092565b61026d8161032e565b82525050565b61028461027f8261033a565b610397565b82525050565b60006102968285610273565b6020820191506102a68284610273565b6020820191508190509392505050565b60006020820190506102cb6000830184610264565b92915050565b6000604051905081810181811067ffffffffffffffff821117156102f8576102f76103d0565b5b8060405250919050565b600067ffffffffffffffff82111561031d5761031c6103d0565b5b602082029050602081019050919050565b60008115159050919050565b6000819050919050565b6000819050919050565b600061035982610344565b91507fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff82141561038c5761038b6103a1565b5b600182019050919050565b6000819050919050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601160045260246000fd5b7f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b6104088161033a565b811461041357600080fd5b5056fea26469706673582212202d0a6403fba42a400ed773d3fe822b2428ecf8041268df0b6bd913cfe780fc5664736f6c63430008000033",
   "immutableReferences": {},
   "generatedSources": [],
   "deployedGeneratedSources": [
@@ -2634,23 +2634,23 @@
   "sourceMap": "107:192:62:-:0;;;;;;;;;;;;;;;;;;;",
   "deployedSourceMap": "107:192:62:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;141:156;;;;;;;;;;;;;:::i;:::-;;:::i;:::-;;;;;;;:::i;:::-;;;;;;;;;230:4;253:37;272:5;279:4;285;253:18;:37::i;:::-;246:44;;141:156;;;;;:::o;777:779:138:-;868:4;884:20;907:4;884:27;;927:9;922:515;946:5;:12;942:1;:16;922:515;;;979:20;1002:5;1008:1;1002:8;;;;;;;;;;;;;;;;;;;;;;979:31;;1045:12;1029;:28;1025:402;;1197:12;1211;1180:44;;;;;;;;;:::i;:::-;;;;;;;;;;;;;1170:55;;;;;;1155:70;;1025:402;;;1384:12;1398;1367:44;;;;;;;;;:::i;:::-;;;;;;;;;;;;;1357:55;;;;;;1342:70;;1025:402;922:515;960:3;;;;;:::i;:::-;;;;922:515;;;;1545:4;1529:12;:20;1522:27;;;777:779;;;;;:::o;24:622:157:-;;145:80;160:64;217:6;160:64;:::i;:::-;145:80;:::i;:::-;136:89;;245:5;273:6;266:5;259:21;299:4;292:5;288:16;281:23;;324:6;374:3;366:4;358:6;354:17;349:3;345:27;342:36;339:2;;;391:1;388;381:12;339:2;419:1;404:236;429:6;426:1;423:13;404:236;;;496:3;524:37;557:3;545:10;524:37;:::i;:::-;519:3;512:50;591:4;586:3;582:14;575:21;;625:4;620:3;616:14;609:21;;464:176;451:1;448;444:9;439:14;;404:236;;;408:14;126:520;;;;;;;:::o;669:303::-;;789:3;782:4;774:6;770:17;766:27;756:2;;807:1;804;797:12;756:2;847:6;834:20;872:94;962:3;954:6;947:4;939:6;935:17;872:94;:::i;:::-;863:103;;746:226;;;;;:::o;978:139::-;;1062:6;1049:20;1040:29;;1078:33;1105:5;1078:33;:::i;:::-;1030:87;;;;:::o;1123:695::-;;;;1290:2;1278:9;1269:7;1265:23;1261:32;1258:2;;;1306:1;1303;1296:12;1258:2;1377:1;1366:9;1362:17;1349:31;1407:18;1399:6;1396:30;1393:2;;;1439:1;1436;1429:12;1393:2;1467:78;1537:7;1528:6;1517:9;1513:22;1467:78;:::i;:::-;1457:88;;1320:235;1594:2;1620:53;1665:7;1656:6;1645:9;1641:22;1620:53;:::i;:::-;1610:63;;1565:118;1722:2;1748:53;1793:7;1784:6;1773:9;1769:22;1748:53;:::i;:::-;1738:63;;1693:118;1248:570;;;;;:::o;1824:109::-;1905:21;1920:5;1905:21;:::i;:::-;1900:3;1893:34;1883:50;;:::o;1939:157::-;2044:45;2064:24;2082:5;2064:24;:::i;:::-;2044:45;:::i;:::-;2039:3;2032:58;2022:74;;:::o;2102:397::-;;2257:75;2328:3;2319:6;2257:75;:::i;:::-;2357:2;2352:3;2348:12;2341:19;;2370:75;2441:3;2432:6;2370:75;:::i;:::-;2470:2;2465:3;2461:12;2454:19;;2490:3;2483:10;;2246:253;;;;;:::o;2505:210::-;;2630:2;2619:9;2615:18;2607:26;;2643:65;2705:1;2694:9;2690:17;2681:6;2643:65;:::i;:::-;2597:118;;;;:::o;2721:283::-;;2787:2;2781:9;2771:19;;2829:4;2821:6;2817:17;2936:6;2924:10;2921:22;2900:18;2888:10;2885:34;2882:62;2879:2;;;2947:18;;:::i;:::-;2879:2;2987:10;2983:2;2976:22;2761:243;;;;:::o;3010:311::-;;3177:18;3169:6;3166:30;3163:2;;;3199:18;;:::i;:::-;3163:2;3249:4;3241:6;3237:17;3229:25;;3309:4;3303;3299:15;3291:23;;3092:229;;;:::o;3327:90::-;;3404:5;3397:13;3390:21;3379:32;;3369:48;;;:::o;3423:77::-;;3489:5;3478:16;;3468:32;;;:::o;3506:77::-;;3572:5;3561:16;;3551:32;;;:::o;3589:233::-;;3651:24;3669:5;3651:24;:::i;:::-;3642:33;;3697:66;3690:5;3687:77;3684:2;;;3767:18;;:::i;:::-;3684:2;3814:1;3807:5;3803:13;3796:20;;3632:190;;;:::o;3828:79::-;;3896:5;3885:16;;3875:32;;;:::o;3913:180::-;3961:77;3958:1;3951:88;4058:4;4055:1;4048:15;4082:4;4079:1;4072:15;4099:180;4147:77;4144:1;4137:88;4244:4;4241:1;4234:15;4268:4;4265:1;4258:15;4285:122;4358:24;4376:5;4358:24;:::i;:::-;4351:5;4348:35;4338:2;;4397:1;4394;4387:12;4338:2;4328:79;:::o",
   "source": "// SPDX-License-Identifier: MIT\n\npragma solidity ^0.8.0;\n\nimport \"../utils/cryptography/MerkleProof.sol\";\n\ncontract MerkleProofWrapper {\n    function verify(bytes32[] memory proof, bytes32 root, bytes32 leaf) public pure returns (bool) {\n        return MerkleProof.verify(proof, root, leaf);\n    }\n}\n",
-  "sourcePath": "/Users/jaredborders/Documents/Work/Blockchain/Truffle-2X/contracts/openzeppelin-solidity/contracts/mocks/MerkleProofWrapper.sol",
+  "sourcePath": "/Users/jaredborders/Documents/Work/Blockchain/2X/contracts/openzeppelin-solidity/contracts/mocks/MerkleProofWrapper.sol",
   "ast": {
-    "absolutePath": "/Users/jaredborders/Documents/Work/Blockchain/Truffle-2X/contracts/openzeppelin-solidity/contracts/mocks/MerkleProofWrapper.sol",
+    "absolutePath": "/Users/jaredborders/Documents/Work/Blockchain/2X/contracts/openzeppelin-solidity/contracts/mocks/MerkleProofWrapper.sol",
     "exportedSymbols": {
       "MerkleProof": [
-        16801
+        16906
       ],
       "MerkleProofWrapper": [
-        6274
+        6379
       ]
     },
-    "id": 6275,
+    "id": 6380,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 6252,
+        "id": 6357,
         "literals": [
           "solidity",
           "^",
@@ -2661,12 +2661,12 @@
         "src": "33:23:62"
       },
       {
-        "absolutePath": "/Users/jaredborders/Documents/Work/Blockchain/Truffle-2X/contracts/openzeppelin-solidity/contracts/utils/cryptography/MerkleProof.sol",
+        "absolutePath": "/Users/jaredborders/Documents/Work/Blockchain/2X/contracts/openzeppelin-solidity/contracts/utils/cryptography/MerkleProof.sol",
         "file": "../utils/cryptography/MerkleProof.sol",
-        "id": 6253,
+        "id": 6358,
         "nodeType": "ImportDirective",
-        "scope": 6275,
-        "sourceUnit": 16802,
+        "scope": 6380,
+        "sourceUnit": 16907,
         "src": "58:47:62",
         "symbolAliases": [],
         "unitAlias": ""
@@ -2677,16 +2677,16 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "id": 6274,
+        "id": 6379,
         "linearizedBaseContracts": [
-          6274
+          6379
         ],
         "name": "MerkleProofWrapper",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "body": {
-              "id": 6272,
+              "id": 6377,
               "nodeType": "Block",
               "src": "236:61:62",
               "statements": [
@@ -2694,11 +2694,11 @@
                   "expression": {
                     "arguments": [
                       {
-                        "id": 6267,
+                        "id": 6372,
                         "name": "proof",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 6256,
+                        "referencedDeclaration": 6361,
                         "src": "272:5:62",
                         "typeDescriptions": {
                           "typeIdentifier": "t_array$_t_bytes32_$dyn_memory_ptr",
@@ -2706,11 +2706,11 @@
                         }
                       },
                       {
-                        "id": 6268,
+                        "id": 6373,
                         "name": "root",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 6258,
+                        "referencedDeclaration": 6363,
                         "src": "279:4:62",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bytes32",
@@ -2718,11 +2718,11 @@
                         }
                       },
                       {
-                        "id": 6269,
+                        "id": 6374,
                         "name": "leaf",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 6260,
+                        "referencedDeclaration": 6365,
                         "src": "285:4:62",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bytes32",
@@ -2746,32 +2746,32 @@
                         }
                       ],
                       "expression": {
-                        "id": 6265,
+                        "id": 6370,
                         "name": "MerkleProof",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 16801,
+                        "referencedDeclaration": 16906,
                         "src": "253:11:62",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_type$_t_contract$_MerkleProof_$16801_$",
+                          "typeIdentifier": "t_type$_t_contract$_MerkleProof_$16906_$",
                           "typeString": "type(library MerkleProof)"
                         }
                       },
-                      "id": 6266,
+                      "id": 6371,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "verify",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 16800,
+                      "referencedDeclaration": 16905,
                       "src": "253:18:62",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_pure$_t_array$_t_bytes32_$dyn_memory_ptr_$_t_bytes32_$_t_bytes32_$returns$_t_bool_$",
                         "typeString": "function (bytes32[] memory,bytes32,bytes32) pure returns (bool)"
                       }
                     },
-                    "id": 6270,
+                    "id": 6375,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -2786,31 +2786,31 @@
                       "typeString": "bool"
                     }
                   },
-                  "functionReturnParameters": 6264,
-                  "id": 6271,
+                  "functionReturnParameters": 6369,
+                  "id": 6376,
                   "nodeType": "Return",
                   "src": "246:44:62"
                 }
               ]
             },
             "functionSelector": "5a9a49c7",
-            "id": 6273,
+            "id": 6378,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "verify",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 6261,
+              "id": 6366,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 6256,
+                  "id": 6361,
                   "mutability": "mutable",
                   "name": "proof",
                   "nodeType": "VariableDeclaration",
-                  "scope": 6273,
+                  "scope": 6378,
                   "src": "157:22:62",
                   "stateVariable": false,
                   "storageLocation": "memory",
@@ -2820,7 +2820,7 @@
                   },
                   "typeName": {
                     "baseType": {
-                      "id": 6254,
+                      "id": 6359,
                       "name": "bytes32",
                       "nodeType": "ElementaryTypeName",
                       "src": "157:7:62",
@@ -2829,7 +2829,7 @@
                         "typeString": "bytes32"
                       }
                     },
-                    "id": 6255,
+                    "id": 6360,
                     "nodeType": "ArrayTypeName",
                     "src": "157:9:62",
                     "typeDescriptions": {
@@ -2841,11 +2841,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 6258,
+                  "id": 6363,
                   "mutability": "mutable",
                   "name": "root",
                   "nodeType": "VariableDeclaration",
-                  "scope": 6273,
+                  "scope": 6378,
                   "src": "181:12:62",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -2854,7 +2854,7 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 6257,
+                    "id": 6362,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
                     "src": "181:7:62",
@@ -2867,11 +2867,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 6260,
+                  "id": 6365,
                   "mutability": "mutable",
                   "name": "leaf",
                   "nodeType": "VariableDeclaration",
-                  "scope": 6273,
+                  "scope": 6378,
                   "src": "195:12:62",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -2880,7 +2880,7 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 6259,
+                    "id": 6364,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
                     "src": "195:7:62",
@@ -2895,16 +2895,16 @@
               "src": "156:52:62"
             },
             "returnParameters": {
-              "id": 6264,
+              "id": 6369,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 6263,
+                  "id": 6368,
                   "mutability": "mutable",
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 6273,
+                  "scope": 6378,
                   "src": "230:4:62",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -2913,7 +2913,7 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 6262,
+                    "id": 6367,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
                     "src": "230:4:62",
@@ -2927,35 +2927,35 @@
               ],
               "src": "229:6:62"
             },
-            "scope": 6274,
+            "scope": 6379,
             "src": "141:156:62",
             "stateMutability": "pure",
             "virtual": false,
             "visibility": "public"
           }
         ],
-        "scope": 6275,
+        "scope": 6380,
         "src": "107:192:62"
       }
     ],
     "src": "33:267:62"
   },
   "legacyAST": {
-    "absolutePath": "/Users/jaredborders/Documents/Work/Blockchain/Truffle-2X/contracts/openzeppelin-solidity/contracts/mocks/MerkleProofWrapper.sol",
+    "absolutePath": "/Users/jaredborders/Documents/Work/Blockchain/2X/contracts/openzeppelin-solidity/contracts/mocks/MerkleProofWrapper.sol",
     "exportedSymbols": {
       "MerkleProof": [
-        16801
+        16906
       ],
       "MerkleProofWrapper": [
-        6274
+        6379
       ]
     },
-    "id": 6275,
+    "id": 6380,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 6252,
+        "id": 6357,
         "literals": [
           "solidity",
           "^",
@@ -2966,12 +2966,12 @@
         "src": "33:23:62"
       },
       {
-        "absolutePath": "/Users/jaredborders/Documents/Work/Blockchain/Truffle-2X/contracts/openzeppelin-solidity/contracts/utils/cryptography/MerkleProof.sol",
+        "absolutePath": "/Users/jaredborders/Documents/Work/Blockchain/2X/contracts/openzeppelin-solidity/contracts/utils/cryptography/MerkleProof.sol",
         "file": "../utils/cryptography/MerkleProof.sol",
-        "id": 6253,
+        "id": 6358,
         "nodeType": "ImportDirective",
-        "scope": 6275,
-        "sourceUnit": 16802,
+        "scope": 6380,
+        "sourceUnit": 16907,
         "src": "58:47:62",
         "symbolAliases": [],
         "unitAlias": ""
@@ -2982,16 +2982,16 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "id": 6274,
+        "id": 6379,
         "linearizedBaseContracts": [
-          6274
+          6379
         ],
         "name": "MerkleProofWrapper",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "body": {
-              "id": 6272,
+              "id": 6377,
               "nodeType": "Block",
               "src": "236:61:62",
               "statements": [
@@ -2999,11 +2999,11 @@
                   "expression": {
                     "arguments": [
                       {
-                        "id": 6267,
+                        "id": 6372,
                         "name": "proof",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 6256,
+                        "referencedDeclaration": 6361,
                         "src": "272:5:62",
                         "typeDescriptions": {
                           "typeIdentifier": "t_array$_t_bytes32_$dyn_memory_ptr",
@@ -3011,11 +3011,11 @@
                         }
                       },
                       {
-                        "id": 6268,
+                        "id": 6373,
                         "name": "root",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 6258,
+                        "referencedDeclaration": 6363,
                         "src": "279:4:62",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bytes32",
@@ -3023,11 +3023,11 @@
                         }
                       },
                       {
-                        "id": 6269,
+                        "id": 6374,
                         "name": "leaf",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 6260,
+                        "referencedDeclaration": 6365,
                         "src": "285:4:62",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bytes32",
@@ -3051,32 +3051,32 @@
                         }
                       ],
                       "expression": {
-                        "id": 6265,
+                        "id": 6370,
                         "name": "MerkleProof",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 16801,
+                        "referencedDeclaration": 16906,
                         "src": "253:11:62",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_type$_t_contract$_MerkleProof_$16801_$",
+                          "typeIdentifier": "t_type$_t_contract$_MerkleProof_$16906_$",
                           "typeString": "type(library MerkleProof)"
                         }
                       },
-                      "id": 6266,
+                      "id": 6371,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "verify",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 16800,
+                      "referencedDeclaration": 16905,
                       "src": "253:18:62",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_pure$_t_array$_t_bytes32_$dyn_memory_ptr_$_t_bytes32_$_t_bytes32_$returns$_t_bool_$",
                         "typeString": "function (bytes32[] memory,bytes32,bytes32) pure returns (bool)"
                       }
                     },
-                    "id": 6270,
+                    "id": 6375,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -3091,31 +3091,31 @@
                       "typeString": "bool"
                     }
                   },
-                  "functionReturnParameters": 6264,
-                  "id": 6271,
+                  "functionReturnParameters": 6369,
+                  "id": 6376,
                   "nodeType": "Return",
                   "src": "246:44:62"
                 }
               ]
             },
             "functionSelector": "5a9a49c7",
-            "id": 6273,
+            "id": 6378,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "verify",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 6261,
+              "id": 6366,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 6256,
+                  "id": 6361,
                   "mutability": "mutable",
                   "name": "proof",
                   "nodeType": "VariableDeclaration",
-                  "scope": 6273,
+                  "scope": 6378,
                   "src": "157:22:62",
                   "stateVariable": false,
                   "storageLocation": "memory",
@@ -3125,7 +3125,7 @@
                   },
                   "typeName": {
                     "baseType": {
-                      "id": 6254,
+                      "id": 6359,
                       "name": "bytes32",
                       "nodeType": "ElementaryTypeName",
                       "src": "157:7:62",
@@ -3134,7 +3134,7 @@
                         "typeString": "bytes32"
                       }
                     },
-                    "id": 6255,
+                    "id": 6360,
                     "nodeType": "ArrayTypeName",
                     "src": "157:9:62",
                     "typeDescriptions": {
@@ -3146,11 +3146,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 6258,
+                  "id": 6363,
                   "mutability": "mutable",
                   "name": "root",
                   "nodeType": "VariableDeclaration",
-                  "scope": 6273,
+                  "scope": 6378,
                   "src": "181:12:62",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -3159,7 +3159,7 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 6257,
+                    "id": 6362,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
                     "src": "181:7:62",
@@ -3172,11 +3172,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 6260,
+                  "id": 6365,
                   "mutability": "mutable",
                   "name": "leaf",
                   "nodeType": "VariableDeclaration",
-                  "scope": 6273,
+                  "scope": 6378,
                   "src": "195:12:62",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -3185,7 +3185,7 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 6259,
+                    "id": 6364,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
                     "src": "195:7:62",
@@ -3200,16 +3200,16 @@
               "src": "156:52:62"
             },
             "returnParameters": {
-              "id": 6264,
+              "id": 6369,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 6263,
+                  "id": 6368,
                   "mutability": "mutable",
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 6273,
+                  "scope": 6378,
                   "src": "230:4:62",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -3218,7 +3218,7 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 6262,
+                    "id": 6367,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
                     "src": "230:4:62",
@@ -3232,14 +3232,14 @@
               ],
               "src": "229:6:62"
             },
-            "scope": 6274,
+            "scope": 6379,
             "src": "141:156:62",
             "stateMutability": "pure",
             "virtual": false,
             "visibility": "public"
           }
         ],
-        "scope": 6275,
+        "scope": 6380,
         "src": "107:192:62"
       }
     ],
@@ -3251,7 +3251,7 @@
   },
   "networks": {},
   "schemaVersion": "3.3.4",
-  "updatedAt": "2021-04-16T22:50:40.698Z",
+  "updatedAt": "2021-04-21T17:54:48.141Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},
