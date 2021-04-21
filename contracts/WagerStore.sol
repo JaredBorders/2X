@@ -3,14 +3,11 @@ pragma solidity ^0.8.0;
 
 import "./openzeppelin-solidity/contracts/security/Pausable.sol";
 import "./openzeppelin-solidity/contracts/access/Ownable.sol";
-import "./openzeppelin-solidity/contracts/utils/math/SafeMath.sol";
 import "./Wager.sol";
 
 /// @author jaredborders
 /// @title A store for managing Wager contracts
 contract WagerStore is Pausable, Ownable {
-    using SafeMath for uint;
-
     /* STATE VARIABLES */
 
     mapping(address => bool) wagersMapping;
