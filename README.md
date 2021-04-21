@@ -20,9 +20,9 @@ proven security Ethereum provides as a platform
 
 ## Getting Started
 1. Clone repo: $ git clone https://github.com/JaredBorders/2X <br />
-2. Install Truffle globally: $ npm install -g truffle <br />
+2. Install Truffle globally: $ yarn global add truffle <br />
 3. Compile contracts: $ truffle compile <br />
-4. Naviagte to 2x/client and install all dependencies: $ npm i <br />
+4. Naviagte to 2x/client and install all dependencies: $ yarn <br />
 
 ## Sources
 [OpenZeppelin](https://github.com/OpenZeppelin/openzeppelin-contracts) <br />
