@@ -34,10 +34,7 @@ contract Wager is Pausable, Ownable {
     event ParticipantJoin(address indexed participant);
     event ParticipantWithdraw(address indexed participant);
     event WinnerDetermined(address indexed winner);
-    event WinnerWithdraw(
-        address indexed winner,
-        uint indexed wagerAmount
-    );
+    event WinnerWithdraw(address indexed winner, uint indexed wagerAmount);
 
     /* CONSTRUCTOR */
 
@@ -165,7 +162,7 @@ contract Wager is Pausable, Ownable {
         uint stake = wagerAmount;
 
         // 3. Interaction
-        (bool success, ) = msg.sender.call {value: stake}("");
+        (bool success, ) = msg.sender.call {value: stake} ("");
         require(success, "Transfer failed.");
         emit WinnerWithdraw(msg.sender, stake);
     }
@@ -191,7 +188,6 @@ contract Wager is Pausable, Ownable {
     {
         // Using check-effect-interaction pattern
         // 1. Check - done by modifiers
-
         // Invariant check: make sure the contract has enough balance to be withdrawn from.
         assert(address(this).balance >= participantStakes[msg.sender]);
 
