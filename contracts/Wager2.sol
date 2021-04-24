@@ -3,6 +3,7 @@ pragma solidity ^0.8.0;
 
 import "./openzeppelin-solidity/contracts/access/Ownable.sol";
 import "./openzeppelin-solidity/contracts/security/Pausable.sol";
+// https://blog.openzeppelin.com/workshop-recap-setting-up-access-control-for-smart-contracts/
 
 /* Change Request: getRandom() may be subject to manipulation; use ChainLink VRF Oracle */
 /* Change Request: Integrate Ownable and Pausable */
