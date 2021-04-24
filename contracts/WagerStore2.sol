@@ -9,7 +9,7 @@ import "./Wager2.sol";
 
 /// @author jaredborders
 /// @title WagerStore2
-contract WagerStore is Pausable, Ownable {
+contract WagerStore2 is Pausable, Ownable {
 
     /* STATE VARIABLES */
     mapping(address => bool) activeWagers;
