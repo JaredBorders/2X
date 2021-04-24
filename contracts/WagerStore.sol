@@ -3,32 +3,26 @@ pragma solidity ^0.8.0;
 
 import "./openzeppelin-solidity/contracts/security/Pausable.sol";
 import "./openzeppelin-solidity/contracts/access/Ownable.sol";
-import "./openzeppelin-solidity/contracts/utils/math/SafeMath.sol";
 import "./Wager.sol";
 
 /// @author jaredborders
 /// @title A store for managing Wager contracts
 contract WagerStore is Pausable, Ownable {
-    using SafeMath for uint;
 
     /* STATE VARIABLES */
-
     mapping(address => bool) wagersMapping;
     address[] public wagers;
 
-    /* CONSTRUCTOR - Currently Empty */
-
-    constructor() {}
-
     /* MODIFIERS */
-
     modifier createdByThisStore(address potAddr) {
         require(wagersMapping[potAddr]);
         _;
     }
 
-    /* PUBLIC FUNCTIONS */
+    /* CONSTRUCTOR */
+    constructor() {}
 
+    /* FUNCTIONS */
     /// Create a new Wager contract
     /// @dev The new Wager contract is then saved in the array of this contract for future reference.
     /// @param _wagerName - Name of the Wager

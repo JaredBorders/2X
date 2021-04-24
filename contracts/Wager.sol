@@ -3,12 +3,10 @@ pragma solidity ^0.8.0;
 
 import "./openzeppelin-solidity/contracts/access/Ownable.sol";
 import "./openzeppelin-solidity/contracts/security/Pausable.sol";
-import "./openzeppelin-solidity/contracts/utils/math/SafeMath.sol";
 
 /// @author jaredborders
 /// @title A wager (1v1) contract
 contract Wager is Pausable, Ownable {
-    using SafeMath for uint;
     
     /* STATE VARIABLES */
 
@@ -36,10 +34,7 @@ contract Wager is Pausable, Ownable {
     event ParticipantJoin(address indexed participant);
     event ParticipantWithdraw(address indexed participant);
     event WinnerDetermined(address indexed winner);
-    event WinnerWithdraw(
-        address indexed winner,
-        uint indexed wagerAmount
-    );
+    event WinnerWithdraw(address indexed winner, uint indexed wagerAmount);
 
     /* CONSTRUCTOR */
 
@@ -58,7 +53,7 @@ contract Wager is Pausable, Ownable {
         require (_duration >= MIN_DURATION);
 
         wagerName = _wagerName;
-        closedDateTime = block.timestamp.add(_duration);
+        closedDateTime = block.timestamp + _duration; 
         wagerAmount = msg.value;
         wagerState = WagerState.open;
 
@@ -130,8 +125,8 @@ contract Wager is Pausable, Ownable {
         // This is a new participant, push into the array
         if (participantStakes[participant] == 0 && wagerState == WagerState.open) {
             participants.push(participant);
-            participantStakes[participant] = participantStakes[participant].add(msg.value);
-            wagerAmount = wagerAmount.add(msg.value);
+            participantStakes[participant] = participantStakes[participant] + msg.value;
+            wagerAmount = wagerAmount + msg.value;
             wagerState = WagerState.closed;
         }
         
@@ -167,7 +162,7 @@ contract Wager is Pausable, Ownable {
         uint stake = wagerAmount;
 
         // 3. Interaction
-        (bool success, ) = msg.sender.call {value: stake}("");
+        (bool success, ) = msg.sender.call {value: stake} ("");
         require(success, "Transfer failed.");
         emit WinnerWithdraw(msg.sender, stake);
     }
@@ -193,7 +188,6 @@ contract Wager is Pausable, Ownable {
     {
         // Using check-effect-interaction pattern
         // 1. Check - done by modifiers
-
         // Invariant check: make sure the contract has enough balance to be withdrawn from.
         assert(address(this).balance >= participantStakes[msg.sender]);
 
@@ -264,7 +258,7 @@ contract Wager is Pausable, Ownable {
         view 
         returns(uint) 
     {
-        return uint(keccak256(abi.encodePacked(block.timestamp, block.number,block.difficulty))).mod(len);
+        return uint(keccak256(abi.encodePacked(block.timestamp, block.number,block.difficulty))) % len;
         // CHANGE TO ORACLE LATER!! ^Above code may be subject to manipulation
     }
 }

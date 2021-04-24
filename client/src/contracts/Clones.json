@@ -1,29 +1,29 @@
 {
   "contractName": "Clones",
   "abi": [],
-  "metadata": "{\"compiler\":{\"version\":\"0.8.0+commit.c7dfd78e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"details\":\"https://eips.ethereum.org/EIPS/eip-1167[EIP 1167] is a standard for deploying minimal proxy contracts, also known as \\\"clones\\\". > To simply and cheaply clone contract functionality in an immutable way, this standard specifies > a minimal bytecode implementation that delegates all calls to a known, fixed address. The library includes functions to deploy a proxy using either `create` (traditional deployment) or `create2` (salted deterministic deployment). It also includes functions to predict the addresses of clones deployed using the deterministic method. _Available since v3.4._\",\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/Users/jaredborders/Documents/Work/Blockchain/Truffle-2X/contracts/openzeppelin-solidity/contracts/proxy/Clones.sol\":\"Clones\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/jaredborders/Documents/Work/Blockchain/Truffle-2X/contracts/openzeppelin-solidity/contracts/proxy/Clones.sol\":{\"keccak256\":\"0x90dec20805396efc780a82c62578626103e03278bc1f48b61bb3aba52a61617c\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://f7e3316ef22eaaac081ea90b12c0ae9f831fea5a70c78ca541ce3332e8b77f47\",\"dweb:/ipfs/QmTxLzG9UKK1fsAYoS3QgGgsCAHyW67D8mjPPHafczs2Co\"]}},\"version\":1}",
-  "bytecode": "0x60566050600b82828239805160001a6073146043577f4e487b7100000000000000000000000000000000000000000000000000000000600052600060045260246000fd5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea264697066735822122053021189220287dbb7fe1696ab03e9336938fdc1e789a3786fb67f8f023a381764736f6c63430008000033",
-  "deployedBytecode": "0x73000000000000000000000000000000000000000030146080604052600080fdfea264697066735822122053021189220287dbb7fe1696ab03e9336938fdc1e789a3786fb67f8f023a381764736f6c63430008000033",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.0+commit.c7dfd78e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"details\":\"https://eips.ethereum.org/EIPS/eip-1167[EIP 1167] is a standard for deploying minimal proxy contracts, also known as \\\"clones\\\". > To simply and cheaply clone contract functionality in an immutable way, this standard specifies > a minimal bytecode implementation that delegates all calls to a known, fixed address. The library includes functions to deploy a proxy using either `create` (traditional deployment) or `create2` (salted deterministic deployment). It also includes functions to predict the addresses of clones deployed using the deterministic method. _Available since v3.4._\",\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/Users/jaredborders/Documents/Work/Blockchain/2X/contracts/openzeppelin-solidity/contracts/proxy/Clones.sol\":\"Clones\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/jaredborders/Documents/Work/Blockchain/2X/contracts/openzeppelin-solidity/contracts/proxy/Clones.sol\":{\"keccak256\":\"0x90dec20805396efc780a82c62578626103e03278bc1f48b61bb3aba52a61617c\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://f7e3316ef22eaaac081ea90b12c0ae9f831fea5a70c78ca541ce3332e8b77f47\",\"dweb:/ipfs/QmTxLzG9UKK1fsAYoS3QgGgsCAHyW67D8mjPPHafczs2Co\"]}},\"version\":1}",
+  "bytecode": "0x60566050600b82828239805160001a6073146043577f4e487b7100000000000000000000000000000000000000000000000000000000600052600060045260246000fd5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea264697066735822122031e4aea0faa3874c5aec1a5fbed4eb67a6bf8b3c67be7cfb6439be801537f95864736f6c63430008000033",
+  "deployedBytecode": "0x73000000000000000000000000000000000000000030146080604052600080fdfea264697066735822122031e4aea0faa3874c5aec1a5fbed4eb67a6bf8b3c67be7cfb6439be801537f95864736f6c63430008000033",
   "immutableReferences": {},
   "generatedSources": [],
   "deployedGeneratedSources": [],
   "sourceMap": "688:2927:79:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;",
   "deployedSourceMap": "688:2927:79:-:0;;;;;;;;",
   "source": "// SPDX-License-Identifier: MIT\n\npragma solidity ^0.8.0;\n\n/**\n * @dev https://eips.ethereum.org/EIPS/eip-1167[EIP 1167] is a standard for\n * deploying minimal proxy contracts, also known as \"clones\".\n *\n * > To simply and cheaply clone contract functionality in an immutable way, this standard specifies\n * > a minimal bytecode implementation that delegates all calls to a known, fixed address.\n *\n * The library includes functions to deploy a proxy using either `create` (traditional deployment) or `create2`\n * (salted deterministic deployment). It also includes functions to predict the addresses of clones deployed using the\n * deterministic method.\n *\n * _Available since v3.4._\n */\nlibrary Clones {\n    /**\n     * @dev Deploys and returns the address of a clone that mimics the behaviour of `implementation`.\n     *\n     * This function uses the create opcode, which should never revert.\n     */\n    function clone(address implementation) internal returns (address instance) {\n        // solhint-disable-next-line no-inline-assembly\n        assembly {\n            let ptr := mload(0x40)\n            mstore(ptr, 0x3d602d80600a3d3981f3363d3d373d3d3d363d73000000000000000000000000)\n            mstore(add(ptr, 0x14), shl(0x60, implementation))\n            mstore(add(ptr, 0x28), 0x5af43d82803e903d91602b57fd5bf30000000000000000000000000000000000)\n            instance := create(0, ptr, 0x37)\n        }\n        require(instance != address(0), \"ERC1167: create failed\");\n    }\n\n    /**\n     * @dev Deploys and returns the address of a clone that mimics the behaviour of `implementation`.\n     *\n     * This function uses the create2 opcode and a `salt` to deterministically deploy\n     * the clone. Using the same `implementation` and `salt` multiple time will revert, since\n     * the clones cannot be deployed twice at the same address.\n     */\n    function cloneDeterministic(address implementation, bytes32 salt) internal returns (address instance) {\n        // solhint-disable-next-line no-inline-assembly\n        assembly {\n            let ptr := mload(0x40)\n            mstore(ptr, 0x3d602d80600a3d3981f3363d3d373d3d3d363d73000000000000000000000000)\n            mstore(add(ptr, 0x14), shl(0x60, implementation))\n            mstore(add(ptr, 0x28), 0x5af43d82803e903d91602b57fd5bf30000000000000000000000000000000000)\n            instance := create2(0, ptr, 0x37, salt)\n        }\n        require(instance != address(0), \"ERC1167: create2 failed\");\n    }\n\n    /**\n     * @dev Computes the address of a clone deployed using {Clones-cloneDeterministic}.\n     */\n    function predictDeterministicAddress(address implementation, bytes32 salt, address deployer) internal pure returns (address predicted) {\n        // solhint-disable-next-line no-inline-assembly\n        assembly {\n            let ptr := mload(0x40)\n            mstore(ptr, 0x3d602d80600a3d3981f3363d3d373d3d3d363d73000000000000000000000000)\n            mstore(add(ptr, 0x14), shl(0x60, implementation))\n            mstore(add(ptr, 0x28), 0x5af43d82803e903d91602b57fd5bf3ff00000000000000000000000000000000)\n            mstore(add(ptr, 0x38), shl(0x60, deployer))\n            mstore(add(ptr, 0x4c), salt)\n            mstore(add(ptr, 0x6c), keccak256(ptr, 0x37))\n            predicted := keccak256(add(ptr, 0x37), 0x55)\n        }\n    }\n\n    /**\n     * @dev Computes the address of a clone deployed using {Clones-cloneDeterministic}.\n     */\n    function predictDeterministicAddress(address implementation, bytes32 salt) internal view returns (address predicted) {\n        return predictDeterministicAddress(implementation, salt, address(this));\n    }\n}\n",
-  "sourcePath": "/Users/jaredborders/Documents/Work/Blockchain/Truffle-2X/contracts/openzeppelin-solidity/contracts/proxy/Clones.sol",
+  "sourcePath": "/Users/jaredborders/Documents/Work/Blockchain/2X/contracts/openzeppelin-solidity/contracts/proxy/Clones.sol",
   "ast": {
-    "absolutePath": "/Users/jaredborders/Documents/Work/Blockchain/Truffle-2X/contracts/openzeppelin-solidity/contracts/proxy/Clones.sol",
+    "absolutePath": "/Users/jaredborders/Documents/Work/Blockchain/2X/contracts/openzeppelin-solidity/contracts/proxy/Clones.sol",
     "exportedSymbols": {
       "Clones": [
-        8100
+        8205
       ]
     },
-    "id": 8101,
+    "id": 8206,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 8022,
+        "id": 8127,
         "literals": [
           "solidity",
           "^",
@@ -39,22 +39,22 @@
         "contractDependencies": [],
         "contractKind": "library",
         "documentation": {
-          "id": 8023,
+          "id": 8128,
           "nodeType": "StructuredDocumentation",
           "src": "58:629:79",
           "text": " @dev https://eips.ethereum.org/EIPS/eip-1167[EIP 1167] is a standard for\n deploying minimal proxy contracts, also known as \"clones\".\n > To simply and cheaply clone contract functionality in an immutable way, this standard specifies\n > a minimal bytecode implementation that delegates all calls to a known, fixed address.\n The library includes functions to deploy a proxy using either `create` (traditional deployment) or `create2`\n (salted deterministic deployment). It also includes functions to predict the addresses of clones deployed using the\n deterministic method.\n _Available since v3.4._"
         },
         "fullyImplemented": true,
-        "id": 8100,
+        "id": 8205,
         "linearizedBaseContracts": [
-          8100
+          8205
         ],
         "name": "Clones",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "body": {
-              "id": 8042,
+              "id": 8147,
               "nodeType": "Block",
               "src": "981:496:79",
               "statements": [
@@ -272,21 +272,21 @@
                   "evmVersion": "istanbul",
                   "externalReferences": [
                     {
-                      "declaration": 8026,
+                      "declaration": 8131,
                       "isOffset": false,
                       "isSlot": false,
                       "src": "1230:14:79",
                       "valueSize": 1
                     },
                     {
-                      "declaration": 8029,
+                      "declaration": 8134,
                       "isOffset": false,
                       "isSlot": false,
                       "src": "1362:8:79",
                       "valueSize": 1
                     }
                   ],
-                  "id": 8031,
+                  "id": 8136,
                   "nodeType": "InlineAssembly",
                   "src": "1047:357:79"
                 },
@@ -298,17 +298,17 @@
                           "typeIdentifier": "t_address",
                           "typeString": "address"
                         },
-                        "id": 8038,
+                        "id": 8143,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
                         "lValueRequested": false,
                         "leftExpression": {
-                          "id": 8033,
+                          "id": 8138,
                           "name": "instance",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 8029,
+                          "referencedDeclaration": 8134,
                           "src": "1421:8:79",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
@@ -321,7 +321,7 @@
                           "arguments": [
                             {
                               "hexValue": "30",
-                              "id": 8036,
+                              "id": 8141,
                               "isConstant": false,
                               "isLValue": false,
                               "isPure": true,
@@ -343,7 +343,7 @@
                                 "typeString": "int_const 0"
                               }
                             ],
-                            "id": 8035,
+                            "id": 8140,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": true,
@@ -355,14 +355,14 @@
                               "typeString": "type(address)"
                             },
                             "typeName": {
-                              "id": 8034,
+                              "id": 8139,
                               "name": "address",
                               "nodeType": "ElementaryTypeName",
                               "src": "1433:7:79",
                               "typeDescriptions": {}
                             }
                           },
-                          "id": 8037,
+                          "id": 8142,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
@@ -385,7 +385,7 @@
                       },
                       {
                         "hexValue": "455243313136373a20637265617465206661696c6564",
-                        "id": 8039,
+                        "id": 8144,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -411,7 +411,7 @@
                           "typeString": "literal_string \"ERC1167: create failed\""
                         }
                       ],
-                      "id": 8032,
+                      "id": 8137,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
@@ -425,7 +425,7 @@
                         "typeString": "function (bool,string memory) pure"
                       }
                     },
-                    "id": 8040,
+                    "id": 8145,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -440,35 +440,35 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 8041,
+                  "id": 8146,
                   "nodeType": "ExpressionStatement",
                   "src": "1413:57:79"
                 }
               ]
             },
             "documentation": {
-              "id": 8024,
+              "id": 8129,
               "nodeType": "StructuredDocumentation",
               "src": "709:192:79",
               "text": " @dev Deploys and returns the address of a clone that mimics the behaviour of `implementation`.\n This function uses the create opcode, which should never revert."
             },
-            "id": 8043,
+            "id": 8148,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "clone",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 8027,
+              "id": 8132,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 8026,
+                  "id": 8131,
                   "mutability": "mutable",
                   "name": "implementation",
                   "nodeType": "VariableDeclaration",
-                  "scope": 8043,
+                  "scope": 8148,
                   "src": "921:22:79",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -477,7 +477,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 8025,
+                    "id": 8130,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "921:7:79",
@@ -493,16 +493,16 @@
               "src": "920:24:79"
             },
             "returnParameters": {
-              "id": 8030,
+              "id": 8135,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 8029,
+                  "id": 8134,
                   "mutability": "mutable",
                   "name": "instance",
                   "nodeType": "VariableDeclaration",
-                  "scope": 8043,
+                  "scope": 8148,
                   "src": "963:16:79",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -511,7 +511,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 8028,
+                    "id": 8133,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "963:7:79",
@@ -526,7 +526,7 @@
               ],
               "src": "962:18:79"
             },
-            "scope": 8100,
+            "scope": 8205,
             "src": "906:571:79",
             "stateMutability": "nonpayable",
             "virtual": false,
@@ -534,7 +534,7 @@
           },
           {
             "body": {
-              "id": 8064,
+              "id": 8169,
               "nodeType": "Block",
               "src": "1954:504:79",
               "statements": [
@@ -757,28 +757,28 @@
                   "evmVersion": "istanbul",
                   "externalReferences": [
                     {
-                      "declaration": 8046,
+                      "declaration": 8151,
                       "isOffset": false,
                       "isSlot": false,
                       "src": "2203:14:79",
                       "valueSize": 1
                     },
                     {
-                      "declaration": 8051,
+                      "declaration": 8156,
                       "isOffset": false,
                       "isSlot": false,
                       "src": "2335:8:79",
                       "valueSize": 1
                     },
                     {
-                      "declaration": 8048,
+                      "declaration": 8153,
                       "isOffset": false,
                       "isSlot": false,
                       "src": "2369:4:79",
                       "valueSize": 1
                     }
                   ],
-                  "id": 8053,
+                  "id": 8158,
                   "nodeType": "InlineAssembly",
                   "src": "2020:364:79"
                 },
@@ -790,17 +790,17 @@
                           "typeIdentifier": "t_address",
                           "typeString": "address"
                         },
-                        "id": 8060,
+                        "id": 8165,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
                         "lValueRequested": false,
                         "leftExpression": {
-                          "id": 8055,
+                          "id": 8160,
                           "name": "instance",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 8051,
+                          "referencedDeclaration": 8156,
                           "src": "2401:8:79",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
@@ -813,7 +813,7 @@
                           "arguments": [
                             {
                               "hexValue": "30",
-                              "id": 8058,
+                              "id": 8163,
                               "isConstant": false,
                               "isLValue": false,
                               "isPure": true,
@@ -835,7 +835,7 @@
                                 "typeString": "int_const 0"
                               }
                             ],
-                            "id": 8057,
+                            "id": 8162,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": true,
@@ -847,14 +847,14 @@
                               "typeString": "type(address)"
                             },
                             "typeName": {
-                              "id": 8056,
+                              "id": 8161,
                               "name": "address",
                               "nodeType": "ElementaryTypeName",
                               "src": "2413:7:79",
                               "typeDescriptions": {}
                             }
                           },
-                          "id": 8059,
+                          "id": 8164,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
@@ -877,7 +877,7 @@
                       },
                       {
                         "hexValue": "455243313136373a2063726561746532206661696c6564",
-                        "id": 8061,
+                        "id": 8166,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -903,7 +903,7 @@
                           "typeString": "literal_string \"ERC1167: create2 failed\""
                         }
                       ],
-                      "id": 8054,
+                      "id": 8159,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
@@ -917,7 +917,7 @@
                         "typeString": "function (bool,string memory) pure"
                       }
                     },
-                    "id": 8062,
+                    "id": 8167,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -932,35 +932,35 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 8063,
+                  "id": 8168,
                   "nodeType": "ExpressionStatement",
                   "src": "2393:58:79"
                 }
               ]
             },
             "documentation": {
-              "id": 8044,
+              "id": 8149,
               "nodeType": "StructuredDocumentation",
               "src": "1483:364:79",
               "text": " @dev Deploys and returns the address of a clone that mimics the behaviour of `implementation`.\n This function uses the create2 opcode and a `salt` to deterministically deploy\n the clone. Using the same `implementation` and `salt` multiple time will revert, since\n the clones cannot be deployed twice at the same address."
             },
-            "id": 8065,
+            "id": 8170,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "cloneDeterministic",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 8049,
+              "id": 8154,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 8046,
+                  "id": 8151,
                   "mutability": "mutable",
                   "name": "implementation",
                   "nodeType": "VariableDeclaration",
-                  "scope": 8065,
+                  "scope": 8170,
                   "src": "1880:22:79",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -969,7 +969,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 8045,
+                    "id": 8150,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "1880:7:79",
@@ -983,11 +983,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 8048,
+                  "id": 8153,
                   "mutability": "mutable",
                   "name": "salt",
                   "nodeType": "VariableDeclaration",
-                  "scope": 8065,
+                  "scope": 8170,
                   "src": "1904:12:79",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -996,7 +996,7 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 8047,
+                    "id": 8152,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
                     "src": "1904:7:79",
@@ -1011,16 +1011,16 @@
               "src": "1879:38:79"
             },
             "returnParameters": {
-              "id": 8052,
+              "id": 8157,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 8051,
+                  "id": 8156,
                   "mutability": "mutable",
                   "name": "instance",
                   "nodeType": "VariableDeclaration",
-                  "scope": 8065,
+                  "scope": 8170,
                   "src": "1936:16:79",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1029,7 +1029,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 8050,
+                    "id": 8155,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "1936:7:79",
@@ -1044,7 +1044,7 @@
               ],
               "src": "1935:18:79"
             },
-            "scope": 8100,
+            "scope": 8205,
             "src": "1852:606:79",
             "stateMutability": "nonpayable",
             "virtual": false,
@@ -1052,7 +1052,7 @@
           },
           {
             "body": {
-              "id": 8078,
+              "id": 8183,
               "nodeType": "Block",
               "src": "2703:595:79",
               "statements": [
@@ -1446,63 +1446,63 @@
                   "evmVersion": "istanbul",
                   "externalReferences": [
                     {
-                      "declaration": 8072,
+                      "declaration": 8177,
                       "isOffset": false,
                       "isSlot": false,
                       "src": "3117:8:79",
                       "valueSize": 1
                     },
                     {
-                      "declaration": 8068,
+                      "declaration": 8173,
                       "isOffset": false,
                       "isSlot": false,
                       "src": "2952:14:79",
                       "valueSize": 1
                     },
                     {
-                      "declaration": 8075,
+                      "declaration": 8180,
                       "isOffset": false,
                       "isSlot": false,
                       "src": "3238:9:79",
                       "valueSize": 1
                     },
                     {
-                      "declaration": 8070,
+                      "declaration": 8175,
                       "isOffset": false,
                       "isSlot": false,
                       "src": "3163:4:79",
                       "valueSize": 1
                     }
                   ],
-                  "id": 8077,
+                  "id": 8182,
                   "nodeType": "InlineAssembly",
                   "src": "2769:523:79"
                 }
               ]
             },
             "documentation": {
-              "id": 8066,
+              "id": 8171,
               "nodeType": "StructuredDocumentation",
               "src": "2464:99:79",
               "text": " @dev Computes the address of a clone deployed using {Clones-cloneDeterministic}."
             },
-            "id": 8079,
+            "id": 8184,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "predictDeterministicAddress",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 8073,
+              "id": 8178,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 8068,
+                  "id": 8173,
                   "mutability": "mutable",
                   "name": "implementation",
                   "nodeType": "VariableDeclaration",
-                  "scope": 8079,
+                  "scope": 8184,
                   "src": "2605:22:79",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1511,7 +1511,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 8067,
+                    "id": 8172,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "2605:7:79",
@@ -1525,11 +1525,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 8070,
+                  "id": 8175,
                   "mutability": "mutable",
                   "name": "salt",
                   "nodeType": "VariableDeclaration",
-                  "scope": 8079,
+                  "scope": 8184,
                   "src": "2629:12:79",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1538,7 +1538,7 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 8069,
+                    "id": 8174,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
                     "src": "2629:7:79",
@@ -1551,11 +1551,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 8072,
+                  "id": 8177,
                   "mutability": "mutable",
                   "name": "deployer",
                   "nodeType": "VariableDeclaration",
-                  "scope": 8079,
+                  "scope": 8184,
                   "src": "2643:16:79",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1564,7 +1564,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 8071,
+                    "id": 8176,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "2643:7:79",
@@ -1580,16 +1580,16 @@
               "src": "2604:56:79"
             },
             "returnParameters": {
-              "id": 8076,
+              "id": 8181,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 8075,
+                  "id": 8180,
                   "mutability": "mutable",
                   "name": "predicted",
                   "nodeType": "VariableDeclaration",
-                  "scope": 8079,
+                  "scope": 8184,
                   "src": "2684:17:79",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1598,7 +1598,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 8074,
+                    "id": 8179,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "2684:7:79",
@@ -1613,7 +1613,7 @@
               ],
               "src": "2683:19:79"
             },
-            "scope": 8100,
+            "scope": 8205,
             "src": "2568:730:79",
             "stateMutability": "pure",
             "virtual": false,
@@ -1621,7 +1621,7 @@
           },
           {
             "body": {
-              "id": 8098,
+              "id": 8203,
               "nodeType": "Block",
               "src": "3525:88:79",
               "statements": [
@@ -1629,11 +1629,11 @@
                   "expression": {
                     "arguments": [
                       {
-                        "id": 8090,
+                        "id": 8195,
                         "name": "implementation",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 8082,
+                        "referencedDeclaration": 8187,
                         "src": "3570:14:79",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -1641,11 +1641,11 @@
                         }
                       },
                       {
-                        "id": 8091,
+                        "id": 8196,
                         "name": "salt",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 8084,
+                        "referencedDeclaration": 8189,
                         "src": "3586:4:79",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bytes32",
@@ -1655,14 +1655,14 @@
                       {
                         "arguments": [
                           {
-                            "id": 8094,
+                            "id": 8199,
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 4294967268,
                             "src": "3600:4:79",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_contract$_Clones_$8100",
+                              "typeIdentifier": "t_contract$_Clones_$8205",
                               "typeString": "library Clones"
                             }
                           }
@@ -1670,11 +1670,11 @@
                         "expression": {
                           "argumentTypes": [
                             {
-                              "typeIdentifier": "t_contract$_Clones_$8100",
+                              "typeIdentifier": "t_contract$_Clones_$8205",
                               "typeString": "library Clones"
                             }
                           ],
-                          "id": 8093,
+                          "id": 8198,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
@@ -1686,14 +1686,14 @@
                             "typeString": "type(address)"
                           },
                           "typeName": {
-                            "id": 8092,
+                            "id": 8197,
                             "name": "address",
                             "nodeType": "ElementaryTypeName",
                             "src": "3592:7:79",
                             "typeDescriptions": {}
                           }
                         },
-                        "id": 8095,
+                        "id": 8200,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -1724,21 +1724,21 @@
                           "typeString": "address"
                         }
                       ],
-                      "id": 8089,
+                      "id": 8194,
                       "name": "predictDeterministicAddress",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        8079,
-                        8099
+                        8184,
+                        8204
                       ],
-                      "referencedDeclaration": 8079,
+                      "referencedDeclaration": 8184,
                       "src": "3542:27:79",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_pure$_t_address_$_t_bytes32_$_t_address_$returns$_t_address_$",
                         "typeString": "function (address,bytes32,address) pure returns (address)"
                       }
                     },
-                    "id": 8096,
+                    "id": 8201,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1753,36 +1753,36 @@
                       "typeString": "address"
                     }
                   },
-                  "functionReturnParameters": 8088,
-                  "id": 8097,
+                  "functionReturnParameters": 8193,
+                  "id": 8202,
                   "nodeType": "Return",
                   "src": "3535:71:79"
                 }
               ]
             },
             "documentation": {
-              "id": 8080,
+              "id": 8185,
               "nodeType": "StructuredDocumentation",
               "src": "3304:99:79",
               "text": " @dev Computes the address of a clone deployed using {Clones-cloneDeterministic}."
             },
-            "id": 8099,
+            "id": 8204,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "predictDeterministicAddress",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 8085,
+              "id": 8190,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 8082,
+                  "id": 8187,
                   "mutability": "mutable",
                   "name": "implementation",
                   "nodeType": "VariableDeclaration",
-                  "scope": 8099,
+                  "scope": 8204,
                   "src": "3445:22:79",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1791,7 +1791,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 8081,
+                    "id": 8186,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "3445:7:79",
@@ -1805,11 +1805,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 8084,
+                  "id": 8189,
                   "mutability": "mutable",
                   "name": "salt",
                   "nodeType": "VariableDeclaration",
-                  "scope": 8099,
+                  "scope": 8204,
                   "src": "3469:12:79",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1818,7 +1818,7 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 8083,
+                    "id": 8188,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
                     "src": "3469:7:79",
@@ -1833,16 +1833,16 @@
               "src": "3444:38:79"
             },
             "returnParameters": {
-              "id": 8088,
+              "id": 8193,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 8087,
+                  "id": 8192,
                   "mutability": "mutable",
                   "name": "predicted",
                   "nodeType": "VariableDeclaration",
-                  "scope": 8099,
+                  "scope": 8204,
                   "src": "3506:17:79",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1851,7 +1851,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 8086,
+                    "id": 8191,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "3506:7:79",
@@ -1866,32 +1866,32 @@
               ],
               "src": "3505:19:79"
             },
-            "scope": 8100,
+            "scope": 8205,
             "src": "3408:205:79",
             "stateMutability": "view",
             "virtual": false,
             "visibility": "internal"
           }
         ],
-        "scope": 8101,
+        "scope": 8206,
         "src": "688:2927:79"
       }
     ],
     "src": "33:3583:79"
   },
   "legacyAST": {
-    "absolutePath": "/Users/jaredborders/Documents/Work/Blockchain/Truffle-2X/contracts/openzeppelin-solidity/contracts/proxy/Clones.sol",
+    "absolutePath": "/Users/jaredborders/Documents/Work/Blockchain/2X/contracts/openzeppelin-solidity/contracts/proxy/Clones.sol",
     "exportedSymbols": {
       "Clones": [
-        8100
+        8205
       ]
     },
-    "id": 8101,
+    "id": 8206,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 8022,
+        "id": 8127,
         "literals": [
           "solidity",
           "^",
@@ -1907,22 +1907,22 @@
         "contractDependencies": [],
         "contractKind": "library",
         "documentation": {
-          "id": 8023,
+          "id": 8128,
           "nodeType": "StructuredDocumentation",
           "src": "58:629:79",
           "text": " @dev https://eips.ethereum.org/EIPS/eip-1167[EIP 1167] is a standard for\n deploying minimal proxy contracts, also known as \"clones\".\n > To simply and cheaply clone contract functionality in an immutable way, this standard specifies\n > a minimal bytecode implementation that delegates all calls to a known, fixed address.\n The library includes functions to deploy a proxy using either `create` (traditional deployment) or `create2`\n (salted deterministic deployment). It also includes functions to predict the addresses of clones deployed using the\n deterministic method.\n _Available since v3.4._"
         },
         "fullyImplemented": true,
-        "id": 8100,
+        "id": 8205,
         "linearizedBaseContracts": [
-          8100
+          8205
         ],
         "name": "Clones",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "body": {
-              "id": 8042,
+              "id": 8147,
               "nodeType": "Block",
               "src": "981:496:79",
               "statements": [
@@ -2140,21 +2140,21 @@
                   "evmVersion": "istanbul",
                   "externalReferences": [
                     {
-                      "declaration": 8026,
+                      "declaration": 8131,
                       "isOffset": false,
                       "isSlot": false,
                       "src": "1230:14:79",
                       "valueSize": 1
                     },
                     {
-                      "declaration": 8029,
+                      "declaration": 8134,
                       "isOffset": false,
                       "isSlot": false,
                       "src": "1362:8:79",
                       "valueSize": 1
                     }
                   ],
-                  "id": 8031,
+                  "id": 8136,
                   "nodeType": "InlineAssembly",
                   "src": "1047:357:79"
                 },
@@ -2166,17 +2166,17 @@
                           "typeIdentifier": "t_address",
                           "typeString": "address"
                         },
-                        "id": 8038,
+                        "id": 8143,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
                         "lValueRequested": false,
                         "leftExpression": {
-                          "id": 8033,
+                          "id": 8138,
                           "name": "instance",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 8029,
+                          "referencedDeclaration": 8134,
                           "src": "1421:8:79",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
@@ -2189,7 +2189,7 @@
                           "arguments": [
                             {
                               "hexValue": "30",
-                              "id": 8036,
+                              "id": 8141,
                               "isConstant": false,
                               "isLValue": false,
                               "isPure": true,
@@ -2211,7 +2211,7 @@
                                 "typeString": "int_const 0"
                               }
                             ],
-                            "id": 8035,
+                            "id": 8140,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": true,
@@ -2223,14 +2223,14 @@
                               "typeString": "type(address)"
                             },
                             "typeName": {
-                              "id": 8034,
+                              "id": 8139,
                               "name": "address",
                               "nodeType": "ElementaryTypeName",
                               "src": "1433:7:79",
                               "typeDescriptions": {}
                             }
                           },
-                          "id": 8037,
+                          "id": 8142,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
@@ -2253,7 +2253,7 @@
                       },
                       {
                         "hexValue": "455243313136373a20637265617465206661696c6564",
-                        "id": 8039,
+                        "id": 8144,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -2279,7 +2279,7 @@
                           "typeString": "literal_string \"ERC1167: create failed\""
                         }
                       ],
-                      "id": 8032,
+                      "id": 8137,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
@@ -2293,7 +2293,7 @@
                         "typeString": "function (bool,string memory) pure"
                       }
                     },
-                    "id": 8040,
+                    "id": 8145,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -2308,35 +2308,35 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 8041,
+                  "id": 8146,
                   "nodeType": "ExpressionStatement",
                   "src": "1413:57:79"
                 }
               ]
             },
             "documentation": {
-              "id": 8024,
+              "id": 8129,
               "nodeType": "StructuredDocumentation",
               "src": "709:192:79",
               "text": " @dev Deploys and returns the address of a clone that mimics the behaviour of `implementation`.\n This function uses the create opcode, which should never revert."
             },
-            "id": 8043,
+            "id": 8148,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "clone",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 8027,
+              "id": 8132,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 8026,
+                  "id": 8131,
                   "mutability": "mutable",
                   "name": "implementation",
                   "nodeType": "VariableDeclaration",
-                  "scope": 8043,
+                  "scope": 8148,
                   "src": "921:22:79",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -2345,7 +2345,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 8025,
+                    "id": 8130,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "921:7:79",
@@ -2361,16 +2361,16 @@
               "src": "920:24:79"
             },
             "returnParameters": {
-              "id": 8030,
+              "id": 8135,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 8029,
+                  "id": 8134,
                   "mutability": "mutable",
                   "name": "instance",
                   "nodeType": "VariableDeclaration",
-                  "scope": 8043,
+                  "scope": 8148,
                   "src": "963:16:79",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -2379,7 +2379,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 8028,
+                    "id": 8133,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "963:7:79",
@@ -2394,7 +2394,7 @@
               ],
               "src": "962:18:79"
             },
-            "scope": 8100,
+            "scope": 8205,
             "src": "906:571:79",
             "stateMutability": "nonpayable",
             "virtual": false,
@@ -2402,7 +2402,7 @@
           },
           {
             "body": {
-              "id": 8064,
+              "id": 8169,
               "nodeType": "Block",
               "src": "1954:504:79",
               "statements": [
@@ -2625,28 +2625,28 @@
                   "evmVersion": "istanbul",
                   "externalReferences": [
                     {
-                      "declaration": 8046,
+                      "declaration": 8151,
                       "isOffset": false,
                       "isSlot": false,
                       "src": "2203:14:79",
                       "valueSize": 1
                     },
                     {
-                      "declaration": 8051,
+                      "declaration": 8156,
                       "isOffset": false,
                       "isSlot": false,
                       "src": "2335:8:79",
                       "valueSize": 1
                     },
                     {
-                      "declaration": 8048,
+                      "declaration": 8153,
                       "isOffset": false,
                       "isSlot": false,
                       "src": "2369:4:79",
                       "valueSize": 1
                     }
                   ],
-                  "id": 8053,
+                  "id": 8158,
                   "nodeType": "InlineAssembly",
                   "src": "2020:364:79"
                 },
@@ -2658,17 +2658,17 @@
                           "typeIdentifier": "t_address",
                           "typeString": "address"
                         },
-                        "id": 8060,
+                        "id": 8165,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
                         "lValueRequested": false,
                         "leftExpression": {
-                          "id": 8055,
+                          "id": 8160,
                           "name": "instance",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 8051,
+                          "referencedDeclaration": 8156,
                           "src": "2401:8:79",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
@@ -2681,7 +2681,7 @@
                           "arguments": [
                             {
                               "hexValue": "30",
-                              "id": 8058,
+                              "id": 8163,
                               "isConstant": false,
                               "isLValue": false,
                               "isPure": true,
@@ -2703,7 +2703,7 @@
                                 "typeString": "int_const 0"
                               }
                             ],
-                            "id": 8057,
+                            "id": 8162,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": true,
@@ -2715,14 +2715,14 @@
                               "typeString": "type(address)"
                             },
                             "typeName": {
-                              "id": 8056,
+                              "id": 8161,
                               "name": "address",
                               "nodeType": "ElementaryTypeName",
                               "src": "2413:7:79",
                               "typeDescriptions": {}
                             }
                           },
-                          "id": 8059,
+                          "id": 8164,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
@@ -2745,7 +2745,7 @@
                       },
                       {
                         "hexValue": "455243313136373a2063726561746532206661696c6564",
-                        "id": 8061,
+                        "id": 8166,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -2771,7 +2771,7 @@
                           "typeString": "literal_string \"ERC1167: create2 failed\""
                         }
                       ],
-                      "id": 8054,
+                      "id": 8159,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
@@ -2785,7 +2785,7 @@
                         "typeString": "function (bool,string memory) pure"
                       }
                     },
-                    "id": 8062,
+                    "id": 8167,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -2800,35 +2800,35 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 8063,
+                  "id": 8168,
                   "nodeType": "ExpressionStatement",
                   "src": "2393:58:79"
                 }
               ]
             },
             "documentation": {
-              "id": 8044,
+              "id": 8149,
               "nodeType": "StructuredDocumentation",
               "src": "1483:364:79",
               "text": " @dev Deploys and returns the address of a clone that mimics the behaviour of `implementation`.\n This function uses the create2 opcode and a `salt` to deterministically deploy\n the clone. Using the same `implementation` and `salt` multiple time will revert, since\n the clones cannot be deployed twice at the same address."
             },
-            "id": 8065,
+            "id": 8170,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "cloneDeterministic",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 8049,
+              "id": 8154,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 8046,
+                  "id": 8151,
                   "mutability": "mutable",
                   "name": "implementation",
                   "nodeType": "VariableDeclaration",
-                  "scope": 8065,
+                  "scope": 8170,
                   "src": "1880:22:79",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -2837,7 +2837,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 8045,
+                    "id": 8150,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "1880:7:79",
@@ -2851,11 +2851,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 8048,
+                  "id": 8153,
                   "mutability": "mutable",
                   "name": "salt",
                   "nodeType": "VariableDeclaration",
-                  "scope": 8065,
+                  "scope": 8170,
                   "src": "1904:12:79",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -2864,7 +2864,7 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 8047,
+                    "id": 8152,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
                     "src": "1904:7:79",
@@ -2879,16 +2879,16 @@
               "src": "1879:38:79"
             },
             "returnParameters": {
-              "id": 8052,
+              "id": 8157,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 8051,
+                  "id": 8156,
                   "mutability": "mutable",
                   "name": "instance",
                   "nodeType": "VariableDeclaration",
-                  "scope": 8065,
+                  "scope": 8170,
                   "src": "1936:16:79",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -2897,7 +2897,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 8050,
+                    "id": 8155,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "1936:7:79",
@@ -2912,7 +2912,7 @@
               ],
               "src": "1935:18:79"
             },
-            "scope": 8100,
+            "scope": 8205,
             "src": "1852:606:79",
             "stateMutability": "nonpayable",
             "virtual": false,
@@ -2920,7 +2920,7 @@
           },
           {
             "body": {
-              "id": 8078,
+              "id": 8183,
               "nodeType": "Block",
               "src": "2703:595:79",
               "statements": [
@@ -3314,63 +3314,63 @@
                   "evmVersion": "istanbul",
                   "externalReferences": [
                     {
-                      "declaration": 8072,
+                      "declaration": 8177,
                       "isOffset": false,
                       "isSlot": false,
                       "src": "3117:8:79",
                       "valueSize": 1
                     },
                     {
-                      "declaration": 8068,
+                      "declaration": 8173,
                       "isOffset": false,
                       "isSlot": false,
                       "src": "2952:14:79",
                       "valueSize": 1
                     },
                     {
-                      "declaration": 8075,
+                      "declaration": 8180,
                       "isOffset": false,
                       "isSlot": false,
                       "src": "3238:9:79",
                       "valueSize": 1
                     },
                     {
-                      "declaration": 8070,
+                      "declaration": 8175,
                       "isOffset": false,
                       "isSlot": false,
                       "src": "3163:4:79",
                       "valueSize": 1
                     }
                   ],
-                  "id": 8077,
+                  "id": 8182,
                   "nodeType": "InlineAssembly",
                   "src": "2769:523:79"
                 }
               ]
             },
             "documentation": {
-              "id": 8066,
+              "id": 8171,
               "nodeType": "StructuredDocumentation",
               "src": "2464:99:79",
               "text": " @dev Computes the address of a clone deployed using {Clones-cloneDeterministic}."
             },
-            "id": 8079,
+            "id": 8184,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "predictDeterministicAddress",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 8073,
+              "id": 8178,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 8068,
+                  "id": 8173,
                   "mutability": "mutable",
                   "name": "implementation",
                   "nodeType": "VariableDeclaration",
-                  "scope": 8079,
+                  "scope": 8184,
                   "src": "2605:22:79",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -3379,7 +3379,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 8067,
+                    "id": 8172,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "2605:7:79",
@@ -3393,11 +3393,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 8070,
+                  "id": 8175,
                   "mutability": "mutable",
                   "name": "salt",
                   "nodeType": "VariableDeclaration",
-                  "scope": 8079,
+                  "scope": 8184,
                   "src": "2629:12:79",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -3406,7 +3406,7 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 8069,
+                    "id": 8174,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
                     "src": "2629:7:79",
@@ -3419,11 +3419,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 8072,
+                  "id": 8177,
                   "mutability": "mutable",
                   "name": "deployer",
                   "nodeType": "VariableDeclaration",
-                  "scope": 8079,
+                  "scope": 8184,
                   "src": "2643:16:79",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -3432,7 +3432,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 8071,
+                    "id": 8176,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "2643:7:79",
@@ -3448,16 +3448,16 @@
               "src": "2604:56:79"
             },
             "returnParameters": {
-              "id": 8076,
+              "id": 8181,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 8075,
+                  "id": 8180,
                   "mutability": "mutable",
                   "name": "predicted",
                   "nodeType": "VariableDeclaration",
-                  "scope": 8079,
+                  "scope": 8184,
                   "src": "2684:17:79",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -3466,7 +3466,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 8074,
+                    "id": 8179,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "2684:7:79",
@@ -3481,7 +3481,7 @@
               ],
               "src": "2683:19:79"
             },
-            "scope": 8100,
+            "scope": 8205,
             "src": "2568:730:79",
             "stateMutability": "pure",
             "virtual": false,
@@ -3489,7 +3489,7 @@
           },
           {
             "body": {
-              "id": 8098,
+              "id": 8203,
               "nodeType": "Block",
               "src": "3525:88:79",
               "statements": [
@@ -3497,11 +3497,11 @@
                   "expression": {
                     "arguments": [
                       {
-                        "id": 8090,
+                        "id": 8195,
                         "name": "implementation",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 8082,
+                        "referencedDeclaration": 8187,
                         "src": "3570:14:79",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
@@ -3509,11 +3509,11 @@
                         }
                       },
                       {
-                        "id": 8091,
+                        "id": 8196,
                         "name": "salt",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 8084,
+                        "referencedDeclaration": 8189,
                         "src": "3586:4:79",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bytes32",
@@ -3523,14 +3523,14 @@
                       {
                         "arguments": [
                           {
-                            "id": 8094,
+                            "id": 8199,
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": 4294967268,
                             "src": "3600:4:79",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_contract$_Clones_$8100",
+                              "typeIdentifier": "t_contract$_Clones_$8205",
                               "typeString": "library Clones"
                             }
                           }
@@ -3538,11 +3538,11 @@
                         "expression": {
                           "argumentTypes": [
                             {
-                              "typeIdentifier": "t_contract$_Clones_$8100",
+                              "typeIdentifier": "t_contract$_Clones_$8205",
                               "typeString": "library Clones"
                             }
                           ],
-                          "id": 8093,
+                          "id": 8198,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
@@ -3554,14 +3554,14 @@
                             "typeString": "type(address)"
                           },
                           "typeName": {
-                            "id": 8092,
+                            "id": 8197,
                             "name": "address",
                             "nodeType": "ElementaryTypeName",
                             "src": "3592:7:79",
                             "typeDescriptions": {}
                           }
                         },
-                        "id": 8095,
+                        "id": 8200,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -3592,21 +3592,21 @@
                           "typeString": "address"
                         }
                       ],
-                      "id": 8089,
+                      "id": 8194,
                       "name": "predictDeterministicAddress",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        8079,
-                        8099
+                        8184,
+                        8204
                       ],
-                      "referencedDeclaration": 8079,
+                      "referencedDeclaration": 8184,
                       "src": "3542:27:79",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_pure$_t_address_$_t_bytes32_$_t_address_$returns$_t_address_$",
                         "typeString": "function (address,bytes32,address) pure returns (address)"
                       }
                     },
-                    "id": 8096,
+                    "id": 8201,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -3621,36 +3621,36 @@
                       "typeString": "address"
                     }
                   },
-                  "functionReturnParameters": 8088,
-                  "id": 8097,
+                  "functionReturnParameters": 8193,
+                  "id": 8202,
                   "nodeType": "Return",
                   "src": "3535:71:79"
                 }
               ]
             },
             "documentation": {
-              "id": 8080,
+              "id": 8185,
               "nodeType": "StructuredDocumentation",
               "src": "3304:99:79",
               "text": " @dev Computes the address of a clone deployed using {Clones-cloneDeterministic}."
             },
-            "id": 8099,
+            "id": 8204,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "predictDeterministicAddress",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 8085,
+              "id": 8190,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 8082,
+                  "id": 8187,
                   "mutability": "mutable",
                   "name": "implementation",
                   "nodeType": "VariableDeclaration",
-                  "scope": 8099,
+                  "scope": 8204,
                   "src": "3445:22:79",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -3659,7 +3659,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 8081,
+                    "id": 8186,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "3445:7:79",
@@ -3673,11 +3673,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 8084,
+                  "id": 8189,
                   "mutability": "mutable",
                   "name": "salt",
                   "nodeType": "VariableDeclaration",
-                  "scope": 8099,
+                  "scope": 8204,
                   "src": "3469:12:79",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -3686,7 +3686,7 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 8083,
+                    "id": 8188,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
                     "src": "3469:7:79",
@@ -3701,16 +3701,16 @@
               "src": "3444:38:79"
             },
             "returnParameters": {
-              "id": 8088,
+              "id": 8193,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 8087,
+                  "id": 8192,
                   "mutability": "mutable",
                   "name": "predicted",
                   "nodeType": "VariableDeclaration",
-                  "scope": 8099,
+                  "scope": 8204,
                   "src": "3506:17:79",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -3719,7 +3719,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 8086,
+                    "id": 8191,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "3506:7:79",
@@ -3734,14 +3734,14 @@
               ],
               "src": "3505:19:79"
             },
-            "scope": 8100,
+            "scope": 8205,
             "src": "3408:205:79",
             "stateMutability": "view",
             "virtual": false,
             "visibility": "internal"
           }
         ],
-        "scope": 8101,
+        "scope": 8206,
         "src": "688:2927:79"
       }
     ],
@@ -3753,7 +3753,7 @@
   },
   "networks": {},
   "schemaVersion": "3.3.4",
-  "updatedAt": "2021-04-16T22:50:40.812Z",
+  "updatedAt": "2021-04-21T17:54:48.243Z",
   "devdoc": {
     "details": "https://eips.ethereum.org/EIPS/eip-1167[EIP 1167] is a standard for deploying minimal proxy contracts, also known as \"clones\". > To simply and cheaply clone contract functionality in an immutable way, this standard specifies > a minimal bytecode implementation that delegates all calls to a known, fixed address. The library includes functions to deploy a proxy using either `create` (traditional deployment) or `create2` (salted deterministic deployment). It also includes functions to predict the addresses of clones deployed using the deterministic method. _Available since v3.4._",
     "kind": "dev",
