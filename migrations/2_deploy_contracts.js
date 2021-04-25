@@ -1,7 +1,7 @@
-var Wager = artifacts.require("./Wager.sol");
-var WagerStore = artifacts.require("./WagerStore.sol");
+const SimpleStorage = artifacts.require("SimpleStorage");
+const ComplexStorage = artifacts.require("ComplexStorage");
 
 module.exports = function(deployer) {
-    deployer.deploy(Wager);
-    deployer.deploy(WagerStore);
+  deployer.deploy(SimpleStorage);
+  deployer.deploy(ComplexStorage);
 };
