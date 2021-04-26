@@ -17,8 +17,6 @@ proven security Ethereum provides as a platform
 * Front-end integration
 * Chainlink VRF Randomness implementation 
 * Vulnerability analysis w/ [Slither](https://github.com/crytic/slither)
-* Integrate Ownable and Pausable
-* Revisit how Wager.sol handles withrawls
 * After duration, send eth back to wagerer
 
 ## Getting Started (MacOS)

@@ -2,15 +2,12 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/security/Pausable.sol";
-// https://blog.openzeppelin.com/workshop-recap-setting-up-access-control-for-smart-contracts/
 
 /* Change Request: getRandom() may be subject to manipulation; use ChainLink VRF Oracle */
-/* Change Request: Integrate Pausable */
-/* Change Request: Revisit how Wager.sol handles withrawls */
 /* Change Request: After duration, send eth back to wagerer */
 
 /// @author jaredborders
-/// @title Wager2
+/// @title Wager - Creates contract for 1-1 betting
 contract Wager is Pausable {
 
     /* STATE VARIABLES */
