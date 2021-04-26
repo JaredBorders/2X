@@ -6,7 +6,9 @@ Create a lean, user-friendly application that lets users safely wager a limitles
 proven security Ethereum provides as a platform
 
 ## Technologies
-* [Truffle Framework - React Box](https://www.trufflesuite.com/boxes/react) <br />
+* [Truffle Framework - Drizzle Box](https://www.trufflesuite.com/boxes/drizzle) <br />
+* [Drizzle](https://www.trufflesuite.com/drizzle) front-end library <br />
+* Testing with [Mocha](https://mochajs.org) <br />
 * [React](https://reactjs.org) <br />
 * [Web3](https://web3js.readthedocs.io/en/v1.3.4) <br />
 * [Solidity](https://docs.soliditylang.org/en/v0.8.0/) <br />
