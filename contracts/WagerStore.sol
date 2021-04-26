@@ -1,15 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/security/Pausable.sol";
 import "./Wager.sol";
 
-/* Change Request: Integrate Ownable and Pausable */
-
 /// @author jaredborders
-/// @title WagerStore2
-contract WagerStore is Pausable, Ownable {
+/// @title WagerStore - Factory/Store that creates and manages Wager contracts
+contract WagerStore is Pausable {
 
     /* STATE VARIABLES */
     address[] public wagerAddresses;
@@ -18,10 +15,11 @@ contract WagerStore is Pausable, Ownable {
     constructor() {}
 
     /* FUNCTIONS */
-    /// Create a new Wager
+    /// Create a new Wager if contract is not paused
     /// @dev The new Wager is then saved in the array of this contract for future reference
     function createWagerContract() 
         public 
+        whenNotPaused
         payable 
     {
         Wager newWager = Wager(msg.sender);
