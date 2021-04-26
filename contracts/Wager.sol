@@ -1,18 +1,17 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/security/Pausable.sol";
 // https://blog.openzeppelin.com/workshop-recap-setting-up-access-control-for-smart-contracts/
 
 /* Change Request: getRandom() may be subject to manipulation; use ChainLink VRF Oracle */
-/* Change Request: Integrate Ownable and Pausable */
+/* Change Request: Integrate Pausable */
 /* Change Request: Revisit how Wager.sol handles withrawls */
 /* Change Request: After duration, send eth back to wagerer */
 
 /// @author jaredborders
 /// @title Wager2
-contract Wager is Pausable, Ownable {
+contract Wager is Pausable {
 
     /* STATE VARIABLES */
     address public wagerer; // Wager creator
@@ -20,9 +19,6 @@ contract Wager is Pausable, Ownable {
     uint public wagerAmount; // Amount staked by wagerer
     uint constant MIN_DURATION = 300; // Duration of wager >= 5 minutes
     uint public wagerExpireTime; // To be determined by Wagerer
-
-    // Store of all wagers 
-    address public wagerStoreAddress2;
 
     /* MODIFIERS */
     modifier validWagerDuration(uint _wagerDuration) {
@@ -51,21 +47,23 @@ contract Wager is Pausable, Ownable {
     constructor(address _owner) 
         payable 
     {
-        wagerer = _owner; 
+        wagerer = _owner;
     }
 
     /* FUNCTIONS */
+    /// Allow participant to place a wager
+    /// @param _wagerDuration - length of time wager is 'open' for challenge
+    /// @dev Checks for valid wager amount and duration
     function placeWager(uint _wagerDuration) 
         public
-        validWagerAmount // Checks if Wagerer staked enough eth 
-        validWagerDuration(_wagerDuration)
+        validWagerAmount // is wager > MIN_WAGER
+        validWagerDuration(_wagerDuration) // is duration > MIN_DURATION
+        whenNotPaused
         payable
     {
+        require(wagerAmount == 0, "Wager has already been placed"); // prevent more than two max participants
         wagerAmount = msg.value;
         wagerExpireTime = _wagerDuration + block.timestamp; // ex. if _wagerDuration = 300 then wagerExpireTime = currentTime + 5 minutes
-
-        // Wager creation should be called from its store.
-        wagerStoreAddress2 = msg.sender;
     }
 
     /// Allow participant to withdraw money
@@ -73,10 +71,12 @@ contract Wager is Pausable, Ownable {
     /// @dev Checks for matching amount of eth and that wager is still active
     function challenge(address _challenger) 
         external
-        validWagerAvailability // Checks if wager is still available
+        validWagerAvailability // Checks if wager is still available based on duration
         matchesWagerAmount // Checks if challenger staked same amount of eth
+        whenNotPaused
         payable
     {
+        paused(); // pause contract (i.e. don't allow any more calls to placeWager nor challenge)
         wagerAmount += uint(msg.value);
         findWinner(_challenger);
     }
@@ -100,6 +100,15 @@ contract Wager is Pausable, Ownable {
         returns(uint) 
     {
         return uint(keccak256(abi.encodePacked(block.timestamp, block.number,block.difficulty))) % 2;
+    }
+
+    /// Withdraw wager
+    /// @dev sends wagered money back to wagerer if wager hasn't completed
+    function withdrawWager() 
+        external 
+        whenNotPaused
+    {
+        payable(wagerer).transfer(wagerAmount);
     }
 
 }
