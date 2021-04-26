@@ -22,7 +22,7 @@ contract WagerStore is Pausable {
         whenNotPaused
         payable 
     {
-        Wager newWager = Wager(msg.sender);
+        Wager newWager = new Wager(msg.sender);
         address wagerAddress = address(newWager);
         wagerAddresses.push(wagerAddress); // Update with new contract info
     }

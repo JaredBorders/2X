@@ -18,6 +18,11 @@ contract Wager is Pausable {
     uint public wagerExpireTime; // To be determined by Wagerer
 
     /* MODIFIERS */
+    modifier isOwner {
+        require(msg.sender == wagerer, "Initializing a wager on another's contract is prohibited");
+        _;
+    }
+
     modifier validWagerDuration(uint _wagerDuration) {
         require(_wagerDuration >= MIN_DURATION, "Duration of wager availability is too short (<5 minutes");
         _;
@@ -48,13 +53,14 @@ contract Wager is Pausable {
     }
 
     /* FUNCTIONS */
-    /// Allow participant to place a wager
+    /// Allow participant to establish a wager
     /// @param _wagerDuration - length of time wager is 'open' for challenge
     /// @dev Checks for valid wager amount and duration
-    function placeWager(uint _wagerDuration) 
+    function establishWager(uint _wagerDuration) 
         public
         validWagerAmount // is wager > MIN_WAGER
         validWagerDuration(_wagerDuration) // is duration > MIN_DURATION
+        isOwner // Must be creator of contract to initialize wager
         whenNotPaused
         payable
     {
@@ -73,7 +79,7 @@ contract Wager is Pausable {
         whenNotPaused
         payable
     {
-        paused(); // pause contract (i.e. don't allow any more calls to placeWager nor challenge)
+        paused(); // pause contract (i.e. don't allow any more calls to establishWager nor challenge)
         wagerAmount += uint(msg.value);
         findWinner(_challenger);
     }
@@ -106,6 +112,7 @@ contract Wager is Pausable {
         whenNotPaused
     {
         payable(wagerer).transfer(wagerAmount);
+        paused();
     }
 
 }
