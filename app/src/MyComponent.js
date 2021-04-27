@@ -10,7 +10,7 @@ export default ({ drizzle, drizzleState }) => {
     <div className="App">
       <div>
         <img src={logo} alt="drizzle-logo" />
-        <h1>Drizzle Examples</h1>
+        <h1>Drizzle</h1>
         <p>
           Examples of how to get started with Drizzle in various situations.
         </p>
@@ -24,60 +24,6 @@ export default ({ drizzle, drizzleState }) => {
           accountIndex={0}
           units="ether"
           precision={3}
-        />
-      </div>
-
-      <div className="section">
-        <h2>SimpleStorage</h2>
-        <p>
-          This shows a simple ContractData component with no arguments, along
-          with a form to set its value.
-        </p>
-        <p>
-          <strong>Stored Value: </strong>
-          <ContractData
-            drizzle={drizzle}
-            drizzleState={drizzleState}
-            contract="SimpleStorage"
-            method="storedData"
-          />
-        </p>
-        <ContractForm drizzle={drizzle} contract="SimpleStorage" method="set" />
-      </div>
-
-      <div className="section">
-        <h2>ComplexStorage</h2>
-        <p>
-          Finally this contract shows data types with additional considerations.
-          Note in the code the strings below are converted from bytes to UTF-8
-          strings and the device data struct is iterated as a list.
-        </p>
-        <p>
-          <strong>String 1: </strong>
-          <ContractData
-            drizzle={drizzle}
-            drizzleState={drizzleState}
-            contract="ComplexStorage"
-            method="string1"
-            toUtf8
-          />
-        </p>
-        <p>
-          <strong>String 2: </strong>
-          <ContractData
-            drizzle={drizzle}
-            drizzleState={drizzleState}
-            contract="ComplexStorage"
-            method="string2"
-            toUtf8
-          />
-        </p>
-        <strong>Single Device Data: </strong>
-        <ContractData
-          drizzle={drizzle}
-          drizzleState={drizzleState}
-          contract="ComplexStorage"
-          method="singleDD"
         />
       </div>
     </div>
