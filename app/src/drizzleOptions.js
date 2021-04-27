@@ -1,16 +1,13 @@
 import Web3 from "web3";
-import ComplexStorage from "./contracts/ComplexStorage.json";
-import SimpleStorage from "./contracts/SimpleStorage.json";
+import Wager from "./contracts/Wager.json";
+import WagerStore from "./contracts/WagerStore.json";
 
 const options = {
   web3: {
     block: false,
     customProvider: new Web3("ws://localhost:8545"),
   },
-  contracts: [SimpleStorage, ComplexStorage],
-  events: {
-    SimpleStorage: ["StorageSet"],
-  },
+  contracts: [Wager, WagerStore],
 };
 
 export default options;
