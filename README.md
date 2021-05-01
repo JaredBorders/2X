@@ -46,12 +46,18 @@ npx hardhat run scripts/deploy.js --network localhost
 
 5. Update __src/App.js__ with the values of your contract addresses (`wagerAddress`)
 
-6.
-
-7. Run the app
+6. Run the app
 
 ```sh
 yarn start
+```
+
+7. if you wish to deploy to the Ropsten test blockchain, update hardhat.config.js "ropsten.accounts" with your ropsten private key
+
+8. Deploy the contract to that network
+
+```sh
+npx hardhat run scripts/deploy.js --network ropsten
 ```
 
 ## Contribute?
