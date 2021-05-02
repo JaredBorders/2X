@@ -24,7 +24,7 @@ Create a lean, user-friendly application that lets users safely wager varying am
 * After duration, send eth back to wagerer
 
 ## Getting Started
-1. Clone repo:
+1. Clone this repository
 
 ```sh
 git clone https://github.com/JaredBorders/2X 
