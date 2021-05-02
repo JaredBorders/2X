@@ -30,7 +30,6 @@ Create a lean, user-friendly application that lets users safely wager varying am
 git clone https://github.com/JaredBorders/2X 
 ```
 
-Here's how to deploy this project
 2. Install the dependencies
 
 ```sh
