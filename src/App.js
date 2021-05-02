@@ -7,6 +7,7 @@ import Splash from './pages/Splash';
 
 const theme = createMuiTheme({
   palette: {
+    type: "dark",
     background: {
       default: "#081229"
     }
