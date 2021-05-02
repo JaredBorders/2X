@@ -11,7 +11,7 @@ Create a lean, user-friendly application that lets users safely wager varying am
 * Ethereum Development Environment: [Hardhat](https://hardhat.org)
 * Web Client Library: [ethers.js](https://docs.ethers.io/v5/)
 * Blockhain Gateway and Wallet: [Metamask](https://metamask.io)
-* Testing: [Chai](chai testing)
+* Testing: [Chai](https://www.chaijs.com)
 * Front-End: [React](https://reactjs.org)
 * Smart Contract Language: [Solidity](https://docs.soliditylang.org/en/v0.8.0/)
 * Oracle: [Chainlink VRF](https://docs.chain.link/docs/chainlink-vrf)
