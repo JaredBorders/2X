@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.js": "/JaredBorders/2X/static/js/main.a95dac43.chunk.js",
+    "main.js.map": "/JaredBorders/2X/static/js/main.a95dac43.chunk.js.map",
+    "runtime-main.js": "/JaredBorders/2X/static/js/runtime-main.1261bbf5.js",
+    "runtime-main.js.map": "/JaredBorders/2X/static/js/runtime-main.1261bbf5.js.map",
+    "static/js/2.39f9c56c.chunk.js": "/JaredBorders/2X/static/js/2.39f9c56c.chunk.js",
+    "static/js/2.39f9c56c.chunk.js.map": "/JaredBorders/2X/static/js/2.39f9c56c.chunk.js.map",
+    "index.html": "/JaredBorders/2X/index.html",
+    "static/js/2.39f9c56c.chunk.js.LICENSE.txt": "/JaredBorders/2X/static/js/2.39f9c56c.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.1261bbf5.js",
+    "static/js/2.39f9c56c.chunk.js",
+    "static/js/main.a95dac43.chunk.js"
+  ]
+}
