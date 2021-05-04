@@ -56,7 +56,7 @@ npx hardhat run scripts/deploy.js --network localhost
 yarn start
 ```
 
-7. To deploy to the Ropsten test network, update __hardhat.config.js__ (`ropsten.accounts[`your private key`]`) with your ropsten private key (provided by Metamask)
+7. To deploy to the Ropsten test network, update __hardhat.config.js__ (`ropsten.accounts[your private key]`) with your ropsten private key (provided by Metamask)
 
 8. Deploy the contract to that network
 
