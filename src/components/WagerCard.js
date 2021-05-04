@@ -12,8 +12,8 @@ const useStyles = makeStyles({
         minWidth: 275,
         margin: 8,
         textAlign: "left",
-        backgroundColor: "#d81b60",
-        opacity: 0.9,
+        backgroundColor: "#1e273c",
+        border: `1px solid #d81b60`,
     },
 });
 
