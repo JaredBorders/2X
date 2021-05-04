@@ -36,11 +36,11 @@ git clone https://github.com/JaredBorders/2X
 yarn
 ```
 
-3. Start the local test node
+3. Start the local test node (if you do not wish to work locally, skip to step 7)
 
 ```sh
 npx hardhat node
-```
+``` 
 
 4. Deploy the contract
 
@@ -48,7 +48,7 @@ npx hardhat node
 npx hardhat run scripts/deploy.js --network localhost
 ```
 
-5. Update __src/App.js__ with the values of your contract addresses (`wagerAddress`)
+5. Once the script finished deployment, it will log the address of where the contract was deployed to. Update __src/pages/Splash.js__ with the value of your contract address (`wagerAddress`)
 
 6. Run the app
 
@@ -56,12 +56,20 @@ npx hardhat run scripts/deploy.js --network localhost
 yarn start
 ```
 
-7. if you wish to deploy to the Ropsten test blockchain, update hardhat.config.js "ropsten.accounts" with your ropsten private key
+7. To deploy to the Ropsten test network, update __hardhat.config.js__ (`ropsten.accounts[`your private key`]`) with your ropsten private key (provided by Metamask)
 
 8. Deploy the contract to that network
 
 ```sh
 npx hardhat run scripts/deploy.js --network ropsten
+```
+
+9. Once the script finished deployment, it will log the address of where the contract was deployed to. Update __src/pages/Splash.js__ with the value of your contract address (`wagerAddress`)
+
+10. Run the app
+
+```sh
+yarn start
 ```
 
 ## Contribute?
