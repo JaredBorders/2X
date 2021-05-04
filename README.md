@@ -48,7 +48,7 @@ npx hardhat node
 npx hardhat run scripts/deploy.js --network localhost
 ```
 
-5. Once the script finished deployment, it will log the address of where the contract was deployed to. Update __src/pages/Splash.js__ with the value of your contract address (`wagerAddress`)
+5. Once the script finished deployment, it will log the address of where the contract was deployed to. Update __src/pages/Splash.js__ with the value of your contract address `wagerAddress`
 
 6. Run the app
 
@@ -56,7 +56,7 @@ npx hardhat run scripts/deploy.js --network localhost
 yarn start
 ```
 
-7. To deploy to the Ropsten test network, update __hardhat.config.js__ (`ropsten.accounts[your private key]`) with your ropsten private key (provided by Metamask)
+7. To deploy to the Ropsten test network, update __hardhat.config.js__ `ropsten.accounts[your private key]` with your ropsten private key (provided by Metamask)
 
 8. Deploy the contract to that network
 
@@ -64,7 +64,7 @@ yarn start
 npx hardhat run scripts/deploy.js --network ropsten
 ```
 
-9. Once the script finished deployment, it will log the address of where the contract was deployed to. Update __src/pages/Splash.js__ with the value of your contract address (`wagerAddress`)
+9. Once the script finished deployment, it will log the address of where the contract was deployed to. Update __src/pages/Splash.js__ with the value of your contract address `wagerAddress`
 
 10. Run the app
 
