@@ -23,11 +23,14 @@ const WagerCard = (props) => {
     return (
         <Card elevation={10} className={classes.root}>
             <CardContent>
-                <Typography color="textPrimary" gutterBottom>
-                    Address: {props.address}
+                <Typography color="subtitle" gutterBottom>
+                    Amount: ETH {props.amount}
                 </Typography>
                 <Typography color="textPrimary" gutterBottom>
-                    Amount: ETH {props.amount}
+                    Wager Address: {props.wagererAddress}
+                </Typography>
+                <Typography color="textPrimary" gutterBottom>
+                    Wagerer: {props.address}
                 </Typography>
                 <Typography color="textPrimary" gutterBottom>
                     Created: {props.dateCreated}
