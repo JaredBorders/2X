@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
     },
     appBar: {
         background: "#1e273c",
+        position: "fixed",
     }
 }));
 
@@ -40,7 +41,7 @@ const Header = () => {
 
     return (
         <div className={classes.root}>
-            <AppBar position="static" className={classes.appBar}>
+            <AppBar className={classes.appBar}>
                 <Toolbar>
                     <Typography variant="h6" className={classes.title}>
                         2X

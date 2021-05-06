@@ -1,32 +1,41 @@
 import {
     makeStyles,
     Link,
+    Divider,
 } from "@material-ui/core";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
+    root: {
+        marginTop: theme.spacing(4)
+    },
     footerWrapper: {
         display: "flex",
         width: "100%",
         alignContent: "center",
         alignItems: "center",
         justifyContent: "space-between",
-        position: "absolute",
-        bottom: 0
-    },
-    linkMargin: {
-        margin: "20px"
+        bottom: 0,
+        marginTop: theme.spacing(1),
     },
     copyright: {
-        marginLeft: "20px"
+        marginLeft: theme.spacing(6),
+    },
+    disclaimer: {
+        marginRight: theme.spacing(6),
     }
-});
+}));
 const Footer = () => {
     const classes = useStyles();
     return (
-        <div className={classes.footerWrapper}>
-            <p className={classes.copyright}>&copy; 2021 2X</p>
-            <div>
-                <Link color="inherit" className={classes.linkMargin}>Disclaimer</Link>
+        <div className={classes.root}>
+            <Divider light />
+            <div className={classes.footerWrapper}>
+                <p className={classes.copyright}>
+                    &copy; 2021 2X
+                </p>
+                <div className={classes.disclaimer}>
+                    <Link color="inherit">Disclaimer</Link>
+                </div>
             </div>
         </div>
     )

@@ -9,6 +9,7 @@ import {
     Button,
     makeStyles,
     InputAdornment,
+    Divider,
 } from "@material-ui/core";
 import dayjs from "dayjs";
 import WagerCard from "../components/WagerCard";
@@ -18,7 +19,10 @@ const useStyles = makeStyles({
         justifyContent: "center",
         textAlign: "center",
         minHeight: "90vh",
-        marginTop: 36,
+        marginTop: 100,
+    },
+    divide: {
+        marginTop: 26,
     },
     button: {
         color: "white",
@@ -31,7 +35,7 @@ const useStyles = makeStyles({
         width: 250,
     },
     actionContainer: {
-        marginTop: 36,
+        marginTop: 24,
         marginBottom: 36
     },
     wagersContainer: {
@@ -88,7 +92,9 @@ const Splash = (props) => {
                     <Grid item xs={12}>
                         <Typography variant="h1" color="secondary">2X</Typography>
                         <Typography variant="overline">{description}</Typography>
-                        <Typography style={{ borderBottom: '0.1rem solid white', padding: '0.5em' }}></Typography>
+                        <div className={classes.divide}>
+                            <Divider dark />
+                        </div>
                     </Grid>
                     <div className={classes.actionContainer}>
                         <Grid item xs={12}>

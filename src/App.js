@@ -3,8 +3,8 @@ import {
   MuiThemeProvider,
   createMuiTheme,
 } from '@material-ui/core';
+import Footer from './components/layout/Footer';
 import Header from './components/layout/Header';
-// import Footer from './components/layout/Footer';
 import Splash from './pages/Splash';
 
 const theme = createMuiTheme({
@@ -22,7 +22,7 @@ const App = () => {
       <CssBaseline />
       <Header />
       <Splash />
-      {/* <Footer /> */}
+      <Footer />
     </MuiThemeProvider>
   );
 }
