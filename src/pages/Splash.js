@@ -60,7 +60,6 @@ const useStyles = makeStyles((theme) => ({
         width: 230,
       },
     actionContainer: {
-        marginTop: 24,
         marginBottom: 36
     },
     wagersContainer: {
