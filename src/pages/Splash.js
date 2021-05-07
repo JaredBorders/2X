@@ -9,16 +9,27 @@ import {
     Button,
     makeStyles,
     InputAdornment,
+    Divider,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+    FormControl,
+    InputLabel,
+    Select,
 } from "@material-ui/core";
 import dayjs from "dayjs";
 import WagerCard from "../components/WagerCard";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     main: {
         justifyContent: "center",
         textAlign: "center",
         minHeight: "90vh",
-        marginTop: 36,
+        marginTop: 100,
+    },
+    divide: {
+        marginTop: 26,
     },
     button: {
         color: "white",
@@ -26,12 +37,29 @@ const useStyles = makeStyles({
         width: 250,
         marginTop: 16,
     },
+    dialogFieldLayout: {
+        direction: "column",
+        alignItems: "center",
+        justify: "center",
+    },
+    dialogButton: {
+        color: "white",
+        height: 58,
+        width: 250,
+        marginTop: 16,
+    },
+    dialogActions: {
+        justifyContent: "center",
+    },
     textField: {
         fontWeight: 500,
         width: 250,
     },
+    formControl: {
+        margin: theme.spacing(1),
+        width: 230,
+      },
     actionContainer: {
-        marginTop: 36,
         marginBottom: 36
     },
     wagersContainer: {
@@ -39,7 +67,7 @@ const useStyles = makeStyles({
         width: 16,
         height: 16,
     }
-});
+}));
 
 // Address contract(s) was/were deployed to via $ npx hardhat run scripts/deploy.js {network}
 const wagerStoreAddress = "0x38E88FFcfC3f921cf98002D39840A5B3C5d3a961";
@@ -51,8 +79,42 @@ const Splash = (props) => {
     const classes = useStyles();
 
     /* Wager state variables */
-    const [wagerAmount, setWagerAmount] = useState(0);
+    const [wagerAmount, setWagerAmount] = useState();
+    const [wagerDuration, setWagerDuration] = useState();
     const [wagersData, setWagersData] = useState([]);
+    const [wagerFormOpen, setWagerFormOpen] = useState(false);
+
+    /* Amount TextField validation */
+    const handleAmountChange = (e) => {
+        setWagerAmount(e.target.value);
+    }
+
+    /* Wager Form Modal Dialog */
+    const onMakeWagerBtnPressed = () => {
+        clearWagerInfo();
+        setWagerFormOpen(true);
+    };
+    
+    const handleWagerDurationChange = (e) => {
+        setWagerDuration(e.target.value);
+    }
+
+    const onFinalizeWagerPressed = () => {
+        createWager();
+        setWagerFormOpen(false);
+        clearWagerInfo();
+        // Set loading ...
+    };
+
+    const onCancelPressed = () => {
+        setWagerFormOpen(false);
+        clearWagerInfo();
+    }
+
+    function clearWagerInfo() {
+        setWagerAmount();
+        setWagerDuration();
+    }
 
     /* request access to the user's MetaMask account */
     async function requestAccount() {
@@ -73,9 +135,9 @@ const Splash = (props) => {
                 wagererAddress: "transaction",
                 contractAddress: "transaction",
                 wagerAmount: wagerAmount,
-                contractDuration: 600, // Code change: currently unused
+                contractDuration: 3600 * wagerDuration, // 8400 seconds / day
                 contractCreated: dayjs().format("YYYY-MM-DD HH:mm:ss"),
-                contractExpires: dayjs().add(10, 'minute').format("YYYY-MM-DD HH:mm:ss")
+                contractExpires: dayjs().add(wagerDuration, 'hour').format("YYYY-MM-DD HH:mm:ss")
             };
             setWagersData([...wagersData, wagerData]);
         }
@@ -88,32 +150,82 @@ const Splash = (props) => {
                     <Grid item xs={12}>
                         <Typography variant="h1" color="secondary">2X</Typography>
                         <Typography variant="overline">{description}</Typography>
-                        <Typography style={{ borderBottom: '0.1rem solid white', padding: '0.5em' }}></Typography>
+                        <div className={classes.divide}>
+                            <Divider dark />
+                        </div>
                     </Grid>
                     <div className={classes.actionContainer}>
-                        <Grid item xs={12}>
-                            <TextField
-                                label="Amount"
-                                variant="filled"
-                                color="secondary"
-                                className={classes.textField}
-                                InputProps={{
-                                    startAdornment: <InputAdornment position="start">ETH</InputAdornment>,
-                                }}
-                                value={wagerAmount}
-                                onChange={(e) => {
-                                    setWagerAmount(e.target.value) //^[0-9]*$ use regex to only allow 0-9 and "."
-                                }}
-                            />
-                        </Grid>
                         <Grid item xs={12}>
                             <Button
                                 className={classes.button}
                                 variant="outlined"
                                 color="secondary"
-                                onClick={createWager}>
+                                onClick={onMakeWagerBtnPressed}>
                                 Make Wager
                             </Button>
+                            <Dialog
+                                open={wagerFormOpen}
+                                onClose={onFinalizeWagerPressed}
+                                className={classes.dialog}
+                                aria-labelledby="Specify wager details"
+                                aria-describedby="Set wager amount and duration and then confirm or cancel"
+                            >
+                                <DialogTitle>{"Specify Wager Details"}</DialogTitle>
+                                <DialogContent>
+                                    <Grid container direction="column" alignItems="center">
+                                        <Grid item xs={12}>
+                                            <TextField
+                                                label="Amount"
+                                                color="secondary"
+                                                variant="filled"
+                                                type="number"
+                                                value={wagerAmount}
+                                                InputProps={{
+                                                    startAdornment: <InputAdornment position="start">ETH</InputAdornment>,
+                                                }}
+                                                onChange={handleAmountChange}
+                                            />
+                                        </Grid>
+                                        <Grid item xs={12}>
+                                            <FormControl color="secondary" variant="filled" className={classes.formControl}>
+                                                <InputLabel htmlFor="filled-age-native-simple">Duration (Hours)</InputLabel>
+                                                <Select
+                                                    native
+                                                    value={wagerDuration}
+                                                    onChange={handleWagerDurationChange}
+                                                    inputProps={{
+                                                        name: 'duration',
+                                                        id: 'filled-age-native-simple',
+                                                    }}
+                                                >
+                                                    <option aria-label="None" value="" />
+                                                    <option value={1}>1</option>
+                                                    <option value={2}>2</option>
+                                                    <option value={3}>3</option>
+                                                    <option value={4}>4</option>
+                                                    <option value={5}>5</option>
+                                                    <option value={6}>6</option>
+                                                    <option value={7}>7</option>
+                                                </Select>
+                                            </FormControl>
+                                        </Grid>
+                                    </Grid>
+                                </DialogContent>
+                                <DialogActions className={classes.dialogActions}>
+                                    <Button
+                                        className={classes.dialogButton}
+                                        variant="outlined"
+                                        onClick={onCancelPressed}>
+                                        Cancel
+                                    </Button>
+                                    <Button
+                                        className={classes.dialogButton}
+                                        variant="outlined"
+                                        onClick={onFinalizeWagerPressed}>
+                                        Finalize Wager
+                                    </Button>
+                                </DialogActions>
+                            </Dialog>
                         </Grid>
                     </div>
                     <Grid item xs={12}>
@@ -127,7 +239,8 @@ const Splash = (props) => {
                                     address={wager.contractAddress}
                                     amount={wager.wagerAmount}
                                     dateCreated={wager.contractCreated}
-                                    dateExpires={wager.contractExpires} />
+                                    dateExpires={wager.contractExpires}
+                                />
                             )
                         })}
                     </Grid>
