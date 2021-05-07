@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: "space-between",
         bottom: 0,
         marginTop: theme.spacing(1),
+        marginBottom: theme.spacing(3)
     },
     copyright: {
         marginLeft: theme.spacing(6),

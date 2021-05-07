@@ -5,7 +5,6 @@ import {
     Toolbar,
     Typography,
     Button,
-    IconButton,
     Menu,
     MenuItem,
 } from "@material-ui/core";
@@ -16,10 +15,12 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
     },
     menuButton: {
-        marginRight: theme.spacing(2),
+        padding: "16px",
+        marginRight: 16,
     },
     title: {
         flexGrow: 1,
+        marginLeft: theme.spacing(2),
     },
     appBar: {
         background: "#1e273c",
@@ -61,24 +62,28 @@ const Header = () => {
                     {isDesktop ? (
                         <>
                             <Button
-                                style={{ marginRight: 16 }}
+                                className={classes.menuButton}
                                 color="inherit">
                                 About
                             </Button>
                             <Button
-                                style={{ marginRight: 16 }}
+                                className={classes.menuButton}
                                 color="inherit">
                                 Developers
                             </Button>
                             <Button
-                                style={{ marginRight: 16 }}
+                                className={classes.menuButton}
                                 color="inherit">
                                 FAQ
                             </Button>
                         </>
                     ) : (
                         <>
-                            <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleBurgerClick}>
+                            <Button
+                                className={classes.menuButton} 
+                                aria-controls="simple-menu" 
+                                aria-haspopup="true" 
+                                onClick={handleBurgerClick}>
                                 <MenuIcon />
                             </Button>
                             <Menu
