@@ -6,6 +6,8 @@ import {
     Typography,
     Button,
     IconButton,
+    Menu,
+    MenuItem,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 
@@ -38,6 +40,16 @@ const Header = () => {
         return () => window.removeEventListener("resize", updateMedia);
     });
 
+    const [anchorEl, setAnchorEl] = useState(null);
+
+    const handleBurgerClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
 
     return (
         <div className={classes.root}>
@@ -65,15 +77,22 @@ const Header = () => {
                             </Button>
                         </>
                     ) : (
-                        <IconButton
-                            /* Add buttons above to MenuButton */
-                            edge="start"
-                            style={{ marginRight: 16 }}
-                            className={classes.menuButton}
-                            color="inherit"
-                            aria-label="menu">
-                            <MenuIcon />
-                        </IconButton>
+                        <>
+                            <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleBurgerClick}>
+                                <MenuIcon />
+                            </Button>
+                            <Menu
+                                id="simple-menu"
+                                anchorEl={anchorEl}
+                                keepMounted
+                                open={Boolean(anchorEl)}
+                                onClose={handleClose}
+                            >
+                                <MenuItem onClick={handleClose}>About</MenuItem>
+                                <MenuItem onClick={handleClose}>Developers</MenuItem>
+                                <MenuItem onClick={handleClose}>FAQ</MenuItem>
+                            </Menu>
+                        </>
                     )}
                 </Toolbar>
             </AppBar>
