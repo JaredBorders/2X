@@ -55,8 +55,12 @@ const Splash = (props) => {
     const classes = useStyles();
 
     /* Wager state variables */
-    const [wagerAmount, setWagerAmount] = useState(0);
+    const [wagerAmount, setWagerAmount] = useState();
     const [wagersData, setWagersData] = useState([]);
+
+    const handleAmountChange = (e) => {
+        setWagerAmount(e.target.value);
+    }
 
     /* request access to the user's MetaMask account */
     async function requestAccount() {
@@ -102,14 +106,13 @@ const Splash = (props) => {
                                 label="Amount"
                                 variant="filled"
                                 color="secondary"
+                                type="number"
                                 className={classes.textField}
+                                value={wagerAmount}
                                 InputProps={{
                                     startAdornment: <InputAdornment position="start">ETH</InputAdornment>,
                                 }}
-                                value={wagerAmount}
-                                onChange={(e) => {
-                                    setWagerAmount(e.target.value) //^[0-9]*$ use regex to only allow 0-9 and "."
-                                }}
+                                onChange={handleAmountChange}
                             />
                         </Grid>
                         <Grid item xs={12}>
