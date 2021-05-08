@@ -1,17 +1,19 @@
 {
   "files": {
-    "main.js": "/2X/static/js/main.b78de27e.chunk.js",
-    "main.js.map": "/2X/static/js/main.b78de27e.chunk.js.map",
+    "main.js": "/2X/static/js/main.824edfdc.chunk.js",
+    "main.js.map": "/2X/static/js/main.824edfdc.chunk.js.map",
     "runtime-main.js": "/2X/static/js/runtime-main.3bc74851.js",
     "runtime-main.js.map": "/2X/static/js/runtime-main.3bc74851.js.map",
-    "static/js/2.345bd09a.chunk.js": "/2X/static/js/2.345bd09a.chunk.js",
-    "static/js/2.345bd09a.chunk.js.map": "/2X/static/js/2.345bd09a.chunk.js.map",
+    "static/js/2.6951d87e.chunk.js": "/2X/static/js/2.6951d87e.chunk.js",
+    "static/js/2.6951d87e.chunk.js.map": "/2X/static/js/2.6951d87e.chunk.js.map",
     "index.html": "/2X/index.html",
-    "static/js/2.345bd09a.chunk.js.LICENSE.txt": "/2X/static/js/2.345bd09a.chunk.js.LICENSE.txt"
+    "static/js/2.6951d87e.chunk.js.LICENSE.txt": "/2X/static/js/2.6951d87e.chunk.js.LICENSE.txt",
+    "static/media/bigLogo.adf8fb17.svg": "/2X/static/media/bigLogo.adf8fb17.svg",
+    "static/media/lilLogo.c5823faa.svg": "/2X/static/media/lilLogo.c5823faa.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.3bc74851.js",
-    "static/js/2.345bd09a.chunk.js",
-    "static/js/main.b78de27e.chunk.js"
+    "static/js/2.6951d87e.chunk.js",
+    "static/js/main.824edfdc.chunk.js"
   ]
 }
