@@ -78,6 +78,25 @@ const wagerStoreAddress = "0x38E88FFcfC3f921cf98002D39840A5B3C5d3a961";
 // Description text for 2X
 const description = "Make wagers that can be matched by anyone in a winner-take-all 1v1"
 
+const testWagerData = [
+    {
+        wagererAddress: "0xfbDF...a39e",
+        contractAddress: "0xc40...027d",
+        wagerAmount: 0.04,
+        contractDuration: 3600 * 7, // 3600 seconds / hour
+        contractCreated: dayjs().format("YYYY-MM-DD HH:mm:ss"),
+        contractExpires: dayjs().add(7, 'hour').format("YYYY-MM-DD HH:mm:ss")
+    },
+    {
+        wagererAddress: "0xfbDF...a39e",
+        contractAddress: "0xf39F...2266",
+        wagerAmount: 0.019,
+        contractDuration: 3600 * 5, // 3600 seconds / hour
+        contractCreated: dayjs().format("YYYY-MM-DD HH:mm:ss"),
+        contractExpires: dayjs().add(5, 'hour').format("YYYY-MM-DD HH:mm:ss")
+    }
+];
+
 const Splash = (props) => {
     const classes = useStyles();
 
@@ -86,7 +105,7 @@ const Splash = (props) => {
     /* Wager state variables */
     const [wagerAmount, setWagerAmount] = useState();
     const [wagerDuration, setWagerDuration] = useState();
-    const [wagersData, setWagersData] = useState([]);
+    const [wagersData, setWagersData] = useState(testWagerData);
     const [wagerFormOpen, setWagerFormOpen] = useState(false);
 
     /* Amount TextField validation */
@@ -143,7 +162,7 @@ const Splash = (props) => {
                 wagererAddress: "transaction",
                 contractAddress: "transaction",
                 wagerAmount: wagerAmount,
-                contractDuration: 3600 * wagerDuration, // 8400 seconds / day
+                contractDuration: 3600 * wagerDuration, // 3600 seconds / hour
                 contractCreated: dayjs().format("YYYY-MM-DD HH:mm:ss"),
                 contractExpires: dayjs().add(wagerDuration, 'hour').format("YYYY-MM-DD HH:mm:ss")
             };
