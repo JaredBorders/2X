@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: "center",
         textAlign: "center",
         minHeight: "90vh",
-        marginTop: 100,
+        marginTop: 50,
     },
     divide: {
         marginTop: 26,
@@ -75,7 +75,7 @@ const useStyles = makeStyles((theme) => ({
 const wagerStoreAddress = "0x38E88FFcfC3f921cf98002D39840A5B3C5d3a961";
 
 // Description text for 2X
-const description = "Wager ether that can be matched by anyone in a winner-take-all 1v1"
+const description = "Make wagers that can be matched by anyone in a winner-take-all 1v1"
 
 const Splash = (props) => {
     const classes = useStyles();
@@ -214,14 +214,14 @@ const Splash = (props) => {
                                     <Button
                                         className={classes.dialogButton}
                                         variant="outlined"
-                                        onClick={onFinalizeWagerPressed}>
-                                        Finalize Wager
+                                        onClick={onCancelPressed}>
+                                        Cancel
                                     </Button>
                                     <Button
                                         className={classes.dialogButton}
                                         variant="outlined"
-                                        onClick={onCancelPressed}>
-                                        Cancel
+                                        onClick={onFinalizeWagerPressed}>
+                                        Finalize Wager
                                     </Button>
                                 </DialogActions>
                             </Dialog>
