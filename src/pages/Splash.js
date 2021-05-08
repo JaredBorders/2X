@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ethers } from "ethers";
 import WagerStore from "../artifacts/contracts/WagerStore.sol/WagerStore.json";
+import { ReactComponent as BigLogo } from '../designs/bigLogo.svg';
 import {
     Container,
     Typography,
@@ -56,9 +57,10 @@ const useStyles = makeStyles((theme) => ({
         width: 250,
     },
     formControl: {
-        margin: theme.spacing(1),
-        width: 230,
-      },
+        marginLeft: theme.spacing(1),
+        marginRight: theme.spacing(1),
+        width: 250,
+    },
     actionContainer: {
         marginBottom: 36
     },
@@ -94,7 +96,7 @@ const Splash = (props) => {
         clearWagerInfo();
         setWagerFormOpen(true);
     };
-    
+
     const handleWagerDurationChange = (e) => {
         setWagerDuration(e.target.value);
     }
@@ -148,7 +150,9 @@ const Splash = (props) => {
             <div className={classes.main}>
                 <Grid container spacing={4} justify="center">
                     <Grid item xs={12}>
-                        <Typography variant="h1" color="secondary">2X</Typography>
+                        <Grid container justify="center">
+                            <BigLogo width="400px" height="400px" />
+                        </Grid>
                         <Typography variant="overline">{description}</Typography>
                         <div className={classes.divide}>
                             <Divider dark />
@@ -165,64 +169,59 @@ const Splash = (props) => {
                             </Button>
                             <Dialog
                                 open={wagerFormOpen}
-                                onClose={onFinalizeWagerPressed}
+                                onClose={onCancelPressed}
                                 className={classes.dialog}
                                 aria-labelledby="Specify wager details"
                                 aria-describedby="Set wager amount and duration and then confirm or cancel"
                             >
                                 <DialogTitle>{"Specify Wager Details"}</DialogTitle>
                                 <DialogContent>
-                                    <Grid container direction="column" alignItems="center">
-                                        <Grid item xs={12}>
-                                            <TextField
-                                                label="Amount"
-                                                color="secondary"
-                                                variant="filled"
-                                                type="number"
-                                                value={wagerAmount}
-                                                InputProps={{
-                                                    startAdornment: <InputAdornment position="start">ETH</InputAdornment>,
-                                                }}
-                                                onChange={handleAmountChange}
-                                            />
-                                        </Grid>
-                                        <Grid item xs={12}>
-                                            <FormControl color="secondary" variant="filled" className={classes.formControl}>
-                                                <InputLabel htmlFor="filled-age-native-simple">Duration (Hours)</InputLabel>
-                                                <Select
-                                                    native
-                                                    value={wagerDuration}
-                                                    onChange={handleWagerDurationChange}
-                                                    inputProps={{
-                                                        name: 'duration',
-                                                        id: 'filled-age-native-simple',
-                                                    }}
-                                                >
-                                                    <option aria-label="None" value="" />
-                                                    <option value={1}>1</option>
-                                                    <option value={2}>2</option>
-                                                    <option value={3}>3</option>
-                                                    <option value={4}>4</option>
-                                                    <option value={5}>5</option>
-                                                    <option value={6}>6</option>
-                                                    <option value={7}>7</option>
-                                                </Select>
-                                            </FormControl>
-                                        </Grid>
-                                    </Grid>
+                                    <TextField
+                                        className={classes.formControl}
+                                        label="Amount"
+                                        color="secondary"
+                                        variant="filled"
+                                        type="number"
+                                        value={wagerAmount}
+                                        InputProps={{
+                                            startAdornment: <InputAdornment position="start">ETH</InputAdornment>,
+                                        }}
+                                        onChange={handleAmountChange}
+                                    />
+                                    <FormControl color="secondary" variant="filled" className={classes.formControl}>
+                                        <InputLabel htmlFor="filled-age-native-simple">Duration (Hours)</InputLabel>
+                                        <Select
+                                            native
+                                            value={wagerDuration}
+                                            onChange={handleWagerDurationChange}
+                                            inputProps={{
+                                                name: 'duration',
+                                                id: 'filled-age-native-simple',
+                                            }}
+                                        >
+                                            <option aria-label="None" value="" />
+                                            <option value={1}>1</option>
+                                            <option value={2}>2</option>
+                                            <option value={3}>3</option>
+                                            <option value={4}>4</option>
+                                            <option value={5}>5</option>
+                                            <option value={6}>6</option>
+                                            <option value={7}>7</option>
+                                        </Select>
+                                    </FormControl>
                                 </DialogContent>
                                 <DialogActions className={classes.dialogActions}>
                                     <Button
                                         className={classes.dialogButton}
                                         variant="outlined"
-                                        onClick={onCancelPressed}>
-                                        Cancel
+                                        onClick={onFinalizeWagerPressed}>
+                                        Finalize Wager
                                     </Button>
                                     <Button
                                         className={classes.dialogButton}
                                         variant="outlined"
-                                        onClick={onFinalizeWagerPressed}>
-                                        Finalize Wager
+                                        onClick={onCancelPressed}>
+                                        Cancel
                                     </Button>
                                 </DialogActions>
                             </Dialog>

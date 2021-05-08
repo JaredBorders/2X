@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { ReactComponent as LilLogo } from '../../designs/lilLogo.svg';
 import {
     makeStyles,
     AppBar,
@@ -7,6 +8,7 @@ import {
     Button,
     Menu,
     MenuItem,
+    SvgIcon,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 
@@ -51,11 +53,19 @@ const Header = () => {
         setAnchorEl(null);
     };
 
+    function Icon() {
+        return (
+          <SvgIcon >
+            <LilLogo width="24px" height="24px"/>
+          </SvgIcon>
+        );
+      }
 
     return (
         <div className={classes.root}>
             <AppBar className={classes.appBar}>
                 <Toolbar>
+                    <Icon />
                     <Typography variant="h6" className={classes.title}>
                         2X
                     </Typography>
