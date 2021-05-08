@@ -1,4 +1,4 @@
-# 2X
+# [2X](https://jaredborders.github.io/2X/)
 dApp allowing participants to wager ether in a 1v1 betting format
 
 ## Motivation
