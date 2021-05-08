@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ethers } from "ethers";
 import WagerStore from "../artifacts/contracts/WagerStore.sol/WagerStore.json";
 import { ReactComponent as BigLogo } from '../designs/bigLogo.svg';
@@ -18,7 +18,9 @@ import {
     FormControl,
     InputLabel,
     Select,
+    Snackbar,
 } from "@material-ui/core";
+import MuiAlert from '@material-ui/lab/Alert';
 import dayjs from "dayjs";
 import WagerCard from "../components/WagerCard";
 
@@ -26,7 +28,6 @@ const useStyles = makeStyles((theme) => ({
     main: {
         justifyContent: "center",
         textAlign: "center",
-        minHeight: "90vh",
         marginTop: 50,
     },
     divide: {
@@ -80,6 +81,8 @@ const description = "Make wagers that can be matched by anyone in a winner-take-
 const Splash = (props) => {
     const classes = useStyles();
 
+    const [hasWallet, seHasWallet] = useState(false);
+
     /* Wager state variables */
     const [wagerAmount, setWagerAmount] = useState();
     const [wagerDuration, setWagerDuration] = useState();
@@ -93,6 +96,9 @@ const Splash = (props) => {
 
     /* Wager Form Modal Dialog */
     const onMakeWagerBtnPressed = () => {
+        if (!hasWallet) {
+            setAlertOpen(true);
+        }
         clearWagerInfo();
         setWagerFormOpen(true);
     };
@@ -145,14 +151,44 @@ const Splash = (props) => {
         }
     }
 
+    /* Check if browser is running Metamask */
+    useEffect(() => {
+        const checkConnection = async () => {
+            if (window.ethereum || window.web3) {
+                seHasWallet(true);
+            } else {
+                setAlertOpen(true);
+            }
+        };
+        checkConnection();
+    }, []);
+
+    function Alert(props) {
+        return <MuiAlert elevation={6} variant="filled" {...props} />;
+    }
+
+    const [alertOpen, setAlertOpen] = useState(false);
+
+    const handleAlertClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setAlertOpen(false);
+    };
+
     return (
         <Container maxWidth="md">
             <div className={classes.main}>
-                <Grid container spacing={4} justify="center">
+                <Snackbar open={alertOpen} autoHideDuration={12000} onClose={handleAlertClose}>
+                    <Alert onClose={handleAlertClose} severity="error">
+                        Metamask Wallet not detected! See https://metamask.io
+                    </Alert>
+                </Snackbar>
+                <Grid container spacing={1} justify="center">
                     <Grid item xs={12}>
-                        <Grid container justify="center">
-                            <BigLogo width="400px" height="400px" />
-                        </Grid>
+                        <BigLogo width="400px" height="400px" />
+                    </Grid>
+                    <Grid item xs={12}>
                         <Typography variant="overline">{description}</Typography>
                         <div className={classes.divide}>
                             <Divider dark />
@@ -217,12 +253,22 @@ const Splash = (props) => {
                                         onClick={onCancelPressed}>
                                         Cancel
                                     </Button>
-                                    <Button
-                                        className={classes.dialogButton}
-                                        variant="outlined"
-                                        onClick={onFinalizeWagerPressed}>
-                                        Finalize Wager
-                                    </Button>
+                                    {hasWallet ? (
+                                        <Button
+                                            className={classes.dialogButton}
+                                            variant="outlined"
+                                            onClick={onFinalizeWagerPressed}>
+                                            Finalize Wager
+                                        </Button>
+                                    ) : (
+                                        <Button
+                                            className={classes.dialogButton}
+                                            variant="outlined"
+                                            onClick={onFinalizeWagerPressed}
+                                            disabled>
+                                            Finalize Wager
+                                        </Button>
+                                    )}
                                 </DialogActions>
                             </Dialog>
                         </Grid>
