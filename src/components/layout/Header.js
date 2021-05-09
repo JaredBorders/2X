@@ -11,6 +11,9 @@ import {
     SvgIcon,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
+import AboutModal from "../Modals/AboutModal";
+import FAQModal from "../Modals/FAQModal";
+import DevelopersModal from "../Modals/DevelopersModal";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -55,11 +58,11 @@ const Header = () => {
 
     function Icon() {
         return (
-          <SvgIcon >
-            <LilLogo width="24px" height="24px"/>
-          </SvgIcon>
+            <SvgIcon >
+                <LilLogo width="24px" height="24px" />
+            </SvgIcon>
         );
-      }
+    }
 
     return (
         <div className={classes.root}>
@@ -71,28 +74,16 @@ const Header = () => {
                     </Typography>
                     {isDesktop ? (
                         <>
-                            <Button
-                                className={classes.menuButton}
-                                color="inherit">
-                                About
-                            </Button>
-                            <Button
-                                className={classes.menuButton}
-                                color="inherit">
-                                Developers
-                            </Button>
-                            <Button
-                                className={classes.menuButton}
-                                color="inherit">
-                                FAQ
-                            </Button>
+                            <AboutModal />
+                            <DevelopersModal />
+                            <FAQModal />
                         </>
                     ) : (
                         <>
                             <Button
-                                className={classes.menuButton} 
-                                aria-controls="simple-menu" 
-                                aria-haspopup="true" 
+                                className={classes.menuButton}
+                                aria-controls="simple-menu"
+                                aria-haspopup="true"
                                 onClick={handleBurgerClick}>
                                 <MenuIcon />
                             </Button>
@@ -103,9 +94,9 @@ const Header = () => {
                                 open={Boolean(anchorEl)}
                                 onClose={handleClose}
                             >
-                                <MenuItem onClick={handleClose}>About</MenuItem>
-                                <MenuItem onClick={handleClose}>Developers</MenuItem>
-                                <MenuItem onClick={handleClose}>FAQ</MenuItem>
+                                <MenuItem onClick={handleClose}>{<AboutModal />}</MenuItem>
+                                <MenuItem onClick={handleClose}>{<DevelopersModal />}</MenuItem>
+                                <MenuItem onClick={handleClose}>{<FAQModal />}</MenuItem>
                             </Menu>
                         </>
                     )}
