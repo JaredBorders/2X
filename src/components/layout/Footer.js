@@ -35,7 +35,7 @@ const Footer = () => {
                     &copy; 2021 2X
                 </p>
                 <div className={classes.disclaimer}>
-                    <Link color="inherit">Disclaimer</Link>
+                    <Link href="https://github.com/JaredBorders/2X" color="inherit">Disclaimer</Link>
                 </div>
             </div>
         </div>
