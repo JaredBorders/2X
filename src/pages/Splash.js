@@ -78,6 +78,9 @@ const wagerStoreAddress = "0x38E88FFcfC3f921cf98002D39840A5B3C5d3a961";
 // Description text for 2X
 const description = "Make wagers that can be matched by anyone in a winner-take-all 1v1"
 
+// Alert message
+const alertText = "Metamask Wallet not detected!"
+
 const testWagerData = [
     {
         wagererAddress: "0xfbDF...a39e",
@@ -97,10 +100,8 @@ const testWagerData = [
     }
 ];
 
-const Splash = (props) => {
+const Splash = () => {
     const classes = useStyles();
-
-    const [hasWallet, seHasWallet] = useState(false);
 
     /* Wager state variables */
     const [wagerAmount, setWagerAmount] = useState();
@@ -108,16 +109,23 @@ const Splash = (props) => {
     const [wagersData, setWagersData] = useState(testWagerData);
     const [wagerFormOpen, setWagerFormOpen] = useState(false);
 
+    /* Wallet state */
+    const [hasWallet, seHasWallet] = useState(false);
+
+    /* Snackbar Alert state */
+    const [alertOpen, setAlertOpen] = useState(false);
+
     /* Amount TextField validation */
     const handleAmountChange = (e) => {
         setWagerAmount(e.target.value);
     }
 
-    /* Wager Form Modal Dialog */
+    /* Wager Form Modal */
     const onMakeWagerBtnPressed = () => {
-        if (!hasWallet) {
+        if (!hasWallet) { 
+            // Alert user again when they try to make wager
             setAlertOpen(true);
-        }
+        } 
         clearWagerInfo();
         setWagerFormOpen(true);
     };
@@ -138,6 +146,7 @@ const Splash = (props) => {
         clearWagerInfo();
     }
 
+    /* Helper: Clear out all field data in modal */
     function clearWagerInfo() {
         setWagerAmount();
         setWagerDuration();
@@ -182,11 +191,10 @@ const Splash = (props) => {
         checkConnection();
     }, []);
 
+    /* Alert component */
     function Alert(props) {
         return <MuiAlert elevation={6} variant="filled" {...props} />;
     }
-
-    const [alertOpen, setAlertOpen] = useState(false);
 
     const handleAlertClose = (event, reason) => {
         if (reason === 'clickaway') {
@@ -200,7 +208,7 @@ const Splash = (props) => {
             <div className={classes.main}>
                 <Snackbar open={alertOpen} autoHideDuration={12000} onClose={handleAlertClose}>
                     <Alert onClose={handleAlertClose} severity="error">
-                        Metamask Wallet not detected! See https://metamask.io
+                        {alertText}
                     </Alert>
                 </Snackbar>
                 <Grid container spacing={1} justify="center">
