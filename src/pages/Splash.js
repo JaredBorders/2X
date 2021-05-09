@@ -79,7 +79,7 @@ const wagerStoreAddress = "0x38E88FFcfC3f921cf98002D39840A5B3C5d3a961";
 const description = "Make wagers that can be matched by anyone in a winner-take-all 1v1"
 
 // Alert message
-const alertText = "Metamask Wallet not detected!"
+const alertText = "Metamask Wallet not detected! To use 2X, you need a Crypto Wallet."
 
 const testWagerData = [
     {
