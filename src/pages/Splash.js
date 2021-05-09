@@ -213,7 +213,7 @@ const Splash = () => {
                 </Snackbar>
                 <Grid container spacing={1} justify="center">
                     <Grid item xs={12}>
-                        <BigLogo width="400px" height="400px" />
+                        <BigLogo width="350px" height="350px" />
                     </Grid>
                     <Grid item xs={12}>
                         <Typography variant="overline">{description}</Typography>
