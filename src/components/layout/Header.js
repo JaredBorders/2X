@@ -21,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
     },
     menuButton: {
         padding: "16px",
-        marginRight: 16,
     },
     title: {
         flexGrow: 1,
@@ -69,9 +68,7 @@ const Header = () => {
             <AppBar className={classes.appBar}>
                 <Toolbar>
                     <Icon />
-                    <Typography variant="h6" className={classes.title}>
-                        2X
-                    </Typography>
+                    <Typography variant="h6" className={classes.title} />
                     {isDesktop ? (
                         <>
                             <AboutModal />

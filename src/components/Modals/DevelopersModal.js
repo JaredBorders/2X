@@ -7,6 +7,7 @@ import {
     DialogContent,
     DialogContentText,
     DialogActions,
+    Link,
 } from "@material-ui/core";
 
 const useStyles = makeStyles(() => ({
@@ -42,14 +43,26 @@ const DevelopersModal = () => {
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
             >
-                <DialogTitle id="alert-dialog-title">{"Developers"}</DialogTitle>
+                <DialogTitle id="Developer links">{"Developers"}</DialogTitle>
                 <DialogContent>
                     <div>
-                        <DialogContentText id="alert-dialog-description">
-                            Jared Borders: https://github.com/JaredBorders
+                        <DialogContentText id="Jared Borders">
+                            {
+                                <Link 
+                                    href="https://github.com/JaredBorders" 
+                                    color="inherit">
+                                    Jared Borders
+                                </Link>
+                            }
                         </DialogContentText>
-                        <DialogContentText id="alert-dialog-description">
-                            Austin Robinson: https://github.com/84bluedevil
+                        <DialogContentText id="Austin Robinson">
+                            {
+                                <Link 
+                                    href="https://github.com/84bluedevil" 
+                                    color="inherit">
+                                    Austin Robinson
+                                </Link>
+                            }
                         </DialogContentText>
                     </div>
                 </DialogContent>

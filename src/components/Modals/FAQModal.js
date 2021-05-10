@@ -35,33 +35,40 @@ const FAQModal = () => {
                 color="inherit"
                 onClick={handleFaqClickOpen}>
                 FAQ
-                            </Button>
+            </Button>
             <Dialog
                 open={faqOpen}
                 onClose={handleFaqClose}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
             >
-                <DialogTitle id="alert-dialog-title">{"FAQ"}</DialogTitle>
+                <DialogTitle id="Frequently asked questions">{"FAQ"}</DialogTitle>
                 <DialogContent>
                     <div>
-                        <DialogContentText id="alert-dialog-description">
-                            Question: Why do I need a wallet? Answer: A user needs a metamask
-                            wallet to automatically manage their public/private keys and
-                            cryptocurrency which 2X interacts with (with your permission)
-                            to pay gas fees and place/challenge new wagers.
-                </DialogContentText>
-                        <DialogContentText id="alert-dialog-description">
-                            Question: Are wagers final? Answer: Once placed, the wager cannot
+                        <DialogContentText id="Why Metamask">
+                            Question: Why do I need Metamask?
+                        </DialogContentText>
+                        <DialogContentText id="Explain the purpose of Metamask">
+                            Answer: A user needs a Metamask wallet to automatically
+                            manage their public/private keys and cryptocurrency.
+                            Metamask also asks for your explicit permission
+                            before spending your currency on gas or for making/challenging
+                            wagers.
+                        </DialogContentText>
+                        <DialogContentText id="Are wagers final">
+                            Question: Are wagers final?
+                        </DialogContentText>
+                        <DialogContentText id="Explain the way wagers work">
+                            Answer: Once placed, the wager cannot
                             be canceled. However, after the duration period set by you expires,
                             2X sends back funds to the address who created the wager.
-                </DialogContentText>
+                        </DialogContentText>
                     </div>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleFaqClose} variant="outlined">
                         Dismiss
-            </Button>
+                    </Button>
                 </DialogActions>
             </Dialog>
         </>

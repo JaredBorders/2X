@@ -23,8 +23,9 @@ const useStyles = makeStyles((theme) => ({
     },
     disclaimer: {
         marginRight: theme.spacing(6),
-    }
+    },
 }));
+
 const Footer = () => {
     const classes = useStyles();
     return (
@@ -35,7 +36,7 @@ const Footer = () => {
                     &copy; 2021 2X
                 </p>
                 <div className={classes.disclaimer}>
-                    <Link href="https://github.com/JaredBorders/2X" color="inherit">Disclaimer</Link>
+                    <Link href="https://github.com/JaredBorders/2X" color="inherit">Github</Link>
                 </div>
             </div>
         </div>

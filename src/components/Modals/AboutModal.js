@@ -7,6 +7,7 @@ import {
     DialogContent,
     DialogContentText,
     DialogActions,
+    Link,
 } from "@material-ui/core";
 
 const useStyles = makeStyles(() => ({
@@ -39,18 +40,36 @@ const AboutModal = () => {
             <Dialog
                 open={aboutOpen}
                 onClose={handleAboutClose}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
+                aria-labelledby="What is 2X?"
+                aria-describedby="Description of 2X and the technology used to build it"
             >
-                <DialogTitle id="alert-dialog-title">{"What is 2X?"}</DialogTitle>
+                <DialogTitle id="2X is a decentralized application">{"What is 2X?"}</DialogTitle>
                 <DialogContent>
-                    <DialogContentText id="alert-dialog-description">
-                        2X is a decentralized application that allows users to wager
-                        ether in 1v1 winner-take-all gamble. These wagers are secured by the
-                        ethereum blockchain and randomness is provided via an Oracle created/maintained
-                        by Chainlink. Two smart contracts written in Solidity manage the
-                        creation of wagers and these deployed wagers can be seen on Etherscan.
-                        Exisiting wagers can be seen and challenged under the "Open Wager" text.
+                    <DialogContentText id="Desrcibe 2X's function">
+                        2X is a decentralized application (dApp) that allows 
+                        users to wager ether in a 1v1 winner-take-all gamble.
+                    </DialogContentText>
+                    <DialogContentText id="Describe how 2X is secure">
+                        These wagers are secured by the ethereum blockchain 
+                        and randomness is provided via an Oracle created and 
+                        maintained by {
+                                <Link 
+                                    href="https://blog.chain.link/verifiable-random-functions-vrf-random-number-generation-rng-feature/"
+                                    color="inherit">
+                                    Chainlink.
+                                </Link>
+                            }
+                    </DialogContentText>
+                    <DialogContentText id="Describe the smart contracts which handle logic">
+                        Two smart contracts (Wager.sol & WagerStore.sol)
+                        written in Solidity handle all of the logic behind 2X.
+                        The WagerStore contract deploys Wager contracts on behalf of
+                        the user.
+                    </DialogContentText>
+                    <DialogContentText id="Describe how to check deployed Wager contracts">
+                        All deloyed Wager contracts can be seen on
+                        Etherscan by searching the "Contract Address" provided within each
+                        Wager Card.
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
