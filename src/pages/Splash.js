@@ -76,10 +76,12 @@ const useStyles = makeStyles((theme) => ({
 const wagerStoreAddress = "0x38E88FFcfC3f921cf98002D39840A5B3C5d3a961";
 
 // Description text for 2X
-const description = "Make wagers that can be matched by anyone in a winner-take-all 1v1"
+const description = "The Ethereum Blockchain provides a perfect ecosystem for trustless and highly secure gambling. " +
+                    "2X leverages this technology to allow users to make 1v1, winner-take-all wagers that can be matched " +
+                    "by anybody with a Metamask wallet."
 
 // Alert message
-const alertText = "Metamask Wallet not detected! To use 2X, you need a Crypto Wallet."
+const alertText = "Metamask wallet not detected!"
 
 const testWagerData = [
     {

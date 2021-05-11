@@ -45,12 +45,12 @@ const AboutModal = () => {
             >
                 <DialogTitle id="2X is a decentralized application">{"What is 2X?"}</DialogTitle>
                 <DialogContent>
-                    <DialogContentText id="Desrcibe 2X's function">
+                    <DialogContentText id="Desrcibe 2X's function/purpose">
                         2X is a decentralized application (dApp) that allows 
                         users to wager ether in a 1v1 winner-take-all gamble.
                     </DialogContentText>
                     <DialogContentText id="Describe how 2X is secure">
-                        These wagers are secured by the ethereum blockchain 
+                        These wagers are secured by the Ethereum Blockchain 
                         and randomness is provided via an Oracle created and 
                         maintained by {
                                 <Link 
@@ -68,7 +68,7 @@ const AboutModal = () => {
                     </DialogContentText>
                     <DialogContentText id="Describe how to check deployed Wager contracts">
                         All deloyed Wager contracts can be seen on
-                        Etherscan by searching the "Contract Address" provided within each
+                        Etherscan by searching the "Wager Address" provided within each
                         Wager Card.
                     </DialogContentText>
                 </DialogContent>

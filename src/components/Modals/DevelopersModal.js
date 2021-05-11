@@ -51,7 +51,7 @@ const DevelopersModal = () => {
                                 <Link 
                                     href="https://github.com/JaredBorders" 
                                     color="inherit">
-                                    Jared Borders
+                                    {"        Jared Borders        "}
                                 </Link>
                             }
                         </DialogContentText>
@@ -60,7 +60,7 @@ const DevelopersModal = () => {
                                 <Link 
                                     href="https://github.com/84bluedevil" 
                                     color="inherit">
-                                    Austin Robinson
+                                    {"        Austin Robinson        "}
                                 </Link>
                             }
                         </DialogContentText>
