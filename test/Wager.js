@@ -1,0 +1,115 @@
+const { expect } = require("chai");
+
+describe("Wager contract", () => {
+    let Wager, wager, owner, addr1, addr2;
+    let vmException = "VM Exception while processing transaction: revert ";
+
+    beforeEach(async () => {
+        [owner, addr1, addr2] = await ethers.getSigners();
+        Wager = await ethers.getContractFactory("Wager");
+        wager = await Wager.deploy(owner.address);
+    });
+
+    describe("Deployment", () => {
+        it("sets wager owner", async () => {
+            expect(await wager.wagerer()).to.equal(owner.address);
+        });
+    });
+
+    describe("Establishing Wager", () => {
+        it("allows wager amount and duration to be set", async () => {
+            await wager.establishWager(300, { 
+                value: ethers.utils.parseEther("0.001") 
+            });
+            expect(await wager.wagerAmount()).to.equal(ethers.utils.parseEther("0.001"));
+            expect(await wager.wagerExpireTime()).to.exist; // Hard to know exactly as it depends on block.timestamp
+        });
+
+        // it("allows wagerer to withdraw wager", async () => {
+        //     await wager.establishWager(300, { 
+        //         value: ethers.utils.parseEther("0.001") 
+        //     });
+        //     expect(await wager.wagerAmount()).to.equal(ethers.utils.parseEther("0.001"));
+        //     await wager.withdrawWager();
+        //     expect(await wager.wagerAmount()).to.equal(ethers.utils.parseEther("0"));
+        // });
+
+        it("prevents duration less than 300 seconds", async () => {
+            try {
+                await wager.establishWager(299, {
+                    value: ethers.utils.parseEther("0.001")
+                });
+            } catch (error) {
+                expect(error.message).to.equal(
+                    vmException + "Duration of wager availability is too short (<5 minutes)"
+                );
+            }
+        });
+
+        it("prevents wagers that are less that 0.0001 ETH", async () => {
+            try {
+                await wager.establishWager(300, {
+                    value: ethers.utils.parseEther("0.00001")
+                });
+            } catch (error) {
+                expect(error.message).to.equal(
+                    vmException + "Must wager at least 0.0001 ether"
+                );
+            }
+        });
+
+        it("prevents non-owner from making wager", async () => {
+            try {
+                await wager.connect(addr1).establishWager(300, { 
+                    value: ethers.utils.parseEther("0.0001")
+                });
+            } catch (error) {
+                expect(error.message).to.equal(
+                    vmException + "Initializing a wager on another's contract is prohibited"
+                );
+            }
+        });
+    });
+
+    describe("Deciding winner", () => {
+        it("allows challenger to match wager", async () => {
+            await wager.establishWager(300, { 
+                value: ethers.utils.parseEther("0.001") 
+            });
+            await wager.connect(addr1).challenge(addr1.address, {
+                value: ethers.utils.parseEther("0.001") 
+            });
+            expect(await wager.wagerAmount()).to.equal(ethers.utils.parseEther("0.002"));
+        });
+
+        it("prevents challenger from entering wager with more ETH", async () => {
+            try {
+                await wager.establishWager(300, { 
+                    value: ethers.utils.parseEther("0.001") 
+                });
+                await wager.connect(addr1).challenge(addr1.address, {
+                    value: ethers.utils.parseEther("0.002") 
+                });
+            } catch (error) {
+                expect(error.message).to.equal(
+                    vmException + "You must wager the same amount"
+                );
+            }
+        });
+
+        it("prevents challenger from entering wager with less ETH", async () => {
+            try {
+                await wager.establishWager(300, { 
+                    value: ethers.utils.parseEther("0.002") 
+                });
+                await wager.connect(addr1).challenge(addr1.address, {
+                    value: ethers.utils.parseEther("0.001") 
+                });
+            } catch (error) {
+                expect(error.message).to.equal(
+                    vmException + "You must wager the same amount"
+                );
+            }
+        });
+    });
+});
