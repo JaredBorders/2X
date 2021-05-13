@@ -12,7 +12,7 @@ contract Wager is Pausable {
 
     /* STATE VARIABLES */
     address public wagerer; // Wager creator
-    uint constant MIN_WAGER = 0.001 ether; // Minimum stake of wager
+    uint constant MIN_WAGER = 100000000000000 wei; // Minimum stake of wager (0.0001 ETH)
     uint public wagerAmount; // Amount staked by wagerer
     uint constant MIN_DURATION = 300; // Duration of wager >= 5 minutes
     uint public wagerExpireTime; // To be determined by Wagerer
@@ -24,12 +24,12 @@ contract Wager is Pausable {
     }
 
     modifier validWagerDuration(uint _wagerDuration) {
-        require(_wagerDuration >= MIN_DURATION, "Duration of wager availability is too short (<5 minutes");
+        require(_wagerDuration >= MIN_DURATION, "Duration of wager availability is too short (<5 minutes)");
         _;
     }
 
     modifier validWagerAmount {
-        require(msg.value >= MIN_WAGER, "Must wager at least 0.001 ether");
+        require(msg.value >= MIN_WAGER, "Must wager at least 0.0001 ether");
         _;
     }
 
@@ -113,6 +113,13 @@ contract Wager is Pausable {
     {
         payable(wagerer).transfer(wagerAmount);
         paused();
+    }
+
+    /// Get Wager data
+    /// @dev an easy way to get all relevant wager data
+    /// @return wagerer address, wager amount, and wager expire time
+    function getWagerData() public view returns(address, uint, uint) {
+        return(wagerer, wagerAmount, wagerExpireTime);
     }
 
 }
