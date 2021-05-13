@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import {
     makeStyles,
     Card,
@@ -6,8 +7,6 @@ import {
     Typography
   } from "@material-ui/core";
   import { ThemeProvider, useTheme } from "@material-ui/core/styles";
-  
-
   
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -21,7 +20,6 @@ import {
       textAlign: "left",
       backgroundColor: "#1e273c",
       border: `1px solid #d81b60`,
-      ...theme.typography.button,
       padding: theme.spacing(1)
     },
     infoDisplay: {
@@ -35,7 +33,6 @@ import {
       height: "3rem",
       textAlign: "center",
       borderRadius: "10px",
-      //fontWeight: "bold",
       fontSize: "1.5rem",
       margin: "20px auto"
     },
@@ -66,6 +63,7 @@ import {
   }));
   
   const WagerCard = (props) => {
+
     const classes = useStyles();
     const theme = useTheme();
   
@@ -73,21 +71,18 @@ import {
       <ThemeProvider theme={theme}>
         <Card elevation={10} className={classes.root}>
           <Typography variant="" className={classes.infoDisplay} color="light">
-            <p className={classes.marginCenter}></p>
+           <p className={classes.marginCenter}>
+            {props.wagerAmount}19.08 ETH
+           </p>
           </Typography>
           <Typography gutterBottom>
             <p className={classes.lower}>
-              Wager Address:{" "}<span className={classes.textLight}>{props.wagererAddress}</span>
-              
+              Wager Address:{" "}<span className={classes.textLight}>{props.wagererAddress}</span>     
             </p>
-
           </Typography>
           <Typography gutterBottom>
             <p className={classes.lower}>
               Wagerer Address:{" "}<span className={classes.textLight}>{props.address}</span>
-              
-            
-            
             </p>
           </Typography>
           <CardActions>
@@ -97,7 +92,6 @@ import {
           </CardActions>
           <Typography className={classes.textLight} gutterBottom>
             <p className={classes.smallText}>{props.dateExpires}</p>{" "}
-            
           </Typography>
         </Card>
       </ThemeProvider>
