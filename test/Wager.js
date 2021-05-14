@@ -25,14 +25,14 @@ describe("Wager contract", () => {
             expect(await wager.wagerExpireTime()).to.exist; // Hard to know exactly as it depends on block.timestamp
         });
 
-        // it("allows wagerer to withdraw wager", async () => {
-        //     await wager.establishWager(300, { 
-        //         value: ethers.utils.parseEther("0.001") 
-        //     });
-        //     expect(await wager.wagerAmount()).to.equal(ethers.utils.parseEther("0.001"));
-        //     await wager.withdrawWager();
-        //     expect(await wager.wagerAmount()).to.equal(ethers.utils.parseEther("0"));
-        // });
+        it("allows wagerer to withdraw wager", async () => {
+            await wager.establishWager(300, { 
+                value: ethers.utils.parseEther("0.001") 
+            });
+            expect(await wager.wagerAmount()).to.equal(ethers.utils.parseEther("0.001"));
+            await wager.withdrawWager();
+            expect(await wager.wagerAmount()).to.equal(ethers.utils.parseEther("0"));
+        });
 
         it("prevents duration less than 300 seconds", async () => {
             try {
@@ -79,7 +79,7 @@ describe("Wager contract", () => {
             await wager.connect(addr1).challenge(addr1.address, {
                 value: ethers.utils.parseEther("0.001") 
             });
-            expect(await wager.wagerAmount()).to.equal(ethers.utils.parseEther("0.002"));
+            expect(await wager.wagerAmount()).to.equal(ethers.utils.parseEther("0"));
         });
 
         it("prevents challenger from entering wager with more ETH", async () => {

@@ -82,6 +82,7 @@ contract Wager is Pausable {
         paused(); // pause contract (i.e. don't allow any more calls to establishWager nor challenge)
         wagerAmount += uint(msg.value);
         findWinner(_challenger);
+        wagerAmount = 0; // reset wager amount
     }
 
     /// Determine who wins
@@ -112,6 +113,7 @@ contract Wager is Pausable {
         whenNotPaused
     {
         payable(wagerer).transfer(wagerAmount);
+        wagerAmount = 0; // reset wager amount
         paused();
     }
 
