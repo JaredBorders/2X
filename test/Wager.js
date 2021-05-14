@@ -26,6 +26,21 @@ describe("Wager contract", () => {
             expect(await wager.wagerExpireTime()).to.exist; // Hard to know exactly as it depends on block.timestamp
         });
 
+        it("allows for retrieval of wager details", async () => {
+            await wager.establishWager(300, { 
+                value: ethers.utils.parseEther("0.001") 
+            });
+            const wagerData = await wager.getWagerData();
+
+            // console.log("wagerer: " + wagerData[0]);
+            // console.log("wagerAmount: " + wagerData[1]);
+            // console.log("wagerDuration: " + wagerData[2]);
+
+            expect(wagerData[0]).to.equal(owner.address); // wagerer
+            expect(wagerData[1]).to.equal(ethers.utils.parseEther("0.001")); // wagerAmount
+            expect(wagerData[2] > 300); // wagerDuration
+        });
+
         it("allows wagerer to withdraw wager", async () => {
             await wager.establishWager(300, { 
                 value: ethers.utils.parseEther("0.001") 
