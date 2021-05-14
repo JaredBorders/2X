@@ -1,4 +1,5 @@
 const { expect } = require("chai");
+const { BigNumber } = ethers;
 
 describe("Wager contract", () => {
     let Wager, wager, owner, addr1, addr2;
@@ -76,10 +77,13 @@ describe("Wager contract", () => {
             await wager.establishWager(300, { 
                 value: ethers.utils.parseEther("0.001") 
             });
+            const preBalance = ethers.utils.formatEther(await owner.getBalance());
             await wager.connect(addr1).challenge(addr1.address, {
                 value: ethers.utils.parseEther("0.001") 
             });
             expect(await wager.wagerAmount()).to.equal(ethers.utils.parseEther("0"));
+            const postBalance = ethers.utils.formatEther(await owner.getBalance());
+            expect(preBalance > postBalance);
         });
 
         it("prevents challenger from entering wager with more ETH", async () => {
@@ -110,6 +114,33 @@ describe("Wager contract", () => {
                     vmException + "You must wager the same amount"
                 );
             }
+        });
+
+        it("sends eth to winner of wager", async () => {
+            /* Store value before betting begins */
+            const ownerPreBalance = ethers.utils.formatEther(await owner.getBalance());
+            const addr1PreBalance = ethers.utils.formatEther(await addr1.getBalance());
+
+            // console.log("ownerPreBalance: " + ownerPreBalance);
+            // console.log("addr1PreBalance: " + addr1PreBalance);
+
+            await wager.establishWager(300, {
+                value: ethers.utils.parseEther("1")
+            });
+
+            expect(ownerPreBalance > (await ethers.utils.formatEther(await owner.getBalance())));
+            
+            await wager.connect(addr1).challenge(addr1.address, {
+                value: ethers.utils.parseEther("1")
+            });
+
+            const ownerPostBalance = ethers.utils.formatEther(await owner.getBalance());
+            const addr1PostBalance = ethers.utils.formatEther(await addr1.getBalance());
+            
+            // console.log("ownerPostBalance: " + ownerPostBalance);
+            // console.log("addr1PostBalance: " + addr1PostBalance);
+            
+            expect(ownerPostBalance > ownerPreBalance || addr1PostBalance > addr1PreBalance);
         });
     });
 });
