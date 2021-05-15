@@ -13,7 +13,7 @@ import {
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
-      minWidth: 300,
+      minWidth: 420,
       borderRadius: "20px",
       margin: "20px auto",
       textAlign: "left",
@@ -61,10 +61,11 @@ import {
   }));
   
   const WagerCard = (props) => {
-
     const classes = useStyles();
+
     const theme = useTheme();
-    //override default mui styling 
+
+    //override default mui button styling 
     const StyledButton = withStyles({
       root: {
         color: "#fff",
