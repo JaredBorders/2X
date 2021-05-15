@@ -1,5 +1,4 @@
 const { expect } = require("chai");
-const { BigNumber } = ethers;
 
 describe("Wager contract", () => {
     let Wager, wager, owner, addr1, addr2;
