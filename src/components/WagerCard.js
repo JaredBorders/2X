@@ -14,8 +14,8 @@ import {
       flexDirection: "column",
       alignItems: "center",
       minWidth: 420,
-      borderRadius: "20px",
-      margin: "20px auto",
+      borderRadius: "1.3rem",
+      margin: "1rem auto",
       textAlign: "left",
       backgroundColor: "#1e273c",
       border: `1px solid #d81b60`,
@@ -31,16 +31,16 @@ import {
       minWidth: "10rem",
       height: "3rem",
       textAlign: "center",
-      borderRadius: "10px",
+      borderRadius: ".7rem",
       fontSize: "1.5rem",
-      margin: "20px auto"
+      margin: "1.4rem auto"
     },
     capitolText: {
       textTransform: "lowercase"
     },
     textLight: {
       color: "#C5C5C5",
-      marginLeft: '7px',
+      marginLeft: '.4rem',
       fontWeight: '400'
     },
     marginCenter: {
@@ -51,11 +51,11 @@ import {
       margin: 0,
       textTransform: "capitalize",
       color: "#D81B60",
-      fontSize: '24px',
+      fontSize: '1.5rem',
       fontWeight: '700'
     },
     smallText: {
-      fontSize: ".8rem",
+      fontSize: ".9rem",
       margin: "0"
     }
   }));
@@ -69,10 +69,10 @@ import {
     const StyledButton = withStyles({
       root: {
         color: "#fff",
-        width: "360px",
-        height: "64px",
-        borderRadius: "15px",
-        marginTop: "10px"
+        width: "23rem",
+        height: "4rem",
+        borderRadius: ".9rem",
+        marginTop: ".8rem"
       }
     })(Button);
   
