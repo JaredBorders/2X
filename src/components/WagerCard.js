@@ -6,16 +6,15 @@ import {
     Button,
     Typography
   } from "@material-ui/core";
-  import { ThemeProvider, useTheme } from "@material-ui/core/styles";
+  import { ThemeProvider, useTheme, withStyles } from "@material-ui/core/styles";
   
   const useStyles = makeStyles((theme) => ({
     root: {
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
-      minWidth: 275,
+      minWidth: 300,
       borderRadius: "20px",
-      maxWidth: 360,
       margin: "20px auto",
       textAlign: "left",
       backgroundColor: "#1e273c",
@@ -27,7 +26,7 @@ import {
       color: "#fff",
       alignItems: "center",
       justifySelf: "center",
-      backgroundColor: "#36454f",
+      backgroundColor: "#303645",
       width: "100%",
       minWidth: "10rem",
       height: "3rem",
@@ -40,25 +39,24 @@ import {
       textTransform: "lowercase"
     },
     textLight: {
-      color: "#C5C5C5"
+      color: "#C5C5C5",
+      marginLeft: '7px',
+      fontWeight: '400'
     },
     marginCenter: {
       margin: "auto auto auto auto",
       justifySelf: "center"
     },
-    lower: {
+    cardLabels: {
       margin: 0,
       textTransform: "capitalize",
-      color: "tomato"
+      color: "#D81B60",
+      fontSize: '24px',
+      fontWeight: '700'
     },
     smallText: {
       fontSize: ".8rem",
       margin: "0"
-    },
-    wgrBtn: {
-      color: "#fff",
-      width: "100%",
-      minWidth: "100%"
     }
   }));
   
@@ -66,6 +64,16 @@ import {
 
     const classes = useStyles();
     const theme = useTheme();
+    //override default mui styling 
+    const StyledButton = withStyles({
+      root: {
+        color: "#fff",
+        width: "360px",
+        height: "64px",
+        borderRadius: "15px",
+        marginTop: "10px"
+      }
+    })(Button);
   
     return (
       <ThemeProvider theme={theme}>
@@ -76,22 +84,22 @@ import {
            </p>
           </Typography>
           <Typography gutterBottom>
-            <p className={classes.lower}>
+            <p className={classes.cardLabels}>
               Wager Address:{" "}<span className={classes.textLight}>{props.wagererAddress}</span>     
             </p>
           </Typography>
           <Typography gutterBottom>
-            <p className={classes.lower}>
-              Wagerer Address:{" "}<span className={classes.textLight}>{props.address}</span>
+            <p className={classes.cardLabels}>
+              Contract Address:{" "}<span className={classes.textLight}>{props.address}</span>
             </p>
           </Typography>
           <CardActions>
-            <Button className={classes.wgrBtn} size="large" variant="outlined">
+            <StyledButton className={classes.wgrBtn} size="large" variant="outlined">
               Match Wager
-            </Button>
+            </StyledButton>
           </CardActions>
           <Typography className={classes.textLight} gutterBottom>
-            <p className={classes.smallText}>{props.dateExpires}</p>{" "}
+            <p className={classes.smallText}>expires: {props.dateExpires}</p>{" "}
           </Typography>
         </Card>
       </ThemeProvider>
