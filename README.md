@@ -17,8 +17,6 @@ Create a lean, user-friendly application that lets users safely wager varying am
 * Oracle: [Chainlink VRF](https://docs.chain.link/docs/chainlink-vrf)
 
 ## TODO
-* Smart contract testing
-* Front-end integration
 * Chainlink VRF Randomness implementation 
 * Vulnerability analysis w/ [Slither](https://github.com/crytic/slither)
 * After duration, send eth back to wagerer

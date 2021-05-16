@@ -37,4 +37,11 @@ contract WagerStore is Pausable {
         return wagerAddresses;
     }
 
+    function removeExpiredWagers() public {
+        for (uint i = 0; i < wagerAddresses.length; i++) {
+            // call wagerExpireTime() on each contract in array
+            // if expired remove contract address
+        }
+    }
+
 }
