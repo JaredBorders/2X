@@ -66,6 +66,8 @@ yarn start
 ```
 
 ## TODO
+* Adjust WagerCard size for mobile screens
+* Create wager field validation
 * Chainlink VRF Randomness implementation 
 * Vulnerability analysis w/ [Slither](https://github.com/crytic/slither)
 
