@@ -70,4 +70,4 @@ yarn start
 * Vulnerability analysis w/ [Slither](https://github.com/crytic/slither)
 
 ## How to Contribute?
-Please read this guide first! https://opensource.guide/how-to-contribute/
+Read [this guide](https://opensource.guide/how-to-contribute/) first, check TODO list, and don't hesitate to reach out!
