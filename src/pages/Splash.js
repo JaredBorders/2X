@@ -99,7 +99,23 @@ const testWagerData = [
         contractDuration: 3600 * 5, // 3600 seconds / hour
         contractCreated: dayjs().format("YYYY-MM-DD HH:mm:ss"),
         contractExpires: dayjs().add(5, 'hour').format("YYYY-MM-DD HH:mm:ss")
-    }
+    },
+    {
+        wagererAddress: "0xfbDF...a39e",
+        contractAddress: "0xf39F...2266",
+        wagerAmount: 0.019,
+        contractDuration: 3600 * 5, // 3600 seconds / hour
+        contractCreated: dayjs().format("YYYY-MM-DD HH:mm:ss"),
+        contractExpires: dayjs().add(5, 'hour').format("YYYY-MM-DD HH:mm:ss")
+    },
+    {
+        wagererAddress: "0xfbDF...a39e",
+        contractAddress: "0xf39F...2266",
+        wagerAmount: 0.019,
+        contractDuration: 3600 * 5, // 3600 seconds / hour
+        contractCreated: dayjs().format("YYYY-MM-DD HH:mm:ss"),
+        contractExpires: dayjs().add(5, 'hour').format("YYYY-MM-DD HH:mm:ss")
+    },
 ];
 
 const Splash = () => {
