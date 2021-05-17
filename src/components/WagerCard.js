@@ -57,6 +57,9 @@ import {
     smallText: {
       fontSize: ".9rem",
       margin: "0"
+    },
+    cap: {
+      textTransform: "capitolize"
     }
   }));
   
@@ -72,7 +75,9 @@ import {
         width: "23rem",
         height: "4rem",
         borderRadius: ".9rem",
-        marginTop: ".8rem"
+        marginTop: ".8rem",
+        textTransform: "capitalize",
+        fontSize: "1.5rem"
       }
     })(Button);
   
@@ -86,7 +91,7 @@ import {
           </Typography>
           <Typography gutterBottom>
             <p className={classes.cardLabels}>
-              Wager Address:{" "}<span className={classes.textLight}>{props.wagererAddress}</span>     
+              Wagerer Address:{" "}<span className={classes.textLight}>{props.wagererAddress}</span>     
             </p>
           </Typography>
           <Typography gutterBottom>
@@ -96,7 +101,7 @@ import {
           </Typography>
           <CardActions>
             <StyledButton className={classes.wgrBtn} size="large" variant="outlined">
-              Match Wager
+              <span className={classes.cap}>Match Wager</span>
             </StyledButton>
           </CardActions>
           <Typography className={classes.textLight} gutterBottom>
