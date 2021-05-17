@@ -5,9 +5,9 @@ describe("Wager contract", () => {
     let vmException = "VM Exception while processing transaction: revert ";
 
     beforeEach(async () => {
-        [owner, addr1, addr2] = await ethers.getSigners();
+        [owner, addr1, addr2, store] = await ethers.getSigners();
         Wager = await ethers.getContractFactory("Wager");
-        wager = await Wager.deploy(owner.address);
+        wager = await Wager.deploy(owner.address, store.address);
     });
 
     describe("Deployment", () => {
@@ -18,7 +18,7 @@ describe("Wager contract", () => {
 
     describe("Establishing Wager", () => {
         it("allows wager amount and duration to be set", async () => {
-            await wager.establishWager(300, { 
+            await wager.establishWager(300, {
                 value: ethers.utils.parseEther("0.001") 
             });
             expect(await wager.wagerAmount()).to.equal(ethers.utils.parseEther("0.001"));
@@ -26,7 +26,7 @@ describe("Wager contract", () => {
         });
 
         it("allows for retrieval of wager details", async () => {
-            await wager.establishWager(300, { 
+            await wager.establishWager(300, {
                 value: ethers.utils.parseEther("0.001") 
             });
             const wagerData = await wager.getWagerData();
@@ -38,15 +38,6 @@ describe("Wager contract", () => {
             expect(wagerData[0]).to.equal(owner.address); // wagerer
             expect(wagerData[1]).to.equal(ethers.utils.parseEther("0.001")); // wagerAmount
             expect(wagerData[2] > 300); // wagerDuration
-        });
-
-        it("allows wagerer to withdraw wager", async () => {
-            await wager.establishWager(300, { 
-                value: ethers.utils.parseEther("0.001") 
-            });
-            expect(await wager.wagerAmount()).to.equal(ethers.utils.parseEther("0.001"));
-            await wager.withdrawWager();
-            expect(await wager.wagerAmount()).to.equal(ethers.utils.parseEther("0"));
         });
 
         it("prevents duration less than 300 seconds", async () => {
