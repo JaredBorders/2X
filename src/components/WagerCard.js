@@ -65,7 +65,6 @@ import {
   
   const WagerCard = (props) => {
     const classes = useStyles();
-
     const theme = useTheme();
 
     //override default mui button styling 
@@ -86,7 +85,7 @@ import {
         <Card elevation={10} className={classes.root}>
           <Typography variant="" className={classes.infoDisplay} color="light">
            <p className={classes.marginCenter}>
-            {props.wagerAmount}19.08 ETH
+            {props.amount}
            </p>
           </Typography>
           <Typography gutterBottom>
