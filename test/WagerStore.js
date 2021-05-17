@@ -16,6 +16,7 @@ describe("WagerStore contract", () => {
             const wager =  await wagerStore.getWagers();
             expect(wager[0]).to.exist;
         });
+        
         it("creates a multiple Wagers", async () => {
             await wagerStore.createWagerContract();
             await wagerStore.createWagerContract();
