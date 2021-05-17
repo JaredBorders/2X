@@ -5,9 +5,9 @@ describe("Wager contract", () => {
     let vmException = "VM Exception while processing transaction: revert ";
 
     beforeEach(async () => {
-        [owner, addr1, addr2] = await ethers.getSigners();
+        [owner, addr1, addr2, store] = await ethers.getSigners();
         Wager = await ethers.getContractFactory("Wager");
-        wager = await Wager.deploy(owner.address);
+        wager = await Wager.deploy(owner.address, store.address);
     });
 
     describe("Deployment", () => {
@@ -18,21 +18,27 @@ describe("Wager contract", () => {
 
     describe("Establishing Wager", () => {
         it("allows wager amount and duration to be set", async () => {
-            await wager.establishWager(300, { 
+            await wager.establishWager(300, {
                 value: ethers.utils.parseEther("0.001") 
             });
             expect(await wager.wagerAmount()).to.equal(ethers.utils.parseEther("0.001"));
             expect(await wager.wagerExpireTime()).to.exist; // Hard to know exactly as it depends on block.timestamp
         });
 
-        // it("allows wagerer to withdraw wager", async () => {
-        //     await wager.establishWager(300, { 
-        //         value: ethers.utils.parseEther("0.001") 
-        //     });
-        //     expect(await wager.wagerAmount()).to.equal(ethers.utils.parseEther("0.001"));
-        //     await wager.withdrawWager();
-        //     expect(await wager.wagerAmount()).to.equal(ethers.utils.parseEther("0"));
-        // });
+        it("allows for retrieval of wager details", async () => {
+            await wager.establishWager(300, {
+                value: ethers.utils.parseEther("0.001") 
+            });
+            const wagerData = await wager.getWagerData();
+
+            // console.log("wagerer: " + wagerData[0]);
+            // console.log("wagerAmount: " + wagerData[1]);
+            // console.log("wagerDuration: " + wagerData[2]);
+
+            expect(wagerData[0]).to.equal(owner.address); // wagerer
+            expect(wagerData[1]).to.equal(ethers.utils.parseEther("0.001")); // wagerAmount
+            expect(wagerData[2] > 300); // wagerDuration
+        });
 
         it("prevents duration less than 300 seconds", async () => {
             try {
@@ -76,10 +82,13 @@ describe("Wager contract", () => {
             await wager.establishWager(300, { 
                 value: ethers.utils.parseEther("0.001") 
             });
+            const preBalance = ethers.utils.formatEther(await owner.getBalance());
             await wager.connect(addr1).challenge(addr1.address, {
                 value: ethers.utils.parseEther("0.001") 
             });
-            expect(await wager.wagerAmount()).to.equal(ethers.utils.parseEther("0.002"));
+            expect(await wager.wagerAmount()).to.equal(ethers.utils.parseEther("0"));
+            const postBalance = ethers.utils.formatEther(await owner.getBalance());
+            expect(preBalance > postBalance);
         });
 
         it("prevents challenger from entering wager with more ETH", async () => {
@@ -110,6 +119,33 @@ describe("Wager contract", () => {
                     vmException + "You must wager the same amount"
                 );
             }
+        });
+
+        it("sends eth to winner of wager", async () => {
+            /* Store value before betting begins */
+            const ownerPreBalance = ethers.utils.formatEther(await owner.getBalance());
+            const addr1PreBalance = ethers.utils.formatEther(await addr1.getBalance());
+
+            // console.log("ownerPreBalance: " + ownerPreBalance);
+            // console.log("addr1PreBalance: " + addr1PreBalance);
+
+            await wager.establishWager(300, {
+                value: ethers.utils.parseEther("1")
+            });
+
+            expect(ownerPreBalance > (await ethers.utils.formatEther(await owner.getBalance())));
+            
+            await wager.connect(addr1).challenge(addr1.address, {
+                value: ethers.utils.parseEther("1")
+            });
+
+            const ownerPostBalance = ethers.utils.formatEther(await owner.getBalance());
+            const addr1PostBalance = ethers.utils.formatEther(await addr1.getBalance());
+            
+            // console.log("ownerPostBalance: " + ownerPostBalance);
+            // console.log("addr1PostBalance: " + addr1PostBalance);
+            
+            expect(ownerPostBalance > ownerPreBalance || addr1PostBalance > addr1PreBalance);
         });
     });
 });

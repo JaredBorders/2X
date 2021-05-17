@@ -2,6 +2,7 @@
 pragma solidity ^0.8.3;
 
 import "@openzeppelin/contracts/security/Pausable.sol";
+import "./WagerStore.sol";
 
 /* Change Request: getRandom() may be subject to manipulation; use ChainLink VRF Oracle */
 /* Change Request: After duration, send eth back to wagerer */
@@ -11,6 +12,7 @@ import "@openzeppelin/contracts/security/Pausable.sol";
 contract Wager is Pausable {
 
     /* STATE VARIABLES */
+    address public store;
     address public wagerer; // Wager creator
     uint constant MIN_WAGER = 100000000000000 wei; // Minimum stake of wager (0.0001 ETH)
     uint public wagerAmount; // Amount staked by wagerer
@@ -46,9 +48,10 @@ contract Wager is Pausable {
     /* CONSTRUCTOR */
     /// Set wagerer address to be the contract caller
     /// @param _owner - the owner to be recognized by this contract. Not necessarily `msg.sender` nor `tx.origin`
-    constructor(address _owner) 
+    constructor(address _owner, address _store)
         payable 
     {
+        store = _store;
         wagerer = _owner;
     }
 
@@ -82,6 +85,7 @@ contract Wager is Pausable {
         paused(); // pause contract (i.e. don't allow any more calls to establishWager nor challenge)
         wagerAmount += uint(msg.value);
         findWinner(_challenger);
+        wagerAmount = 0; // reset wager amount
     }
 
     /// Determine who wins
@@ -105,21 +109,19 @@ contract Wager is Pausable {
         return uint(keccak256(abi.encodePacked(block.timestamp, block.number,block.difficulty))) % 2;
     }
 
-    /// Withdraw wager
-    /// @dev sends wagered money back to wagerer if wager hasn't completed
-    function withdrawWager() 
-        external 
-        whenNotPaused
-    {
-        payable(wagerer).transfer(wagerAmount);
-        paused();
-    }
-
     /// Get Wager data
     /// @dev an easy way to get all relevant wager data
     /// @return wagerer address, wager amount, and wager expire time
     function getWagerData() public view returns(address, uint, uint) {
         return(wagerer, wagerAmount, wagerExpireTime);
+    }
+
+    function removeWagerIfExpired() public {
+        WagerStore(store).removeAddress(
+            WagerStore(store).findIndexOfAddress(
+                address(this)
+            )
+        );
     }
 
 }
