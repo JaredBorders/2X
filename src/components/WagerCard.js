@@ -29,10 +29,10 @@ import {
       backgroundColor: "#303645",
       width: "100%",
       minWidth: "10rem",
-      height: "3rem",
+      height: "3.3rem",
       textAlign: "center",
       borderRadius: ".7rem",
-      fontSize: "1.5rem",
+      fontSize: "1.6rem",
       margin: "1.4rem auto"
     },
     capitolText: {
