@@ -120,8 +120,7 @@ const Splash = () => {
         checkConnection();
     });
 
-    /* Only fetches valid wagers when (1) page initially renders and 
-    (2) when a new address is added to wagerAddresses */
+    /* Fetches valid wagers */
     useEffect(() => {
         fetchValidWagersFromBlockchain();
     }, []);
