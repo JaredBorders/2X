@@ -69,6 +69,7 @@ yarn start
 * Adjust WagerCard size for mobile screens
 * Create wager field validation
 * Chainlink VRF Randomness implementation 
+* Find way to easily get LINK on mainnet for/from user
 * Vulnerability analysis w/ [Slither](https://github.com/crytic/slither)
 
 ## How to Contribute?
