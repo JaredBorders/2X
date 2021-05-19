@@ -47,7 +47,8 @@ contract Wager is Pausable {
 
     /* CONSTRUCTOR */
     /// Set wagerer address to be the contract caller
-    /// @param _owner - the owner to be recognized by this contract. Not necessarily `msg.sender` nor `tx.origin`
+    /// @param _owner - the owner address to be recognized by this contract. Not necessarily `msg.sender` nor `tx.origin`
+    /// @param _store - the WagerStore address which created this contract
     constructor(address _owner, address _store)
         payable 
     {
