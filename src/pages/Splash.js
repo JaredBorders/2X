@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { ethers } from "ethers";
 import WagerStore from "../artifacts/contracts/WagerStore.sol/WagerStore.json";
+import Wager from "../artifacts/contracts/Wager.sol/Wager.json";
 import { ReactComponent as BigLogo } from '../designs/bigLogo.svg';
 import {
     Container,
@@ -72,66 +73,104 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-// Address contract(s) was/were deployed to via $ npx hardhat run scripts/deploy.js {network}
-const wagerStoreAddress = "0x38E88FFcfC3f921cf98002D39840A5B3C5d3a961";
+/* Address contract(s) was/were deployed to via $ npx hardhat run scripts/deploy.js {network} */
+const wagerStoreAddress = "0x2746bdbafAd82A84fbB9093a69a51387bBfC1098"; // Currently Kovan Network
 
-// Description text for 2X
+/* Description text for 2X */
 const description = "The Ethereum Blockchain provides a perfect ecosystem for trustless and highly secure gambling. " +
                     "2X leverages this technology to allow users to make 1v1, winner-take-all wagers that can be matched " +
                     "by anybody with a Metamask wallet."
 
-// Alert message
+/* Alert message */
 const alertText = "Metamask wallet not detected!"
-
-const testWagerData = [
-    {
-        wagererAddress: "0xfbDF...a39e",
-        contractAddress: "0xc40...027d",
-        wagerAmount: 0.04,
-        contractDuration: 3600 * 7, // 3600 seconds / hour
-        contractCreated: dayjs().format("YYYY-MM-DD HH:mm:ss"),
-        contractExpires: dayjs().add(7, 'hour').format("YYYY-MM-DD HH:mm:ss")
-    },
-    {
-        wagererAddress: "0xfbDF...a39e",
-        contractAddress: "0xf39F...2266",
-        wagerAmount: 0.019,
-        contractDuration: 3600 * 5, // 3600 seconds / hour
-        contractCreated: dayjs().format("YYYY-MM-DD HH:mm:ss"),
-        contractExpires: dayjs().add(5, 'hour').format("YYYY-MM-DD HH:mm:ss")
-    },
-    {
-        wagererAddress: "0xfbDF...a39e",
-        contractAddress: "0xf39F...2266",
-        wagerAmount: 0.019,
-        contractDuration: 3600 * 5, // 3600 seconds / hour
-        contractCreated: dayjs().format("YYYY-MM-DD HH:mm:ss"),
-        contractExpires: dayjs().add(5, 'hour').format("YYYY-MM-DD HH:mm:ss")
-    },
-    {
-        wagererAddress: "0xfbDF...a39e",
-        contractAddress: "0xf39F...2266",
-        wagerAmount: 0.019,
-        contractDuration: 3600 * 5, // 3600 seconds / hour
-        contractCreated: dayjs().format("YYYY-MM-DD HH:mm:ss"),
-        contractExpires: dayjs().add(5, 'hour').format("YYYY-MM-DD HH:mm:ss")
-    },
-];
 
 const Splash = () => {
     const classes = useStyles();
 
-    /* Wager state variables */
+    /* Store deployed wager addresses */
+    const [wagerAddresses, setWagersAddresses] = useState([]);
+
+    /* Create Wager state variables */
     const [wagerAmount, setWagerAmount] = useState();
     const [wagerDuration, setWagerDuration] = useState();
-    const [wagersData, setWagersData] = useState(testWagerData);
     const [wagerFormOpen, setWagerFormOpen] = useState(false);
+
+    /* Wager Data */
+    const [wagers, setWagers] = useState([]);
 
     /* Wallet state */
     const [hasWallet, seHasWallet] = useState(false);
 
     /* Snackbar Alert state */
     const [alertOpen, setAlertOpen] = useState(false);
+
+    /* Does user have a wallet? */
+    useEffect(() => {
+        checkConnection();
+    });
+
+    /* Only fetches valid wagers when (1) page initially renders and 
+    (2) when a new address is added to wagerAddresses */
+    useEffect(() => {
+        fetchValidWagersFromBlockchain();
+    }, []);
+
+    /* Establish store and fetch all addresses of currently deployed Wagers */
+    const fetchValidWagersFromBlockchain = async () => {
+        if (typeof window.ethereum !== 'undefined') {
+            const provider = new ethers.providers.Web3Provider(window.ethereum)
+            const store = new ethers.Contract(wagerStoreAddress, WagerStore.abi, provider)
+
+            const addresses = await store.getWagers();
+            setWagersAddresses(addresses);
+
+            /* Fetch and set wager details for each address */
+            for (const address of wagerAddresses) {
+                // const provider = new ethers.providers.Web3Provider(window.ethereum)
+                // const wager = new ethers.Contract(address, Wager.abi, provider)
+                // const data = wager.getWagerData();
+
+                //console.log(data);
+
+                /* Create object to represent wager information */
+                const wagerData = {
+                    wagererAddress: "wagerer address", // data.wagerer?
+                    contractAddress: address.substring(0, 8),
+                    wagerAmount: "wagerAmount", // data.wagerAmount?
+                    contractDuration: 3600 * 0, // data.wagerExpireTime?
+                    contractCreated: dayjs().format("YYYY-MM-DD HH:mm:ss"),
+                    contractExpires: dayjs().add(0, 'hour').format("YYYY-MM-DD HH:mm:ss") // data.wagerExpireTime?
+                };
+
+                setWagers([...wagers, wagerData]);
+            }
+        }
+    };
+
+    /* Deploy new wager contract */
+    async function createWager() {
+        if (typeof window.ethereum !== 'undefined') {
+            await requestAccount();
+
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
+            const signer = provider.getSigner(); // Needed for paying eth
+            const store = new ethers.Contract(wagerStoreAddress, WagerStore.abi, signer);
+
+            /* Deploy new Wager contract from Store and record it's deployment address */
+            const tx = await store.createWagerContract();
+            const res = await tx.wait();
+            const wagerAddress = res.events[0].args[0];
+
+            /* Establish Wager contract to interact with via it's deployment address */ 
+            const newWager = new ethers.Contract(wagerAddress, Wager.abi, signer);
+
+            /* Establish the finalized wager details */
+            const tx2 = await newWager.establishWager(wagerDuration);
+            const res2 = await tx2.wait();
+
+            fetchValidWagersFromBlockchain();
+        }
+    }
 
     /* Amount TextField validation */
     const handleAmountChange = (e) => {
@@ -175,45 +214,19 @@ const Splash = () => {
         await window.ethereum.request({ method: "eth_requestAccounts" });
     }
 
-    /* Deploy new wager contract */
-    async function createWager() {
-        if (typeof window.ethereum !== 'undefined') {
-            // await requestAccount();
-            // const provider = new ethers.providers.Web3Provider(window.ethereum);
-            // const signer = provider.getSigner();
-            // const contract = new ethers.Contract(wagerStoreAddress, WagerStore.abi, signer);
-            // const transaction = await contract.createWagerContract();
-
-            /* Create object to represent wager information */
-            const wagerData = {
-                wagererAddress: "transaction",
-                contractAddress: "transaction",
-                wagerAmount: wagerAmount,
-                contractDuration: 3600 * wagerDuration, // 3600 seconds / hour
-                contractCreated: dayjs().format("YYYY-MM-DD HH:mm:ss"),
-                contractExpires: dayjs().add(wagerDuration, 'hour').format("YYYY-MM-DD HH:mm:ss")
-            };
-            setWagersData([...wagersData, wagerData]);
-        }
-    }
-
     /* Check if browser is running Metamask */
-    useEffect(() => {
-        const checkConnection = async () => {
-            if (window.ethereum || window.web3) {
-                seHasWallet(true);
-            } else {
-                setAlertOpen(true);
-            }
-        };
-        checkConnection();
-    }, []);
+    const checkConnection = async () => {
+        if (window.ethereum || window.web3) {
+            seHasWallet(true);
+        } else {
+            setAlertOpen(true);
+        }
+    };
 
-    /* Alert component */
-    function Alert(props) {
+    /* Alert component & handler */
+    const Alert = (props) => {
         return <MuiAlert elevation={6} variant="filled" {...props} />;
     }
-
     const handleAlertClose = (event, reason) => {
         if (reason === 'clickaway') {
             return;
@@ -322,7 +335,7 @@ const Splash = () => {
                         <Typography variant="h5">Open Wagers</Typography>
                     </Grid>
                     <Grid container spacing={36} justify="center">
-                        {wagersData.map(wager => {
+                        {wagers.map(wager => {
                             return (
                                 <WagerCard
                                     wagererAddress={wager.wagererAddress}
