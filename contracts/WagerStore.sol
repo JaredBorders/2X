@@ -11,6 +11,9 @@ contract WagerStore is Pausable {
     /* STATE VARIABLES */
     address[] public wagerAddresses;
 
+    /* EVENTS */
+    event WagerCreated(address wagerer, address store);
+
     /* CONSTRUCTOR */
     constructor() {}
 
@@ -20,11 +23,13 @@ contract WagerStore is Pausable {
     function createWagerContract() 
         public 
         whenNotPaused
-        payable 
+        payable
     {
         Wager newWager = new Wager(msg.sender, address(this));
         address wagerAddress = address(newWager);
         wagerAddresses.push(wagerAddress); // Update with new contract info
+
+        emit WagerCreated(wagerAddress, address(this));
     }
 
     /// Retrieve the the array of created contracts
