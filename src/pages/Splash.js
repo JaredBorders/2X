@@ -20,6 +20,8 @@ import {
     InputLabel,
     Select,
     Snackbar,
+    Backdrop,
+    CircularProgress,
 } from "@material-ui/core";
 import MuiAlert from '@material-ui/lab/Alert';
 import dayjs from "dayjs";
@@ -70,7 +72,11 @@ const useStyles = makeStyles((theme) => ({
         margin: 1,
         width: 16,
         height: 16,
-    }
+    },
+    backdrop: {
+        zIndex: theme.zIndex.drawer + 1,
+        color: '#fff',
+    },
 }));
 
 /* Address contract(s) was/were deployed to via $ npx hardhat run scripts/deploy.js {network} */
@@ -104,6 +110,9 @@ const Splash = () => {
     /* Snackbar Alert state */
     const [alertOpen, setAlertOpen] = useState(false);
 
+    /* Porgress Indicator */
+    const [inPorgress, setInPorgress] = useState(false);
+
     /* Does user have a wallet? */
     useEffect(() => {
         checkConnection();
@@ -120,6 +129,8 @@ const Splash = () => {
         if (typeof window.ethereum !== 'undefined') {
             const provider = new ethers.providers.Web3Provider(window.ethereum)
             const store = new ethers.Contract(wagerStoreAddress, WagerStore.abi, provider)
+
+            setInPorgress(true);
 
             const addresses = await store.getWagers();
             setWagersAddresses(addresses);
@@ -144,12 +155,17 @@ const Splash = () => {
 
                 setWagers([...wagers, wagerData]);
             }
+
+            setInPorgress(false);
         }
     };
 
     /* Deploy new wager contract */
     async function createWager() {
         if (typeof window.ethereum !== 'undefined') {
+            /* Set to false in call to fetchValidWagersFromBlockchain after wagerAddresses update */
+            setInPorgress(true);
+
             await requestAccount();
 
             const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -165,7 +181,9 @@ const Splash = () => {
             const newWager = new ethers.Contract(wagerAddress, Wager.abi, signer);
 
             /* Establish the finalized wager details */
-            const tx2 = await newWager.establishWager(wagerDuration);
+            const tx2 = await newWager.establishWager(wagerDuration, {
+                value: ethers.utils.parseEther(wagerAmount) 
+            });
             const res2 = await tx2.wait();
 
             fetchValidWagersFromBlockchain();
@@ -348,6 +366,9 @@ const Splash = () => {
                         })}
                     </Grid>
                 </Grid>
+                <Backdrop className={classes.backdrop} open={inPorgress}>
+                    <CircularProgress color="inherit" />
+                </Backdrop>
             </div>
         </Container>
     );
