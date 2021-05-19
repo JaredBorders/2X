@@ -3,6 +3,9 @@ import { ethers } from "ethers";
 import WagerStore from "../artifacts/contracts/WagerStore.sol/WagerStore.json";
 import Wager from "../artifacts/contracts/Wager.sol/Wager.json";
 import { ReactComponent as BigLogo } from '../designs/bigLogo.svg';
+import MuiAlert from '@material-ui/lab/Alert';
+import dayjs from "dayjs";
+import WagerCard from "../components/WagerCard";
 import {
     Container,
     Typography,
@@ -23,9 +26,6 @@ import {
     Backdrop,
     CircularProgress,
 } from "@material-ui/core";
-import MuiAlert from '@material-ui/lab/Alert';
-import dayjs from "dayjs";
-import WagerCard from "../components/WagerCard";
 
 const useStyles = makeStyles((theme) => ({
     main: {
@@ -80,7 +80,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 /* Address contract(s) was/were deployed to via $ npx hardhat run scripts/deploy.js {network} */
-const wagerStoreAddress = "0x2746bdbafAd82A84fbB9093a69a51387bBfC1098"; // Currently Kovan Network
+const wagerStoreAddress = "0x2746bdbafAd82A84fbB9093a69a51387bBfC1098"; // Currently network === kovan
 
 /* Description text for 2X */
 const description = "The Ethereum Blockchain provides a perfect ecosystem for trustless and highly secure gambling. " +
@@ -93,15 +93,17 @@ const alertText = "Metamask wallet not detected!"
 const Splash = () => {
     const classes = useStyles();
 
-    /* Store deployed wager addresses */
+    /* Store deployed Wager addresses */
     const [wagerAddresses, setWagersAddresses] = useState([]);
+
+    /* Create Wager form state */
+    const [wagerFormOpen, setWagerFormOpen] = useState(false);
 
     /* Create Wager state variables */
     const [wagerAmount, setWagerAmount] = useState();
     const [wagerDuration, setWagerDuration] = useState();
-    const [wagerFormOpen, setWagerFormOpen] = useState(false);
 
-    /* Wager Data */
+    /* Wager data */
     const [wagers, setWagers] = useState([]);
 
     /* Wallet state */
@@ -110,7 +112,7 @@ const Splash = () => {
     /* Snackbar Alert state */
     const [alertOpen, setAlertOpen] = useState(false);
 
-    /* Porgress Indicator */
+    /* Progress Indicator */
     const [inPorgress, setInPorgress] = useState(false);
 
     /* Does user have a wallet? */
@@ -161,7 +163,7 @@ const Splash = () => {
     };
 
     /* Deploy new wager contract */
-    async function createWager() {
+    const createWager = async () => {
         if (typeof window.ethereum !== 'undefined') {
             /* Set to false in call to fetchValidWagersFromBlockchain after wagerAddresses update */
             setInPorgress(true);
@@ -184,7 +186,7 @@ const Splash = () => {
             const tx2 = await newWager.establishWager(wagerDuration, {
                 value: ethers.utils.parseEther(wagerAmount) 
             });
-            const res2 = await tx2.wait();
+            await tx2.wait();
 
             fetchValidWagersFromBlockchain();
         }
@@ -213,7 +215,6 @@ const Splash = () => {
         createWager();
         setWagerFormOpen(false);
         clearWagerInfo();
-        // Set loading ...
     };
 
     const onCancelPressed = () => {
@@ -222,13 +223,13 @@ const Splash = () => {
     }
 
     /* Helper: Clear out all field data in modal */
-    function clearWagerInfo() {
+    const clearWagerInfo = () => {
         setWagerAmount();
         setWagerDuration();
     }
 
     /* request access to the user's MetaMask account */
-    async function requestAccount() {
+    const requestAccount = async () => {
         await window.ethereum.request({ method: "eth_requestAccounts" });
     }
 
