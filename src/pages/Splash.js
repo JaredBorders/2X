@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { ethers } from "ethers";
-import WagerStore from "../artifacts/contracts/WagerStore.sol/WagerStore.json";
+import WagerFactory from "../artifacts/contracts/WagerFactory.sol/WagerFactory.json";
 import Wager from "../artifacts/contracts/Wager.sol/Wager.json";
 import { ReactComponent as BigLogo } from '../designs/bigLogo.svg';
 import MuiAlert from '@material-ui/lab/Alert';
@@ -80,7 +80,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 /* Address contract(s) was/were deployed to via $ npx hardhat run scripts/deploy.js {network} */
-const wagerStoreAddress = "0x2746bdbafAd82A84fbB9093a69a51387bBfC1098"; // Currently network === kovan
+const wagerFactoryAddress = "0x1E68284F05EB4e4B719aCad809f1cF0386DF0B61"; // Currently network === kovan
 
 /* Description text for 2X */
 const description = "The Ethereum Blockchain provides a perfect ecosystem for trustless and highly secure gambling. " +
@@ -93,7 +93,7 @@ const alertText = "Metamask wallet not detected!"
 const Splash = () => {
     const classes = useStyles();
 
-    /* Store deployed Wager addresses */
+    /* Factory deployed Wager addresses */
     const [wagerAddresses, setWagersAddresses] = useState([]);
 
     /* Create Wager form state */
@@ -125,31 +125,38 @@ const Splash = () => {
         fetchValidWagersFromBlockchain();
     }, []);
 
-    /* Establish store and fetch all addresses of currently deployed Wagers */
+    /* Establish factory and fetch all addresses of currently deployed Wagers */
     const fetchValidWagersFromBlockchain = async () => {
         if (typeof window.ethereum !== 'undefined') {
-            const provider = new ethers.providers.Web3Provider(window.ethereum)
-            const store = new ethers.Contract(wagerStoreAddress, WagerStore.abi, provider)
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
+            const signer = provider.getSigner();
+            const factory = new ethers.Contract(wagerFactoryAddress, WagerFactory.abi, signer);
 
             setInPorgress(true);
 
-            const addresses = await store.getWagers();
+            const addresses = await factory.getWagers();
             setWagersAddresses(addresses);
 
             /* Fetch and set wager details for each address */
             for (const address of wagerAddresses) {
-                // const provider = new ethers.providers.Web3Provider(window.ethereum)
-                // const wager = new ethers.Contract(address, Wager.abi, provider)
-                // const data = wager.getWagerData();
+                console.log("Wager @ Address: " + address);
 
-                //console.log(data);
+                const provider = new ethers.providers.Web3Provider(window.ethereum)
+                const wager = new ethers.Contract(address, Wager.abi, provider)
+                const data = wager.getWagerData();
+
+                console.log(data);
+
+                const blockTime = await provider.getBlock().then(function(block) {
+                    return block.timestamp;
+                });
 
                 /* Create object to represent wager information */
                 const wagerData = {
-                    wagererAddress: "wagerer address", // data.wagerer?
-                    contractAddress: address.substring(0, 8),
-                    wagerAmount: "wagerAmount", // data.wagerAmount?
-                    contractDuration: 3600 * 0, // data.wagerExpireTime?
+                    wagererAddress: data[0], // data.wagerer?
+                    contractAddress: `${address.substring(0, 8)}...`,
+                    wagerAmount: data[1].toString(), // data.wagerAmount?
+                    contractDuration: blockTime, // (data[1] - blockTime) / 3600 = duration
                     contractCreated: dayjs().format("YYYY-MM-DD HH:mm:ss"),
                     contractExpires: dayjs().add(0, 'hour').format("YYYY-MM-DD HH:mm:ss") // data.wagerExpireTime?
                 };
@@ -171,12 +178,13 @@ const Splash = () => {
 
             const provider = new ethers.providers.Web3Provider(window.ethereum);
             const signer = provider.getSigner(); // Needed for paying eth
-            const store = new ethers.Contract(wagerStoreAddress, WagerStore.abi, signer);
+            const factory = new ethers.Contract(wagerFactoryAddress, WagerFactory.abi, signer);
 
-            /* Deploy new Wager contract from Store and record it's deployment address */
-            const tx = await store.createWagerContract();
+            /* Deploy new Wager contract from Factory and record it's deployment address */
+            const tx = await factory.createWagerContract();
             const res = await tx.wait();
-            const wagerAddress = res.events[0].args[0];
+            const wagerAddress = res.events[0].args[0]; // Event reveals deployement address
+            console.log("Creating/Deploying new Wager contract to address: " + wagerAddress);
 
             /* Establish Wager contract to interact with via it's deployment address */ 
             const newWager = new ethers.Contract(wagerAddress, Wager.abi, signer);
@@ -186,6 +194,7 @@ const Splash = () => {
                 value: ethers.utils.parseEther(wagerAmount) 
             });
             await tx2.wait();
+            console.log("Establish wager for: " + wagerAmount);
 
             fetchValidWagersFromBlockchain();
         }

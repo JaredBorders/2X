@@ -5,14 +5,14 @@ import "@openzeppelin/contracts/security/Pausable.sol";
 import "./Wager.sol";
 
 /// @author jaredborders
-/// @title WagerStore - Factory/Store that creates and manages Wager contracts
-contract WagerStore is Pausable {
+/// @title WagerFactory - Factory that creates and manages Wager contracts
+contract WagerFactory is Pausable {
 
     /* STATE VARIABLES */
     address[] public wagerAddresses;
 
     /* EVENTS */
-    event WagerCreated(address wagerer, address store);
+    event WagerCreated(address wagerer, address factory);
 
     /* CONSTRUCTOR */
     constructor() {}

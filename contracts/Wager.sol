@@ -2,7 +2,7 @@
 pragma solidity ^0.8.3;
 
 import "@openzeppelin/contracts/security/Pausable.sol";
-import "./WagerStore.sol";
+import "./WagerFactory.sol";
 
 /* Change Request: getRandom() may be subject to manipulation; use ChainLink VRF Oracle */
 /* Change Request: After duration, send eth back to wagerer */
@@ -12,7 +12,7 @@ import "./WagerStore.sol";
 contract Wager is Pausable {
 
     /* STATE VARIABLES */
-    address public store;
+    address public factory;
     address public wagerer; // Wager creator
     uint constant MIN_WAGER = 100000000000000 wei; // Minimum stake of wager (0.0001 ETH)
     uint public wagerAmount; // Amount staked by wagerer
@@ -48,11 +48,11 @@ contract Wager is Pausable {
     /* CONSTRUCTOR */
     /// Set wagerer address to be the contract caller
     /// @param _owner - the owner address to be recognized by this contract. Not necessarily `msg.sender` nor `tx.origin`
-    /// @param _store - the WagerStore address which created this contract
-    constructor(address _owner, address _store)
+    /// @param _factory - the WagerFactory address which created this contract
+    constructor(address _owner, address _factory)
         payable 
     {
-        store = _store;
+        factory = _factory;
         wagerer = _owner;
     }
 
@@ -118,8 +118,8 @@ contract Wager is Pausable {
     }
 
     function removeWagerIfExpired() public {
-        WagerStore(store).removeAddress(
-            WagerStore(store).findIndexOfAddress(
+        WagerFactory(factory).removeAddress(
+            WagerFactory(factory).findIndexOfAddress(
                 address(this)
             )
         );

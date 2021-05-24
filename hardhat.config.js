@@ -1,3 +1,4 @@
+require('dotenv').config();
 require("@nomiclabs/hardhat-waffle");
 
 // This is a sample Hardhat task. To learn how to create your own go to
@@ -27,8 +28,12 @@ module.exports = {
     },
     ropsten: {
       url: "https://ropsten.infura.io/v3/26c1276432a44f31a1310e1cdae41034",
-      accounts: [``] // TEST ACCOUNT 1 PRIV KEY (ADD YOURS)
-    }
+      accounts: [`${process.env.PRIVATE_KEY}`] // Create a .env file in the root directory. Add your PRIVATE_KEY
+    },
+    kovan: {
+      url: "https://kovan.infura.io/v3/26c1276432a44f31a1310e1cdae41034",
+      accounts: [`${process.env.PRIVATE_KEY}`] // Create a .env file in the root directory. Add your PRIVATE_KEY
+    },
   }
 };
 
