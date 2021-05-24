@@ -29,19 +29,18 @@ git clone https://github.com/JaredBorders/2X
 yarn
 ```
 
-3. Start the local test node (if you do not wish to work locally, skip to step 7)
+3. Create a .env file in the root directory of your project. Add these environment-specific variables on new lines in the form of NAME=VALUE: 
+* PRIVATE_KEY={ from metamask }
+* INFURA_ROPSTEN_NETWORK={ can be created for free [here](https://infura.io/) }
+* INFURA_KOVAN_NETWORK={ can be created for free [here](https://infura.io/) }
+
+4. Deploy the contract to either the Ropsten or Kovan network (example below deploys to Ropsten)
 
 ```sh
-npx hardhat node
-``` 
-
-4. Deploy the contract
-
-```sh
-npx hardhat run scripts/deploy.js --network localhost
+npx hardhat run scripts/deploy.js --network ropsten
 ```
 
-5. Once the script finished deployment, it will log the address of where the contract was deployed to. Update __src/pages/Splash.js__ with the value of your contract address `wagerAddress`
+5. Once the script finishes deploying WagerFactory, it will log the address of where the contract was deployed to. Update __src/pages/Splash.js__ with this value. (see `wagerFactoryAddress`)
 
 6. Run the app
 
@@ -49,21 +48,13 @@ npx hardhat run scripts/deploy.js --network localhost
 yarn start
 ```
 
-7. To deploy to the Ropsten test network, update __hardhat.config.js__ `ropsten.accounts[your private key]` with your ropsten private key (provided by Metamask)
-
-8. Deploy the contract to that network
+7. Any changes made to either of the smart contracts will require you to recompile them. To recompile
 
 ```sh
-npx hardhat run scripts/deploy.js --network ropsten
+npx hardhat compile
 ```
 
-9. Once the script finished deployment, it will log the address of where the contract was deployed to. Update __src/pages/Splash.js__ with the value of your contract address `wagerAddress`
-
-10. Run the app
-
-```sh
-yarn start
-```
+8. Any changes to WagerFactory requires you to redeploy it. Don't forget to update __src/pages/Splash.js__
 
 ## TODO
 * Adjust WagerCard size for mobile screens
