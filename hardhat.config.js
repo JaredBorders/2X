@@ -27,11 +27,11 @@ module.exports = {
       chainId: 1337 // SOLVES ISSUE WITH METAMASK
     },
     ropsten: {
-      url: "https://ropsten.infura.io/v3/26c1276432a44f31a1310e1cdae41034",
+      url: `${process.env.INFURA_ROPSTEN_NETWORK}`,
       accounts: [`${process.env.PRIVATE_KEY}`] // Create a .env file in the root directory. Add your PRIVATE_KEY
     },
     kovan: {
-      url: "https://kovan.infura.io/v3/26c1276432a44f31a1310e1cdae41034",
+      url: `${process.env.INFURA_KOVAN_NETWORK}`,
       accounts: [`${process.env.PRIVATE_KEY}`] // Create a .env file in the root directory. Add your PRIVATE_KEY
     },
   }
