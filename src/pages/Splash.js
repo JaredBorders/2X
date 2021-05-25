@@ -84,8 +84,8 @@ const wagerFactoryAddress = "0x280957585C593a566707940C206A08f849a663dD"; // Cur
 
 /* Description text for 2X */
 const description = "The Ethereum Blockchain provides a perfect ecosystem for trustless and highly secure gambling. " +
-                    "2X leverages this technology to allow users to make 1v1, winner-take-all wagers that can be matched " +
-                    "by anybody with a Metamask wallet."
+    "2X leverages this technology to allow users to make 1v1, winner-take-all wagers that can be matched " +
+    "by anybody with a Metamask wallet."
 
 /* Alert message */
 const alertText = "Metamask wallet not detected!"
@@ -141,19 +141,18 @@ const Splash = () => {
             for (const address of wagerAddresses) {
                 console.log("Wager @ Address: " + address);
 
-                const provider = new ethers.providers.Web3Provider(window.ethereum)
-                const wager = new ethers.Contract(address, Wager.abi, provider)
+                const wager = new ethers.Contract(address, Wager.abi, signer)
                 const data = wager.getWagerData();
 
                 console.log(data);
 
-                const blockTime = await provider.getBlock().then(function(block) {
+                const blockTime = await provider.getBlock().then(function (block) {
                     return block.timestamp;
                 });
 
                 /* Create object to represent wager information */
                 const wagerData = {
-                    wagererAddress: data[0], // data.wagerer?
+                    wagererAddress: `${data[0].substring(0, 8)}...`, // data.wagerer?
                     contractAddress: `${address.substring(0, 8)}...`,
                     wagerAmount: data[1].toString(), // data.wagerAmount?
                     contractDuration: blockTime, // (data[1] - blockTime) / 3600 = duration
@@ -219,7 +218,7 @@ const Splash = () => {
         setWagerDuration(e.target.value);
     }
 
-    const onFinalizeWagerPressed = () => {
+    const onFinalizeWagerPressed = async () => {
         createWager();
         setWagerFormOpen(false);
         clearWagerInfo();
