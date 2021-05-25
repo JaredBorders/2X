@@ -113,7 +113,7 @@ const Splash = () => {
     const [alertOpen, setAlertOpen] = useState(false);
 
     /* Progress Indicator */
-    const [inPorgress, setInPorgress] = useState(false);
+    const [inProgress, setInProgress] = useState(false);
 
     /* Does user have a wallet? */
     useEffect(() => {
@@ -132,7 +132,7 @@ const Splash = () => {
             const signer = provider.getSigner();
             const factory = new ethers.Contract(wagerFactoryAddress, WagerFactory.abi, signer);
 
-            setInPorgress(true);
+            setInProgress(true);
 
             const addresses = await factory.getWagers();
             setWagersAddresses(addresses);
@@ -164,7 +164,7 @@ const Splash = () => {
                 setWagers([...wagers, wagerData]);
             }
 
-            setInPorgress(false);
+            setInProgress(false);
         }
     };
 
@@ -172,7 +172,7 @@ const Splash = () => {
     const createWager = async () => {
         if (typeof window.ethereum !== 'undefined') {
             /* Set to false in call to fetchValidWagersFromBlockchain after wagerAddresses update */
-            setInPorgress(true);
+            setInProgress(true);
 
             await requestAccount();
 
@@ -375,7 +375,7 @@ const Splash = () => {
                         })}
                     </Grid>
                 </Grid>
-                <Backdrop className={classes.backdrop} open={inPorgress}>
+                <Backdrop className={classes.backdrop} open={inProgress}>
                     <CircularProgress color="inherit" />
                 </Backdrop>
             </div>
