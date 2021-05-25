@@ -1,7 +1,11 @@
 import { useState, useEffect } from "react";
 import { ethers } from "ethers";
-import WagerStore from "../artifacts/contracts/WagerStore.sol/WagerStore.json";
+import WagerFactory from "../artifacts/contracts/WagerFactory.sol/WagerFactory.json";
+import Wager from "../artifacts/contracts/Wager.sol/Wager.json";
 import { ReactComponent as BigLogo } from '../designs/bigLogo.svg';
+import MuiAlert from '@material-ui/lab/Alert';
+import dayjs from "dayjs";
+import WagerCard from "../components/WagerCard";
 import {
     Container,
     Typography,
@@ -19,10 +23,9 @@ import {
     InputLabel,
     Select,
     Snackbar,
+    Backdrop,
+    CircularProgress,
 } from "@material-ui/core";
-import MuiAlert from '@material-ui/lab/Alert';
-import dayjs from "dayjs";
-import WagerCard from "../components/WagerCard";
 
 const useStyles = makeStyles((theme) => ({
     main: {
@@ -69,69 +72,132 @@ const useStyles = makeStyles((theme) => ({
         margin: 1,
         width: 16,
         height: 16,
-    }
+    },
+    backdrop: {
+        zIndex: theme.zIndex.drawer + 1,
+        color: '#fff',
+    },
 }));
 
-// Address contract(s) was/were deployed to via $ npx hardhat run scripts/deploy.js {network}
-const wagerStoreAddress = "0x38E88FFcfC3f921cf98002D39840A5B3C5d3a961";
+/* Address contract(s) was/were deployed to via $ npx hardhat run scripts/deploy.js {network} */
+const wagerFactoryAddress = "0x280957585C593a566707940C206A08f849a663dD"; // Currently network === kovan
 
-// Description text for 2X
+/* Description text for 2X */
 const description = "The Ethereum Blockchain provides a perfect ecosystem for trustless and highly secure gambling. " +
-                    "2X leverages this technology to allow users to make 1v1, winner-take-all wagers that can be matched " +
-                    "by anybody with a Metamask wallet."
+    "2X leverages this technology to allow users to make 1v1, winner-take-all wagers that can be matched " +
+    "by anybody with a Metamask wallet."
 
-// Alert message
+/* Alert message */
 const alertText = "Metamask wallet not detected!"
-
-const testWagerData = [
-    {
-        wagererAddress: "0xfbDF...a39e",
-        contractAddress: "0xc40...027d",
-        wagerAmount: 0.04,
-        contractDuration: 3600 * 7, // 3600 seconds / hour
-        contractCreated: dayjs().format("YYYY-MM-DD HH:mm:ss"),
-        contractExpires: dayjs().add(7, 'hour').format("YYYY-MM-DD HH:mm:ss")
-    },
-    {
-        wagererAddress: "0xfbDF...a39e",
-        contractAddress: "0xf39F...2266",
-        wagerAmount: 0.019,
-        contractDuration: 3600 * 5, // 3600 seconds / hour
-        contractCreated: dayjs().format("YYYY-MM-DD HH:mm:ss"),
-        contractExpires: dayjs().add(5, 'hour').format("YYYY-MM-DD HH:mm:ss")
-    },
-    {
-        wagererAddress: "0xfbDF...a39e",
-        contractAddress: "0xf39F...2266",
-        wagerAmount: 0.019,
-        contractDuration: 3600 * 5, // 3600 seconds / hour
-        contractCreated: dayjs().format("YYYY-MM-DD HH:mm:ss"),
-        contractExpires: dayjs().add(5, 'hour').format("YYYY-MM-DD HH:mm:ss")
-    },
-    {
-        wagererAddress: "0xfbDF...a39e",
-        contractAddress: "0xf39F...2266",
-        wagerAmount: 0.019,
-        contractDuration: 3600 * 5, // 3600 seconds / hour
-        contractCreated: dayjs().format("YYYY-MM-DD HH:mm:ss"),
-        contractExpires: dayjs().add(5, 'hour').format("YYYY-MM-DD HH:mm:ss")
-    },
-];
 
 const Splash = () => {
     const classes = useStyles();
 
-    /* Wager state variables */
+    /* Factory deployed Wager addresses */
+    const [wagerAddresses, setWagersAddresses] = useState([]);
+
+    /* Create Wager form state */
+    const [wagerFormOpen, setWagerFormOpen] = useState(false);
+
+    /* Create Wager state variables */
     const [wagerAmount, setWagerAmount] = useState();
     const [wagerDuration, setWagerDuration] = useState();
-    const [wagersData, setWagersData] = useState(testWagerData);
-    const [wagerFormOpen, setWagerFormOpen] = useState(false);
+
+    /* Wager data */
+    const [wagers, setWagers] = useState([]);
 
     /* Wallet state */
     const [hasWallet, seHasWallet] = useState(false);
 
     /* Snackbar Alert state */
     const [alertOpen, setAlertOpen] = useState(false);
+
+    /* Progress Indicator */
+    const [inProgress, setInProgress] = useState(false);
+
+    /* Does user have a wallet? */
+    useEffect(() => {
+        checkConnection();
+    });
+
+    /* Fetches valid wagers */
+    useEffect(() => {
+        fetchValidWagersFromBlockchain();
+    }, []);
+
+    /* Establish factory and fetch all addresses of currently deployed Wagers */
+    const fetchValidWagersFromBlockchain = async () => {
+        if (typeof window.ethereum !== 'undefined') {
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
+            const signer = provider.getSigner();
+            const factory = new ethers.Contract(wagerFactoryAddress, WagerFactory.abi, signer);
+
+            setInProgress(true);
+
+            const addresses = await factory.getWagers();
+            setWagersAddresses(addresses);
+
+            /* Fetch and set wager details for each address */
+            for (const address of wagerAddresses) {
+                console.log("Wager @ Address: " + address);
+
+                const wager = new ethers.Contract(address, Wager.abi, signer)
+                const data = wager.getWagerData();
+
+                console.log(data);
+
+                const blockTime = await provider.getBlock().then(function (block) {
+                    return block.timestamp;
+                });
+
+                /* Create object to represent wager information */
+                const wagerData = {
+                    wagererAddress: `${data[0].substring(0, 8)}...`, // data.wagerer?
+                    contractAddress: `${address.substring(0, 8)}...`,
+                    wagerAmount: data[1].toString(), // data.wagerAmount?
+                    contractDuration: blockTime, // (data[1] - blockTime) / 3600 = duration
+                    contractCreated: dayjs().format("YYYY-MM-DD HH:mm:ss"),
+                    contractExpires: dayjs().add(0, 'hour').format("YYYY-MM-DD HH:mm:ss") // data.wagerExpireTime?
+                };
+
+                setWagers([...wagers, wagerData]);
+            }
+
+            setInProgress(false);
+        }
+    };
+
+    /* Deploy new wager contract */
+    const createWager = async () => {
+        if (typeof window.ethereum !== 'undefined') {
+            /* Set to false in call to fetchValidWagersFromBlockchain after wagerAddresses update */
+            setInProgress(true);
+
+            await requestAccount();
+
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
+            const signer = provider.getSigner(); // Needed for paying eth
+            const factory = new ethers.Contract(wagerFactoryAddress, WagerFactory.abi, signer);
+
+            /* Deploy new Wager contract from Factory and record it's deployment address */
+            const tx = await factory.createWagerContract();
+            const res = await tx.wait();
+            const wagerAddress = res.events[0].args[0]; // Event reveals deployement address
+            console.log("Creating/Deploying new Wager contract to address: " + wagerAddress);
+
+            /* Establish Wager contract to interact with via it's deployment address */ 
+            const newWager = new ethers.Contract(wagerAddress, Wager.abi, signer);
+
+            /* Establish the finalized wager details */
+            const tx2 = await newWager.establishWager(wagerDuration, {
+                value: ethers.utils.parseEther(wagerAmount) 
+            });
+            await tx2.wait();
+            console.log("Establish wager for: " + wagerAmount);
+
+            fetchValidWagersFromBlockchain();
+        }
+    }
 
     /* Amount TextField validation */
     const handleAmountChange = (e) => {
@@ -152,11 +218,10 @@ const Splash = () => {
         setWagerDuration(e.target.value);
     }
 
-    const onFinalizeWagerPressed = () => {
+    const onFinalizeWagerPressed = async () => {
         createWager();
         setWagerFormOpen(false);
         clearWagerInfo();
-        // Set loading ...
     };
 
     const onCancelPressed = () => {
@@ -165,55 +230,29 @@ const Splash = () => {
     }
 
     /* Helper: Clear out all field data in modal */
-    function clearWagerInfo() {
+    const clearWagerInfo = () => {
         setWagerAmount();
         setWagerDuration();
     }
 
     /* request access to the user's MetaMask account */
-    async function requestAccount() {
+    const requestAccount = async () => {
         await window.ethereum.request({ method: "eth_requestAccounts" });
     }
 
-    /* Deploy new wager contract */
-    async function createWager() {
-        if (typeof window.ethereum !== 'undefined') {
-            // await requestAccount();
-            // const provider = new ethers.providers.Web3Provider(window.ethereum);
-            // const signer = provider.getSigner();
-            // const contract = new ethers.Contract(wagerStoreAddress, WagerStore.abi, signer);
-            // const transaction = await contract.createWagerContract();
-
-            /* Create object to represent wager information */
-            const wagerData = {
-                wagererAddress: "transaction",
-                contractAddress: "transaction",
-                wagerAmount: wagerAmount,
-                contractDuration: 3600 * wagerDuration, // 3600 seconds / hour
-                contractCreated: dayjs().format("YYYY-MM-DD HH:mm:ss"),
-                contractExpires: dayjs().add(wagerDuration, 'hour').format("YYYY-MM-DD HH:mm:ss")
-            };
-            setWagersData([...wagersData, wagerData]);
-        }
-    }
-
     /* Check if browser is running Metamask */
-    useEffect(() => {
-        const checkConnection = async () => {
-            if (window.ethereum || window.web3) {
-                seHasWallet(true);
-            } else {
-                setAlertOpen(true);
-            }
-        };
-        checkConnection();
-    }, []);
+    const checkConnection = async () => {
+        if (window.ethereum || window.web3) {
+            seHasWallet(true);
+        } else {
+            setAlertOpen(true);
+        }
+    };
 
-    /* Alert component */
-    function Alert(props) {
+    /* Alert component & handler */
+    const Alert = (props) => {
         return <MuiAlert elevation={6} variant="filled" {...props} />;
     }
-
     const handleAlertClose = (event, reason) => {
         if (reason === 'clickaway') {
             return;
@@ -322,7 +361,7 @@ const Splash = () => {
                         <Typography variant="h5">Open Wagers</Typography>
                     </Grid>
                     <Grid container spacing={36} justify="center">
-                        {wagersData.map(wager => {
+                        {wagers.map(wager => {
                             return (
                                 <WagerCard
                                     wagererAddress={wager.wagererAddress}
@@ -335,6 +374,9 @@ const Splash = () => {
                         })}
                     </Grid>
                 </Grid>
+                <Backdrop className={classes.backdrop} open={inProgress}>
+                    <CircularProgress color="inherit" />
+                </Backdrop>
             </div>
         </Container>
     );

@@ -5,11 +5,14 @@ import "@openzeppelin/contracts/security/Pausable.sol";
 import "./Wager.sol";
 
 /// @author jaredborders
-/// @title WagerStore - Factory/Store that creates and manages Wager contracts
-contract WagerStore is Pausable {
+/// @title WagerFactory - Factory that creates and manages Wager contracts
+contract WagerFactory is Pausable {
 
     /* STATE VARIABLES */
     address[] public wagerAddresses;
+
+    /* EVENTS */
+    event WagerCreated(address wagerer, address factory);
 
     /* CONSTRUCTOR */
     constructor() {}
@@ -20,11 +23,13 @@ contract WagerStore is Pausable {
     function createWagerContract() 
         public 
         whenNotPaused
-        payable 
+        payable
     {
         Wager newWager = new Wager(msg.sender, address(this));
         address wagerAddress = address(newWager);
         wagerAddresses.push(wagerAddress); // Update with new contract info
+
+        emit WagerCreated(wagerAddress, address(this));
     }
 
     /// Retrieve the the array of created contracts
