@@ -121,11 +121,14 @@ const Splash = () => {
     });
 
     /* Fetches valid wagers: only called on the component's first render */
+    /*eslint-disable */
     useEffect(() => {
         (async function () {
+            
             await fetchValidWagersFromBlockchain();
         })();
     }, []);
+    /*eslint-enable */
 
     /* Establish factory and fetch all addresses of currently deployed Wagers */
     const fetchValidWagersFromBlockchain = async () => {
@@ -268,7 +271,7 @@ const Splash = () => {
                     <Grid item xs={12}>
                         <Typography variant="overline">{description}</Typography>
                         <div className={classes.divide}>
-                            <Divider dark />
+                            <Divider dark="true" />
                         </div>
                     </Grid>
                     <div className={classes.actionContainer}>
@@ -353,7 +356,7 @@ const Splash = () => {
                     <Grid item xs={12}>
                         <Typography variant="h5">Open Wagers</Typography>
                     </Grid>
-                    <Grid container spacing={36} justify="center">
+                    <Grid container justify="center">
                         {wagers.map(wager => {
                             return (
                                 <WagerCard
