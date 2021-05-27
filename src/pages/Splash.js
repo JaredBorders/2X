@@ -124,7 +124,6 @@ const Splash = () => {
     /*eslint-disable */
     useEffect(() => {
         (async function () {
-            
             await fetchValidWagersFromBlockchain();
         })();
     }, []);
@@ -137,6 +136,7 @@ const Splash = () => {
         const factory = new ethers.Contract(wagerFactoryAddress, WagerFactory.abi, provider);
 
         const addresses = await factory.getWagers();
+        console.log(addresses); // prints all addresses but for-loop doesnt create 5 cards...
         setWagerAddresses(addresses);
 
         /* Fetch and set wager details for each address */
