@@ -94,7 +94,7 @@ const Splash = () => {
     const classes = useStyles();
 
     /* Factory deployed Wager addresses */
-    const [wagerAddresses, setWagersAddresses] = useState([]);
+    const [wagerAddresses, setWagerAddresses] = useState([]);
 
     /* Create Wager form state */
     const [wagerFormOpen, setWagerFormOpen] = useState(false);
@@ -122,26 +122,25 @@ const Splash = () => {
 
     /* Fetches valid wagers */
     useEffect(() => {
-        fetchValidWagersFromBlockchain();
+        //fetchValidWagersFromBlockchain();
     }, []);
 
     /* Establish factory and fetch all addresses of currently deployed Wagers */
     const fetchValidWagersFromBlockchain = async () => {
         if (typeof window.ethereum !== 'undefined') {
             const provider = new ethers.providers.Web3Provider(window.ethereum);
-            const signer = provider.getSigner();
-            const factory = new ethers.Contract(wagerFactoryAddress, WagerFactory.abi, signer);
+            const factory = new ethers.Contract(wagerFactoryAddress, WagerFactory.abi, provider);
 
             setInProgress(true);
 
             const addresses = await factory.getWagers();
-            setWagersAddresses(addresses);
+            setWagerAddresses(addresses);
 
             /* Fetch and set wager details for each address */
-            for (const address of wagerAddresses) {
+            for (const address in wagerAddresses) {
                 console.log("Wager @ Address: " + address);
 
-                const wager = new ethers.Contract(address, Wager.abi, signer)
+                const wager = new ethers.Contract(address, Wager.abi, provider)
                 const data = wager.getWagerData();
 
                 console.log(data);
@@ -150,17 +149,17 @@ const Splash = () => {
                     return block.timestamp;
                 });
 
-                /* Create object to represent wager information */
-                const wagerData = {
-                    wagererAddress: `${data[0].substring(0, 8)}...`, // data.wagerer?
-                    contractAddress: `${address.substring(0, 8)}...`,
-                    wagerAmount: data[1].toString(), // data.wagerAmount?
-                    contractDuration: blockTime, // (data[1] - blockTime) / 3600 = duration
-                    contractCreated: dayjs().format("YYYY-MM-DD HH:mm:ss"),
-                    contractExpires: dayjs().add(0, 'hour').format("YYYY-MM-DD HH:mm:ss") // data.wagerExpireTime?
-                };
+                // /* Create object to represent wager information */
+                // const wagerData = {
+                //     wagererAddress: `${data[0].substring(0, 8)}...`, // data.wagerer?
+                //     contractAddress: `${address.substring(0, 8)}...`,
+                //     wagerAmount: data[1].toString(), // data.wagerAmount?
+                //     contractDuration: blockTime, // (data[1] - blockTime) / 3600 = duration
+                //     contractCreated: dayjs().format("YYYY-MM-DD HH:mm:ss"),
+                //     contractExpires: dayjs().add(0, 'hour').format("YYYY-MM-DD HH:mm:ss") // data.wagerExpireTime?
+                // };
 
-                setWagers([...wagers, wagerData]);
+                // setWagers([...wagers, wagerData]);
             }
 
             setInProgress(false);
@@ -183,17 +182,15 @@ const Splash = () => {
             const tx = await factory.createWagerContract();
             const res = await tx.wait();
             const wagerAddress = res.events[0].args[0]; // Event reveals deployement address
-            console.log("Creating/Deploying new Wager contract to address: " + wagerAddress);
 
             /* Establish Wager contract to interact with via it's deployment address */ 
             const newWager = new ethers.Contract(wagerAddress, Wager.abi, signer);
 
             /* Establish the finalized wager details */
-            const tx2 = await newWager.establishWager(wagerDuration, {
+            const tx2 = await newWager.establishWager(wagerDuration * 60 * 60, {
                 value: ethers.utils.parseEther(wagerAmount) 
             });
             await tx2.wait();
-            console.log("Establish wager for: " + wagerAmount);
 
             fetchValidWagersFromBlockchain();
         }
