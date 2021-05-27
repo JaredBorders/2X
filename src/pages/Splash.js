@@ -80,7 +80,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 /* Address contract(s) was/were deployed to via $ npx hardhat run scripts/deploy.js {network} */
-const wagerFactoryAddress = "0x280957585C593a566707940C206A08f849a663dD"; // Currently network === kovan
+const wagerFactoryAddress = "0x95a817F29F551f91c6360741260B72d70e03f552"; // Currently network === kovan
 
 /* Description text for 2X */
 const description = "The Ethereum Blockchain provides a perfect ecosystem for trustless and highly secure gambling. " +
@@ -120,50 +120,46 @@ const Splash = () => {
         checkConnection();
     });
 
-    /* Fetches valid wagers */
+    /* Fetches valid wagers: only called on the component's first render */
     useEffect(() => {
-        //fetchValidWagersFromBlockchain();
+        (async function () {
+            await fetchValidWagersFromBlockchain();
+        })();
     }, []);
 
     /* Establish factory and fetch all addresses of currently deployed Wagers */
     const fetchValidWagersFromBlockchain = async () => {
-        if (typeof window.ethereum !== 'undefined') {
-            const provider = new ethers.providers.Web3Provider(window.ethereum);
-            const factory = new ethers.Contract(wagerFactoryAddress, WagerFactory.abi, provider);
+        setInProgress(true);
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const factory = new ethers.Contract(wagerFactoryAddress, WagerFactory.abi, provider);
 
-            setInProgress(true);
+        const addresses = await factory.getWagers();
+        setWagerAddresses(addresses);
 
-            const addresses = await factory.getWagers();
-            setWagerAddresses(addresses);
+        /* Fetch and set wager details for each address */
+        for (const i in wagerAddresses) {
+            const wager = new ethers.Contract(wagerAddresses[i], Wager.abi, provider)
+            const data = await wager.getWagerData();
 
-            /* Fetch and set wager details for each address */
-            for (const address in wagerAddresses) {
-                console.log("Wager @ Address: " + address);
+            const blockTime = await provider.getBlock().then(function (block) {
+                return block.timestamp;
+            });
 
-                const wager = new ethers.Contract(address, Wager.abi, provider)
-                const data = wager.getWagerData();
+            const timeUntilExpiration = Math.ceil((data[2].toNumber() - blockTime) / 3600);
 
-                console.log(data);
+            /* Create object to represent wager information */
+            const wagerData = {
+                wagererAddress: data[0].substring(0, 10).toLowerCase() + "...",
+                contractAddress: wagerAddresses[i].substring(0, 10).toLowerCase() + "...",
+                wagerAmount: ethers.utils.formatEther(data[1]),
+                contractDuration: timeUntilExpiration,
+                contractCreated: dayjs().format("YYYY-MM-DD HH:mm:ss"),
+                contractExpires: dayjs().add(timeUntilExpiration, 'hour').format("YYYY-MM-DD HH:mm:ss")
+            };
 
-                const blockTime = await provider.getBlock().then(function (block) {
-                    return block.timestamp;
-                });
-
-                // /* Create object to represent wager information */
-                // const wagerData = {
-                //     wagererAddress: `${data[0].substring(0, 8)}...`, // data.wagerer?
-                //     contractAddress: `${address.substring(0, 8)}...`,
-                //     wagerAmount: data[1].toString(), // data.wagerAmount?
-                //     contractDuration: blockTime, // (data[1] - blockTime) / 3600 = duration
-                //     contractCreated: dayjs().format("YYYY-MM-DD HH:mm:ss"),
-                //     contractExpires: dayjs().add(0, 'hour').format("YYYY-MM-DD HH:mm:ss") // data.wagerExpireTime?
-                // };
-
-                // setWagers([...wagers, wagerData]);
-            }
-
-            setInProgress(false);
+            setWagers([...wagers, wagerData]);
         }
+        setInProgress(false);
     };
 
     /* Deploy new wager contract */
@@ -183,12 +179,12 @@ const Splash = () => {
             const res = await tx.wait();
             const wagerAddress = res.events[0].args[0]; // Event reveals deployement address
 
-            /* Establish Wager contract to interact with via it's deployment address */ 
+            /* Establish Wager contract to interact with via it's deployment address */
             const newWager = new ethers.Contract(wagerAddress, Wager.abi, signer);
 
             /* Establish the finalized wager details */
             const tx2 = await newWager.establishWager(wagerDuration * 60 * 60, {
-                value: ethers.utils.parseEther(wagerAmount) 
+                value: ethers.utils.parseEther(wagerAmount)
             });
             await tx2.wait();
 
@@ -203,10 +199,10 @@ const Splash = () => {
 
     /* Wager Form Modal */
     const onMakeWagerBtnPressed = () => {
-        if (!hasWallet) { 
+        if (!hasWallet) {
             // Alert user again when they try to make wager
             setAlertOpen(true);
-        } 
+        }
         clearWagerInfo();
         setWagerFormOpen(true);
     };
