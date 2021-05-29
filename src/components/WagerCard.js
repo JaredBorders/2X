@@ -12,13 +12,14 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    minWidth: 420,
+    minWidth: 300,
+    maxwidth: 300,
     borderRadius: "1.3rem",
-    margin: "1rem auto",
+    margin: ".5rem auto",
     textAlign: "left",
     backgroundColor: "#1e273c",
     border: `1px solid #d81b60`,
-    padding: theme.spacing(1)
+    padding: '5px'
   },
   infoDisplay: {
     display: "flex",
@@ -26,8 +27,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifySelf: "center",
     backgroundColor: "#303645",
-    width: "100%",
-    minWidth: "10rem",
+    width: "300px",
     height: "3.3rem",
     textAlign: "center",
     borderRadius: ".7rem",
@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
     margin: 0,
     textTransform: "capitalize",
     color: "#D81B60",
-    fontSize: '1.5rem',
+    fontSize: '1.2rem',
     fontWeight: '700'
   },
   smallText: {
@@ -70,29 +70,30 @@ const WagerCard = (props) => {
   const StyledButton = withStyles({
     root: {
       color: "#fff",
-      width: "23rem",
       height: "4rem",
       borderRadius: ".9rem",
       marginTop: ".8rem",
       textTransform: "capitalize",
-      fontSize: "1.5rem"
+      fontSize: "1.5rem",
+      minWidth: "300px",
+      maxwidth: "340px",
     }
   })(Button);
 
   return (
     <ThemeProvider theme={theme}>
       <Card elevation={10} className={classes.root}>
-        <Typography variant="" className={classes.infoDisplay} color="light">
+        <Typography component={'span'} variant={'body2'} className={classes.infoDisplay}>
           <p className={classes.marginCenter}>
             ETH{" "}{props.amount}
           </p>
         </Typography>
-        <Typography gutterBottom>
+        <Typography component={'span'} variant={'body2'} gutterBottom>
           <p className={classes.cardLabels}>
             Wagerer Address:{" "}<span className={classes.textLight}>{props.wagererAddress}</span>
           </p>
         </Typography>
-        <Typography gutterBottom>
+        <Typography component={'span'} variant={'body2'} gutterBottom>
           <p className={classes.cardLabels}>
             Contract Address:{" "}<span className={classes.textLight}>{props.address}</span>
           </p>
@@ -102,7 +103,7 @@ const WagerCard = (props) => {
             <span className={classes.cap}>Match Wager</span>
           </StyledButton>
         </CardActions>
-        <Typography className={classes.textLight} gutterBottom>
+        <Typography component={'span'} variant={'body2'} className={classes.textLight} gutterBottom>
           <p className={classes.smallText}>expires: {props.dateExpires}</p>{" "}
         </Typography>
       </Card>
