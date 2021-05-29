@@ -80,7 +80,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 /* Address contract(s) was/were deployed to via $ npx hardhat run scripts/deploy.js {network} */
-const wagerFactoryAddress = "0x95a817F29F551f91c6360741260B72d70e03f552"; // Currently network === kovan
+const wagerFactoryAddress = "0x7512084Cee882aA74E6a3C45321effb9b5998C97"; // Currently network === kovan
 
 /* Description text for 2X */
 const description = "The Ethereum Blockchain provides a perfect ecosystem for trustless and highly secure gambling. " +
@@ -92,9 +92,6 @@ const alertText = "Metamask wallet not detected!"
 
 const Splash = () => {
     const classes = useStyles();
-
-    /* Factory deployed Wager addresses */
-    const [wagerAddresses, setWagerAddresses] = useState([]);
 
     /* Create Wager form state */
     const [wagerFormOpen, setWagerFormOpen] = useState(false);
@@ -120,59 +117,57 @@ const Splash = () => {
         checkConnection();
     });
 
-    /* Fetches valid wagers: only called on the component's first render */
-    /*eslint-disable */
+    /* Fetches Wager addresses from factory; only called on the component's first render */
     useEffect(() => {
-        (async function () {
-            await fetchValidWagersFromBlockchain();
-        })();
+        fetchValidWagerContracts();
     }, []);
-    /*eslint-enable */
 
-    /* Establish factory and fetch all addresses of currently deployed Wagers */
-    const fetchValidWagersFromBlockchain = async () => {
+    const fetchValidWagerContracts = async () => {
         setInProgress(true);
+
+        /* Instantiate provider & signer to establish interaction with WagerFactory */
         const provider = new ethers.providers.Web3Provider(window.ethereum);
         const factory = new ethers.Contract(wagerFactoryAddress, WagerFactory.abi, provider);
-
         const addresses = await factory.getWagers();
-        console.log(addresses); // prints all addresses but for-loop doesnt create 5 cards...
-        setWagerAddresses(addresses);
 
-        /* Fetch and set wager details for each address */
-        for (const i in wagerAddresses) {
-            const wager = new ethers.Contract(wagerAddresses[i], Wager.abi, provider)
+        var _wagers = []; // used to temporarily hold Wager contract data
+        setWagers(_wagers); // wipe previous state variable data
+
+        for (const i in addresses) {
+            /* Establish interaction with new Wager @ addresses[i] and fetch relevant data */
+            const wager = new ethers.Contract(addresses[i], Wager.abi, provider)
             const data = await wager.getWagerData();
 
+            /* Used to calculate user facing duration data */
             const blockTime = await provider.getBlock().then(function (block) {
-                return block.timestamp;
+                return block.timestamp; // timestamp used in Wager contract when setting duration
             });
-
             const timeUntilExpiration = Math.ceil((data[2].toNumber() - blockTime) / 3600);
 
-            /* Create object to represent wager information */
+            /* Create object to represent Wager information */
             const wagerData = {
+                key: blockTime + addresses[i],
                 wagererAddress: data[0].substring(0, 10).toLowerCase() + "...",
-                contractAddress: wagerAddresses[i].substring(0, 10).toLowerCase() + "...",
+                contractAddress: addresses[i].substring(0, 10).toLowerCase() + "...",
                 wagerAmount: ethers.utils.formatEther(data[1]),
                 contractDuration: timeUntilExpiration,
                 contractCreated: dayjs().format("YYYY-MM-DD HH:mm:ss"),
                 contractExpires: dayjs().add(timeUntilExpiration, 'hour').format("YYYY-MM-DD HH:mm:ss")
             };
 
-            setWagers([...wagers, wagerData]);
+            _wagers.push(wagerData);
         }
+        setWagers(_wagers); // set wagers state to all new data just fetched. Could NOT do this within for-loop
         setInProgress(false);
-    };
+    }
 
     /* Deploy new wager contract */
     const createWager = async () => {
         if (typeof window.ethereum !== 'undefined') {
-            /* Set to false in call to fetchValidWagersFromBlockchain after wagerAddresses update */
             setInProgress(true);
-
             await requestAccount();
 
+            /* Instantiate provider & signer to establish interaction with WagerFactory */
             const provider = new ethers.providers.Web3Provider(window.ethereum);
             const signer = provider.getSigner(); // Needed for paying eth
             const factory = new ethers.Contract(wagerFactoryAddress, WagerFactory.abi, signer);
@@ -191,7 +186,8 @@ const Splash = () => {
             });
             await tx2.wait();
 
-            fetchValidWagersFromBlockchain();
+            /* Update list of valid Wager contracts */
+            fetchValidWagerContracts();
         }
     }
 
@@ -360,6 +356,7 @@ const Splash = () => {
                         {wagers.map(wager => {
                             return (
                                 <WagerCard
+                                    key={wager.key}
                                     wagererAddress={wager.wagererAddress}
                                     address={wager.contractAddress}
                                     amount={wager.wagerAmount}
