@@ -116,13 +116,4 @@ contract Wager is Pausable {
     function getWagerData() public view returns(address, uint, uint) {
         return(wagerer, wagerAmount, wagerExpireTime);
     }
-
-    function removeWagerIfExpired() public {
-        WagerFactory(factory).removeAddress(
-            WagerFactory(factory).findIndexOfAddress(
-                address(this)
-            )
-        );
-    }
-
 }

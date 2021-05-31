@@ -41,26 +41,4 @@ contract WagerFactory is Pausable {
     {
         return wagerAddresses;
     }
-
-    function findIndexOfAddress(address _address) public view returns(uint) {
-        for (uint i = 0; i < wagerAddresses.length; i++) {
-            if (wagerAddresses[i] == _address) return i;
-        }
-        return 0; // never will reach this but we still want early exit
-    }
-
-    /// Delete address at index given
-    /// @param index of element to delete
-    function removeAddress(uint index) public {
-        if (index >= wagerAddresses.length) return;
-        Wager wager = Wager(wagerAddresses[index]);
-        
-        if (block.timestamp < wager.wagerExpireTime()) return;
-
-        for (uint i = index; i < wagerAddresses.length - 1; i++) {
-            wagerAddresses[i] = wagerAddresses[i+1];
-        }
-        wagerAddresses.pop();
-    }
-
 }
