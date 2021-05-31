@@ -19,6 +19,7 @@ import {
     DialogActions,
     DialogContent,
     DialogTitle,
+    DialogContentText,
     FormControl,
     InputLabel,
     Select,
@@ -80,7 +81,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 /* Address contract(s) was/were deployed to via $ npx hardhat run scripts/deploy.js {network} */
-const wagerFactoryAddress = "0x47c4803BA2Bb98b3e46066D65c8681e46FAbE4a4"; // Currently network === kovan
+const wagerFactoryAddress = "0x99f4e6544744716e59Fd2DBc8CDF65FF3Fd7e3e1"; // Currently network === kovan
 
 /* Description text for 2X */
 const description = "The Ethereum Blockchain provides a perfect ecosystem for trustless and highly secure gambling. " +
@@ -189,7 +190,7 @@ const Splash = () => {
             await tx.wait();
 
             /* If challenge was successful, remove this contract address from address list stored on WagerFactory */
-            setProgressDescription("Removing spent wager... See wallet balance to see if you won!");
+            setProgressDescription("Removing wager from list... Check wallet balance to see if you won!");
             const tx2 = await wager.removeWagerIfChallenged();
             await tx2.wait();
 
@@ -410,14 +411,22 @@ const Splash = () => {
                     </Grid>
                 </Grid>
                 <Backdrop className={classes.backdrop} open={inProgress}>
-                    <Grid>
-                        <Grid>
-                            <CircularProgress color="inherit" />
-                        </Grid>
-                        <Grid>
-                            <h2>{progressDescription}</h2>
-                        </Grid>
-                    </Grid>
+                    <>
+                        <Dialog
+                            open={inProgress}
+                            aria-labelledby="Progress modal"
+                            aria-describedby="Provide description of what is in progress"
+                        >
+                            <DialogTitle id="Progress Wheel" align="center">
+                                <CircularProgress color="inherit" />
+                            </DialogTitle>
+                            <DialogContent align="center">
+                                <DialogContentText id="Description">
+                                    {progressDescription}
+                                </DialogContentText>
+                            </DialogContent>
+                        </Dialog>
+                    </>
                 </Backdrop>
             </div>
         </Container>
