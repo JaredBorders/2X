@@ -88,7 +88,7 @@ const description = "The Ethereum Blockchain provides a perfect ecosystem for tr
     "by anybody with a Metamask wallet."
 
 /* Alert message */
-const alertText = "Metamask wallet not detected!"
+const alertText = "Wallet not detected! To use this app, please install Metamask."
 
 const Splash = () => {
     const classes = useStyles();
@@ -111,6 +111,7 @@ const Splash = () => {
 
     /* Progress Indicator */
     const [inProgress, setInProgress] = useState(false);
+    const [progressDescription, setProgressDescription] = useState("");
 
     /* Does user have a wallet? */
     useEffect(() => {
@@ -123,47 +124,53 @@ const Splash = () => {
     }, []);
 
     const fetchValidWagerContracts = async () => {
-        setInProgress(true);
+        if (typeof window.ethereum !== 'undefined') {
+            setProgressDescription("Loading available wagers...");
+            setInProgress(true);
 
-        /* Instantiate provider & signer to establish interaction with WagerFactory */
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const factory = new ethers.Contract(wagerFactoryAddress, WagerFactory.abi, provider);
-        const addresses = await factory.getWagers();
+            /* Instantiate provider & signer to establish interaction with WagerFactory */
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
+            const factory = new ethers.Contract(wagerFactoryAddress, WagerFactory.abi, provider);
+            const addresses = await factory.getWagers();
 
-        var _wagers = []; // used to temporarily hold Wager contract data
-        setWagers(_wagers); // wipe previous state variable data
+            var _wagers = []; // used to temporarily hold Wager contract data
+            setWagers(_wagers); // wipe previous state variable data
 
-        for (const i in addresses) {
-            /* Establish interaction with new Wager @ addresses[i] and fetch relevant data */
-            const wager = new ethers.Contract(addresses[i], Wager.abi, provider)
-            const data = await wager.getWagerData();
+            for (const i in addresses) {
+                /* Establish interaction with new Wager @ addresses[i] and fetch relevant data */
+                const wager = new ethers.Contract(addresses[i], Wager.abi, provider)
+                const data = await wager.getWagerData();
 
-            /* Used to calculate user facing duration data */
-            const blockTime = await provider.getBlock().then(function (block) {
-                return block.timestamp; // timestamp used in Wager contract when setting duration
-            });
-            const timeUntilExpiration = Math.ceil((data[2].toNumber() - blockTime) / 3600);
+                /* Used to calculate user facing duration data */
+                const blockTime = await provider.getBlock().then(function (block) {
+                    return block.timestamp; // timestamp used in Wager contract when setting duration
+                });
+                const timeUntilExpiration = Math.ceil((data[2].toNumber() - blockTime) / 3600);
+                
+                if (timeUntilExpiration > 0) {
+                    /* Create object to represent Wager information */
+                    const wagerData = {
+                        key: blockTime + addresses[i],
+                        wagererAddress: data[0].substring(0, 10).toLowerCase() + "...",
+                        contractAddress: addresses[i].substring(0, 10).toLowerCase() + "...",
+                        wagerAmount: ethers.utils.formatEther(data[1]),
+                        contractDuration: timeUntilExpiration,
+                        contractExpires: dayjs().add(timeUntilExpiration, 'hour').format("YYYY-MM-DD HH:mm:ss")
+                    };
 
-            /* Create object to represent Wager information */
-            const wagerData = {
-                key: blockTime + addresses[i],
-                wagererAddress: data[0].substring(0, 10).toLowerCase() + "...",
-                contractAddress: addresses[i].substring(0, 10).toLowerCase() + "...",
-                wagerAmount: ethers.utils.formatEther(data[1]),
-                contractDuration: timeUntilExpiration,
-                contractCreated: dayjs().format("YYYY-MM-DD HH:mm:ss"),
-                contractExpires: dayjs().add(timeUntilExpiration, 'hour').format("YYYY-MM-DD HH:mm:ss")
-            };
-
-            _wagers.push(wagerData);
+                    _wagers.push(wagerData);
+                }
+            }
+            setWagers(_wagers); // set wagers state to all new data just fetched. Could NOT do this within for-loop
+            setInProgress(false);
+            setProgressDescription("");
         }
-        setWagers(_wagers); // set wagers state to all new data just fetched. Could NOT do this within for-loop
-        setInProgress(false);
     }
 
     /* Deploy new wager contract */
     const createWager = async () => {
         if (typeof window.ethereum !== 'undefined') {
+            setProgressDescription("Factory creating new wager...");
             setInProgress(true);
             await requestAccount();
 
@@ -180,14 +187,17 @@ const Splash = () => {
             /* Establish Wager contract to interact with via it's deployment address */
             const newWager = new ethers.Contract(wagerAddress, Wager.abi, signer);
 
+            setProgressDescription("Establishing wager with specified amount and duration...");
             /* Establish the finalized wager details */
             const tx2 = await newWager.establishWager(wagerDuration * 60 * 60, {
                 value: ethers.utils.parseEther(wagerAmount)
             });
+            setProgressDescription("Waiting for transaction to be added to the blockchain...");
             await tx2.wait();
 
             /* Update list of valid Wager contracts */
             fetchValidWagerContracts();
+            setProgressDescription("");
         }
     }
 
@@ -368,7 +378,14 @@ const Splash = () => {
                     </Grid>
                 </Grid>
                 <Backdrop className={classes.backdrop} open={inProgress}>
-                    <CircularProgress color="inherit" />
+                    <Grid>
+                        <Grid>
+                            <CircularProgress color="inherit" />
+                        </Grid>
+                        <Grid>
+                            <h2>{progressDescription}</h2>
+                        </Grid>
+                    </Grid>
                 </Backdrop>
             </div>
         </Container>

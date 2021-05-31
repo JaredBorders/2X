@@ -8,6 +8,19 @@ import Header from './components/layout/Header';
 import Splash from './pages/Splash';
 
 const theme = createMuiTheme({
+  overrides: {
+    MuiCssBaseline: {
+      '@global': {
+        '*': {
+          'scrollbar-width': 'thin',
+        },
+        '*::-webkit-scrollbar': {
+          width: '4px',
+          height: '4px',
+        }
+      }
+    }
+  },
   palette: {
     type: "dark",
     background: {
