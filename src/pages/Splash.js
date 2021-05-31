@@ -80,7 +80,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 /* Address contract(s) was/were deployed to via $ npx hardhat run scripts/deploy.js {network} */
-const wagerFactoryAddress = "0x7512084Cee882aA74E6a3C45321effb9b5998C97"; // Currently network === kovan
+const wagerFactoryAddress = "0x47c4803BA2Bb98b3e46066D65c8681e46FAbE4a4"; // Currently network === kovan
 
 /* Description text for 2X */
 const description = "The Ethereum Blockchain provides a perfect ecosystem for trustless and highly secure gambling. " +
@@ -123,6 +123,7 @@ const Splash = () => {
         fetchValidWagerContracts();
     }, []);
 
+    /* Fetch and filter valid Wager contracts and update wagers state variable */
     const fetchValidWagerContracts = async () => {
         if (typeof window.ethereum !== 'undefined') {
             setProgressDescription("Loading available wagers...");
@@ -146,13 +147,14 @@ const Splash = () => {
                     return block.timestamp; // timestamp used in Wager contract when setting duration
                 });
                 const timeUntilExpiration = Math.ceil((data[2].toNumber() - blockTime) / 3600);
-                
+
                 if (timeUntilExpiration > 0) {
                     /* Create object to represent Wager information */
                     const wagerData = {
                         key: blockTime + addresses[i],
                         wagererAddress: data[0].substring(0, 10).toLowerCase() + "...",
-                        contractAddress: addresses[i].substring(0, 10).toLowerCase() + "...",
+                        contractAddress: addresses[i],
+                        contractAddressFormatted: addresses[i].substring(0, 10).toLowerCase() + "...",
                         wagerAmount: ethers.utils.formatEther(data[1]),
                         contractDuration: timeUntilExpiration,
                         contractExpires: dayjs().add(timeUntilExpiration, 'hour').format("YYYY-MM-DD HH:mm:ss")
@@ -167,12 +169,41 @@ const Splash = () => {
         }
     }
 
+    /* Challenge existing Wager */
+    const challengeWager = async (address, wagerAmount) => {
+        if (typeof window.ethereum !== 'undefined') {
+            setProgressDescription("Challenging wager @ address: " + address);
+            setInProgress(true);
+
+            /* Establish Wager contract to interact with via it's deployment address */
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
+            const signer = provider.getSigner(); // Needed for paying eth
+            const wager = new ethers.Contract(address, Wager.abi, signer);
+
+            const signerAddress = await signer.getAddress();
+
+            /* Attempt to enter Wager contract at address given */
+            const tx = await wager.challenge(signerAddress, {
+                value: ethers.utils.parseEther(wagerAmount)
+            });
+            await tx.wait();
+
+            /* If challenge was successful, remove this contract address from address list stored on WagerFactory */
+            setProgressDescription("Removing spent wager... See wallet balance to see if you won!");
+            const tx2 = await wager.removeWagerIfChallenged();
+            await tx2.wait();
+
+            fetchValidWagerContracts();
+        }
+    }
+
     /* Deploy new wager contract */
     const createWager = async () => {
         if (typeof window.ethereum !== 'undefined') {
             setProgressDescription("Factory creating new wager...");
             setInProgress(true);
-            await requestAccount();
+
+            await requestAccount(); // is this needed?
 
             /* Instantiate provider & signer to establish interaction with WagerFactory */
             const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -197,7 +228,6 @@ const Splash = () => {
 
             /* Update list of valid Wager contracts */
             fetchValidWagerContracts();
-            setProgressDescription("");
         }
     }
 
@@ -368,10 +398,12 @@ const Splash = () => {
                                 <WagerCard
                                     key={wager.key}
                                     wagererAddress={wager.wagererAddress}
-                                    address={wager.contractAddress}
+                                    contractAddress={wager.contractAddress}
+                                    contractAddressFormatted={wager.contractAddressFormatted}
                                     amount={wager.wagerAmount}
                                     dateCreated={wager.contractCreated}
                                     dateExpires={wager.contractExpires}
+                                    challengeWager={challengeWager}
                                 />
                             )
                         })}

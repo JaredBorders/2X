@@ -80,6 +80,11 @@ const WagerCard = (props) => {
     }
   })(Button);
 
+  const onMatchWagerPressed = () => {
+    // TODO:Ask user if they're SURE they wish to enter wager with another user!!!
+    props.challengeWager(props.contractAddress, props.amount);
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <Card elevation={10} className={classes.root}>
@@ -95,11 +100,16 @@ const WagerCard = (props) => {
         </Typography>
         <Typography component={'span'} variant={'body2'} gutterBottom>
           <p className={classes.cardLabels}>
-            Contract Address:{" "}<span className={classes.textLight}>{props.address}</span>
+            Contract Address:{" "}<span className={classes.textLight}>{props.contractAddressFormatted}</span>
           </p>
         </Typography>
         <CardActions>
-          <StyledButton className={classes.wgrBtn} size="large" variant="outlined">
+          <StyledButton
+            className={classes.wgrBtn}
+            size="large"
+            variant="outlined"
+            onClick={onMatchWagerPressed}
+          >
             <span className={classes.cap}>Match Wager</span>
           </StyledButton>
         </CardActions>

@@ -116,4 +116,15 @@ contract Wager is Pausable {
     function getWagerData() public view returns(address, uint, uint) {
         return(wagerer, wagerAmount, wagerExpireTime);
     }
+
+    /// Remove address from list of active Wager contract addresses from WagerFactory
+    /// @dev convenient way for front-end to remove this contracts address from the factory
+    function removeWagerIfChallenged() public {
+        WagerFactory(factory).removeAddress(
+            WagerFactory(factory).findIndexOfAddress(
+                address(this)
+            )
+        );
+    }
+
 }
