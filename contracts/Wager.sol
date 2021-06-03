@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.3;
 
+import "@chainlink/contracts/src/v0.6/VRFConsumerBase.sol";
 import "@openzeppelin/contracts/security/Pausable.sol";
 import "./WagerFactory.sol";
 
@@ -9,7 +10,7 @@ import "./WagerFactory.sol";
 
 /// @author jaredborders
 /// @title Wager - Creates contract for 1-1 betting
-contract Wager is Pausable {
+contract Wager is Pausable, VRFConsumerBase {
 
     /* STATE VARIABLES */
     address public factory;
@@ -18,6 +19,11 @@ contract Wager is Pausable {
     uint public wagerAmount; // Amount staked by wagerer
     uint constant MIN_DURATION = 300; // Duration of wager >= 5 minutes
     uint public wagerExpireTime; // To be determined by Wagerer
+
+    /* CHAINLINK VRF */
+    bytes32 internal keyHash;
+    uint256 internal fee;
+    uint256 public randomResult;
 
     /* MODIFIERS */
     modifier isOwner {
@@ -50,10 +56,17 @@ contract Wager is Pausable {
     /// @param _owner - the owner address to be recognized by this contract. Not necessarily `msg.sender` nor `tx.origin`
     /// @param _factory - the WagerFactory address which created this contract
     constructor(address _owner, address _factory)
-        payable 
+        VRFConsumerBase(
+            0xdD3782915140c8f3b190B5D67eAc6dc5760C46E9, // VRF Coordinator
+            0xa36085F69e2889c224210F603D836748e7dC0088  // LINK Token
+        ) 
+        payable
     {
         factory = _factory;
         wagerer = _owner;
+
+        keyHash = 0x6c3699283bda56ad74f6b855546325b68d482e983852a7a82979cc4807b641f4;
+        fee = 0.1 * 10 ** 18; // 0.1 LINK (Varies by network)
     }
 
     /* FUNCTIONS */
@@ -107,7 +120,14 @@ contract Wager is Pausable {
         view
         returns(uint) 
     {
+        // require(LINK.balanceOf(address(this)) >= fee, "Not enough LINK - fill contract with faucet");
+        // return uint(requestRandomness(keyHash, fee, userProvidedSeed)) % 2;
         return uint(keccak256(abi.encodePacked(block.timestamp, block.number,block.difficulty))) % 2;
+    }
+
+    /// Callback function used by VRF Coordinator
+    function fulfillRandomness(bytes32 requestId, uint256 randomness) internal override {
+        randomResult = randomness;
     }
 
     /// Get Wager data
