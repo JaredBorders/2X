@@ -81,7 +81,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 /* Address contract(s) was/were deployed to via $ npx hardhat run scripts/deploy.js {network} */
-const wagerFactoryAddress = "0x99f4e6544744716e59Fd2DBc8CDF65FF3Fd7e3e1"; // Currently network === kovan
+const wagerFactoryAddress = "0xfe32E7096D8eB19a0EdC5C281dc798A68A125bdC"; // Currently network === kovan
 
 /* Description text for 2X */
 const description = "The Ethereum Blockchain provides a perfect ecosystem for trustless and highly secure gambling. " +
@@ -188,11 +188,6 @@ const Splash = () => {
                 value: ethers.utils.parseEther(wagerAmount)
             });
             await tx.wait();
-
-            /* If challenge was successful, remove this contract address from address list stored on WagerFactory */
-            setProgressDescription("Removing wager from list... Check wallet balance to see if you won!");
-            const tx2 = await wager.removeWagerIfChallenged();
-            await tx2.wait();
 
             fetchValidWagerContracts();
         }

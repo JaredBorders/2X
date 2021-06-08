@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.3;
+pragma solidity ^0.8.0;
 
-import "@chainlink/contracts/src/v0.6/VRFConsumerBase.sol";
 import "@openzeppelin/contracts/security/Pausable.sol";
 import "./WagerFactory.sol";
 
@@ -10,11 +9,12 @@ import "./WagerFactory.sol";
 
 /// @author jaredborders
 /// @title Wager - Creates contract for 1-1 betting
-contract Wager is Pausable, VRFConsumerBase {
+contract Wager is Pausable {
 
     /* STATE VARIABLES */
     address public factory;
     address public wagerer; // Wager creator
+    address public challenger;
     uint constant MIN_WAGER = 100000000000000 wei; // Minimum stake of wager (0.0001 ETH)
     uint public wagerAmount; // Amount staked by wagerer
     uint constant MIN_DURATION = 300; // Duration of wager >= 5 minutes
@@ -56,17 +56,10 @@ contract Wager is Pausable, VRFConsumerBase {
     /// @param _owner - the owner address to be recognized by this contract. Not necessarily `msg.sender` nor `tx.origin`
     /// @param _factory - the WagerFactory address which created this contract
     constructor(address _owner, address _factory)
-        VRFConsumerBase(
-            0xdD3782915140c8f3b190B5D67eAc6dc5760C46E9, // VRF Coordinator
-            0xa36085F69e2889c224210F603D836748e7dC0088  // LINK Token
-        ) 
         payable
     {
         factory = _factory;
         wagerer = _owner;
-
-        keyHash = 0x6c3699283bda56ad74f6b855546325b68d482e983852a7a82979cc4807b641f4;
-        fee = 0.1 * 10 ** 18; // 0.1 LINK (Varies by network)
     }
 
     /* FUNCTIONS */
@@ -99,7 +92,6 @@ contract Wager is Pausable, VRFConsumerBase {
         paused(); // pause contract (i.e. don't allow any more calls to establishWager nor challenge)
         wagerAmount += uint(msg.value);
         findWinner(_challenger);
-        wagerAmount = 0; // reset wager amount
     }
 
     /// Determine who wins
@@ -108,26 +100,18 @@ contract Wager is Pausable, VRFConsumerBase {
     function findWinner(address _challenger) 
         internal
     {
-        getRandom() == 0 ? 
+        challenger = _challenger;
+        //WagerFactory(factory).rng();
+    }
+
+    function PayWinner(uint16 randomNumber) public {
+        require(msg.sender == factory, "Only the Factory can set the randomNumber!");
+
+        randomNumber == 0 ? 
             payable(wagerer).transfer(wagerAmount) : 
-            payable(_challenger).transfer(wagerAmount);
-    }
+            payable(challenger).transfer(wagerAmount);
 
-    /// Generate a random value
-    /// @return 0 or 1, "randomly"
-    function getRandom() 
-        internal 
-        view
-        returns(uint) 
-    {
-        // require(LINK.balanceOf(address(this)) >= fee, "Not enough LINK - fill contract with faucet");
-        // return uint(requestRandomness(keyHash, fee, userProvidedSeed)) % 2;
-        return uint(keccak256(abi.encodePacked(block.timestamp, block.number,block.difficulty))) % 2;
-    }
-
-    /// Callback function used by VRF Coordinator
-    function fulfillRandomness(bytes32 requestId, uint256 randomness) internal override {
-        randomResult = randomness;
+        wagerAmount = 0; // reset wager amount
     }
 
     /// Get Wager data
@@ -141,9 +125,9 @@ contract Wager is Pausable, VRFConsumerBase {
     /// @dev convenient way for front-end to remove this contracts address from the factory
     function removeWagerIfChallenged() public {
         WagerFactory(factory).removeAddress(
-            WagerFactory(factory).findIndexOfAddress(
+            uint(WagerFactory(factory).findIndexOfAddress(
                 address(this)
-            )
+            ))
         );
     }
 
