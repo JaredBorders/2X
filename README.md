@@ -58,9 +58,8 @@ npx hardhat compile
 
 ## TODO
 * Adjust WagerCard size for mobile screens
-* Create wager field validation
-* Chainlink VRF Randomness implementation 
-* Find way to easily get LINK on mainnet for/from user
+* Wager field validation needs to be a lot stricter
+* Send enough wei to pay for gas used by RandomNumberConsumer
 * Vulnerability analysis w/ [Slither](https://github.com/crytic/slither)
 
 ## How to Contribute?
