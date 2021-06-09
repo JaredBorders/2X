@@ -30,17 +30,18 @@ yarn
 ```
 
 3. Create a .env file in the root directory of your project. Add these environment-specific variables on new lines in the form of NAME=VALUE: 
-* PRIVATE_KEY={ from metamask }
-* INFURA_ROPSTEN_NETWORK={ can be created for free [here](https://infura.io/) }
-* INFURA_KOVAN_NETWORK={ can be created for free [here](https://infura.io/) }
+* PRIVATE_KEY={YOUR_KEY_FROM_METAMASK}
+* INFURA_KOVAN_NETWORK={SEE_[HERE](https://infura.io/)}
 
-4. Deploy the contract to either the Ropsten or Kovan network (example below deploys to Ropsten)
+4. Deploy the contract (WagerFactory) to the Kovan network.
 
 ```sh
-npx hardhat run scripts/deploy.js --network ropsten
+npx hardhat run scripts/deploy.js --network kovan
 ```
 
-5. Once the script finishes deploying WagerFactory, it will log the address of where the contract was deployed to. Update __src/pages/Splash.js__ with this value. (see `wagerFactoryAddress`)
+5. Once the script finishes deploying the WagerFactory, it will log the address of where the contract was deployed to. Update __src/pages/Splash.js__ with this value. (see `wagerFactoryAddress`)
+
+5.1 Add LINK token to the RandomNumberConsumer contract. See [here](https://docs.chain.link/docs/fund-your-contract/) to learn more about how to do this. (The public state variable stored in the WagerFactory (`randomNumberConsumerAddress`) records the address of the RandomNumberConsumer contract)
 
 6. Run the app
 
@@ -48,19 +49,19 @@ npx hardhat run scripts/deploy.js --network ropsten
 yarn start
 ```
 
-7. Any changes made to either of the smart contracts will require you to recompile them. To recompile
+7. Any changes made to any of the contracts will require you to recompile them. To recompile
 
 ```sh
 npx hardhat compile
 ```
 
-8. Any changes to WagerFactory requires you to redeploy it. Don't forget to update __src/pages/Splash.js__
+8. Don't forget to update __src/pages/Splash.js__ with the current address if you redeploy your WagerFactory!
 
 ## TODO
-* Adjust WagerCard size for mobile screens
+* Open Wager cards need re-worked to include full addresses and withdraw wager button. 
 * Wager field validation needs to be a lot stricter
-* Send enough wei to pay for gas used by RandomNumberConsumer
 * Vulnerability analysis w/ [Slither](https://github.com/crytic/slither)
+* Update tests that were written pre-oracle
 
 ## How to Contribute?
 Read [this guide](https://opensource.guide/how-to-contribute/) first, check TODO list, and don't hesitate to reach out!
