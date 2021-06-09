@@ -101,7 +101,7 @@ contract Wager is Pausable {
         internal
     {
         challenger = _challenger;
-        //WagerFactory(factory).rng();
+        WagerFactory(factory).rng();
     }
 
     function PayWinner(uint16 randomNumber) public {

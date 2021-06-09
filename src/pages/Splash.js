@@ -81,7 +81,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 /* Address contract(s) was/were deployed to via $ npx hardhat run scripts/deploy.js {network} */
-const wagerFactoryAddress = "0xfe32E7096D8eB19a0EdC5C281dc798A68A125bdC"; // Currently network === kovan
+const wagerFactoryAddress = "0xcD87eDCe97944D78F2aabb35E6AC7fb2f553059C"; // Currently network === kovan
 
 /* Description text for 2X */
 const description = "The Ethereum Blockchain provides a perfect ecosystem for trustless and highly secure gambling. " +
@@ -139,29 +139,33 @@ const Splash = () => {
             setWagers(_wagers); // wipe previous state variable data
 
             for (const i in addresses) {
-                /* Establish interaction with new Wager @ addresses[i] and fetch relevant data */
-                const wager = new ethers.Contract(addresses[i], Wager.abi, provider)
-                const data = await wager.getWagerData();
+                try {
+                    /* Establish interaction with new Wager @ addresses[i] and fetch relevant data */
+                    const wager = new ethers.Contract(addresses[i], Wager.abi, provider)
+                    const data = await wager.getWagerData();
 
-                /* Used to calculate user facing duration data */
-                const blockTime = await provider.getBlock().then(function (block) {
-                    return block.timestamp; // timestamp used in Wager contract when setting duration
-                });
-                const timeUntilExpiration = Math.ceil((data[2].toNumber() - blockTime) / 3600);
+                    /* Used to calculate user facing duration data */
+                    const blockTime = await provider.getBlock().then(function (block) {
+                        return block.timestamp; // timestamp used in Wager contract when setting duration
+                    });
+                    const timeUntilExpiration = Math.ceil((data[2].toNumber() - blockTime) / 3600);
 
-                if (timeUntilExpiration > 0) {
-                    /* Create object to represent Wager information */
-                    const wagerData = {
-                        key: blockTime + addresses[i],
-                        wagererAddress: data[0].substring(0, 10).toLowerCase() + "...",
-                        contractAddress: addresses[i],
-                        contractAddressFormatted: addresses[i].substring(0, 10).toLowerCase() + "...",
-                        wagerAmount: ethers.utils.formatEther(data[1]),
-                        contractDuration: timeUntilExpiration,
-                        contractExpires: dayjs().add(timeUntilExpiration, 'hour').format("YYYY-MM-DD HH:mm:ss")
-                    };
+                    if (timeUntilExpiration > 0) {
+                        /* Create object to represent Wager information */
+                        const wagerData = {
+                            key: blockTime + addresses[i],
+                            wagererAddress: data[0].substring(0, 10).toLowerCase() + "...",
+                            contractAddress: addresses[i],
+                            contractAddressFormatted: addresses[i].substring(0, 10).toLowerCase() + "...",
+                            wagerAmount: ethers.utils.formatEther(data[1]),
+                            contractDuration: timeUntilExpiration,
+                            contractExpires: dayjs().add(timeUntilExpiration, 'hour').format("YYYY-MM-DD HH:mm:ss")
+                        };
 
-                    _wagers.push(wagerData);
+                        _wagers.push(wagerData);
+                    }
+                } catch (error) {
+                    console.log("Issue fetching wagers: " + error);
                 }
             }
             setWagers(_wagers); // set wagers state to all new data just fetched. Could NOT do this within for-loop
@@ -172,22 +176,29 @@ const Splash = () => {
 
     /* Challenge existing Wager */
     const challengeWager = async (address, wagerAmount) => {
+        const delay = t => new Promise(res => setTimeout(res, t));
+
         if (typeof window.ethereum !== 'undefined') {
             setProgressDescription("Challenging wager @ address: " + address);
             setInProgress(true);
 
-            /* Establish Wager contract to interact with via it's deployment address */
-            const provider = new ethers.providers.Web3Provider(window.ethereum);
-            const signer = provider.getSigner(); // Needed for paying eth
-            const wager = new ethers.Contract(address, Wager.abi, signer);
+            try {
+                /* Establish Wager contract to interact with via it's deployment address */
+                const provider = new ethers.providers.Web3Provider(window.ethereum);
+                const signer = provider.getSigner(); // Needed for paying eth
+                const wager = new ethers.Contract(address, Wager.abi, signer);
+                const signerAddress = await signer.getAddress();
 
-            const signerAddress = await signer.getAddress();
+                /* Attempt to enter Wager contract at address given */
+                const tx = await wager.challenge(signerAddress, {
+                    value: ethers.utils.parseEther(wagerAmount)
+                });
+                await tx.wait();
 
-            /* Attempt to enter Wager contract at address given */
-            const tx = await wager.challenge(signerAddress, {
-                value: ethers.utils.parseEther(wagerAmount)
-            });
-            await tx.wait();
+            } catch (error) {
+                setProgressDescription("There was an issue with your transaction. Try again or contact a developer for help.");
+                await delay(5000);
+            }
 
             fetchValidWagerContracts();
         }
