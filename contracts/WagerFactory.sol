@@ -73,7 +73,7 @@ contract WagerFactory is Pausable {
 
     /// Public rng for use by deployed Wager contracts ONLY
     function rng() public {
-        require(findIndexOfAddress(msg.sender) > 0, "rng() can only be called by deployed Wager contracts");
+        require(findIndexOfAddress(msg.sender) >= 0, "rng() can only be called by deployed Wager contracts");
 
         // Using Chainlink VRF Oracle; Random already contains LINK
         bytes32 requestId = RandomNumberConsumer(randomNumberConsumerAddress).getRandomNumber( 

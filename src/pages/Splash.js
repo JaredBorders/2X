@@ -81,7 +81,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 /* Address contract(s) was/were deployed to via $ npx hardhat run scripts/deploy.js {network} */
-const wagerFactoryAddress = "0xcD87eDCe97944D78F2aabb35E6AC7fb2f553059C"; // Currently network === kovan
+const wagerFactoryAddress = "0x6BD26e12a37cF0226812EABb4954341F06A220b2"; // Currently network === kovan
 
 /* Description text for 2X */
 const description = "The Ethereum Blockchain provides a perfect ecosystem for trustless and highly secure gambling. " +
