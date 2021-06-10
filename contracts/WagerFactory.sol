@@ -13,7 +13,6 @@ contract WagerFactory is Pausable {
     address[] public wagerAddresses;
     address public randomNumberConsumerAddress;
     uint16 private randomNumber;
-
     mapping(bytes32 => address) rngMapping;
 
     /* EVENTS */
@@ -27,7 +26,7 @@ contract WagerFactory is Pausable {
 
     /* FUNCTIONS */
     /// Create a new Wager if contract is not paused
-    /// @dev The new Wager is then saved in the array of this contract for future reference
+    /// @dev The new Wager is then saved in the wagerAddresses array for future reference
     function createWagerContract() 
         public 
         whenNotPaused
@@ -35,12 +34,11 @@ contract WagerFactory is Pausable {
     {
         Wager newWager = new Wager(msg.sender, address(this));
         address wagerAddress = address(newWager);
-        wagerAddresses.push(wagerAddress); // Update with new contract info
+        wagerAddresses.push(wagerAddress); // Update with new contract address
 
         emit WagerCreated(wagerAddress, address(this));
     }
 
-    /// Retrieve the the array of created contracts
     /// @return An array of all created Wager contracts
     function getWagers() 
         public 
@@ -82,11 +80,15 @@ contract WagerFactory is Pausable {
             uint(keccak256(abi.encodePacked(block.timestamp, block.number, block.difficulty)))
         );
 
-        rngMapping[requestId] = msg.sender;
+        rngMapping[requestId] = msg.sender; // used later to identify which Wager to send the random number to
     }
 
+    /// Callback function which then makes a call to a Wager with the corresponding requestId
+    /// @param _randomNumber the random number generated via Chainlink's Oracle
+    /// @param requestId the id mapped previously to a deployed Wager's address
     function setRandomNumber(uint16 _randomNumber, bytes32 requestId) public {
-        require(msg.sender == randomNumberConsumerAddress, "Only Random smart contract can set the randomNumber state");
+        require(msg.sender == randomNumberConsumerAddress, "Only RandomNumberConsumer can set the randomNumber state");
+
         Wager(rngMapping[requestId]).PayWinner(_randomNumber);
         removeAddress(uint(findIndexOfAddress(rngMapping[requestId])));
     }

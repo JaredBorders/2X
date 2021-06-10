@@ -104,6 +104,7 @@ contract Wager is Pausable {
         WagerFactory(factory).rng();
     }
 
+    /// Callback function that is called once WagerFactory gets a random number generated via Chainlink's Oracle
     function PayWinner(uint16 randomNumber) public {
         require(msg.sender == factory, "Only the Factory can set the randomNumber!");
 

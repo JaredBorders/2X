@@ -4,11 +4,18 @@ pragma solidity ^0.8.0;
 import "@chainlink/contracts/src/v0.8/dev/VRFConsumerBase.sol";
 import "./WagerFactory.sol";
 
+/// @title RandomNumberConsumer - Random number generator
 contract RandomNumberConsumer is VRFConsumerBase {
+
+    /* STATE VARIABLES */
     address public factory;
     bytes32 internal keyHash;
     uint256 internal fee;
     uint256 public randomResult;
+
+    /* Required addresses (Kovan Network) */
+    address private VRFCoordinatorAddress = 0xdD3782915140c8f3b190B5D67eAc6dc5760C46E9;
+    address private LINKTokenAddress = 0xdD3782915140c8f3b190B5D67eAc6dc5760C46E9;
     
     /**
      * Constructor inherits VRFConsumerBase
@@ -19,10 +26,7 @@ contract RandomNumberConsumer is VRFConsumerBase {
      * Key Hash: 0x6c3699283bda56ad74f6b855546325b68d482e983852a7a82979cc4807b641f4
      */
     constructor(address _factory) 
-        VRFConsumerBase(
-            0xdD3782915140c8f3b190B5D67eAc6dc5760C46E9, // VRF Coordinator
-            0xa36085F69e2889c224210F603D836748e7dC0088  // LINK Token
-        )
+        VRFConsumerBase(VRFCoordinatorAddress, LINKTokenAddress)
     {
         factory = _factory;
         keyHash = 0x6c3699283bda56ad74f6b855546325b68d482e983852a7a82979cc4807b641f4;
@@ -43,6 +47,7 @@ contract RandomNumberConsumer is VRFConsumerBase {
     function getRandomNumber(uint256 userProvidedSeed) public returns (bytes32 requestId) {
         require(LINK.balanceOf(address(this)) >= fee, "Not enough LINK - fill contract with faucet");
         require(msg.sender == factory, "Only the Wager Factory can retrieve random numbers");
+        
         return requestRandomness(keyHash, fee, userProvidedSeed);
     }
 
@@ -50,7 +55,8 @@ contract RandomNumberConsumer is VRFConsumerBase {
      * Callback function used by VRF Coordinator
      */
     function fulfillRandomness(bytes32 requestId, uint256 randomness) internal override {
-        randomResult = randomness % 2;
-        WagerFactory(factory).setRandomNumber(uint16(randomResult), requestId);
+        // Callback to WagerFactory to set the random number that was generated
+        WagerFactory(factory).setRandomNumber(uint16(randomness % 2), requestId);
     }
+
 }
