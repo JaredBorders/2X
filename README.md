@@ -41,21 +41,21 @@ npx hardhat run scripts/deploy.js --network kovan
 
 5. Once the script finishes deploying the WagerFactory, it will log the address of where the contract was deployed to. Update __src/pages/Splash.js__ with this value. (see `wagerFactoryAddress`)
 
-5.1 Add LINK token to the RandomNumberConsumer contract. See [here](https://docs.chain.link/docs/fund-your-contract/) to learn more about how to do this. (The public state variable stored in the WagerFactory (`randomNumberConsumerAddress`) records the address of the RandomNumberConsumer contract)
+6. Add LINK token to the RandomNumberConsumer contract. See [here](https://docs.chain.link/docs/fund-your-contract/) to learn more about how to do this. (The public state variable stored in the WagerFactory (`randomNumberConsumerAddress`) records the address of the RandomNumberConsumer contract)
 
-6. Run the app
+7. Run the app
 
 ```sh
 yarn start
 ```
 
-7. Any changes made to any of the contracts will require you to recompile them. To recompile
+8. Any changes made to any of the contracts will require you to recompile them. To recompile
 
 ```sh
 npx hardhat compile
 ```
 
-8. Don't forget to update __src/pages/Splash.js__ with the current address if you redeploy your WagerFactory!
+9. Don't forget to update __src/pages/Splash.js__ with the current address if you redeploy your WagerFactory!
 
 ## TODO
 * Open Wager cards need re-worked to include full addresses and withdraw wager button. 
