@@ -81,7 +81,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 /* Address contract(s) was/were deployed to via $ npx hardhat run scripts/deploy.js {network} */
-const wagerFactoryAddress = "0x6BD26e12a37cF0226812EABb4954341F06A220b2"; // Currently network === kovan
+const wagerFactoryAddress = "0x38361E003e5FF4f68c067a1833E14866b858A204"; // Currently network === kovan
 
 /* Description text for 2X */
 const description = "The Ethereum Blockchain provides a perfect ecosystem for trustless and highly secure gambling. " +
@@ -182,13 +182,22 @@ const Splash = () => {
             setProgressDescription("Challenging wager @ address: " + address);
             setInProgress(true);
 
-            try {
-                /* Establish Wager contract to interact with via it's deployment address */
-                const provider = new ethers.providers.Web3Provider(window.ethereum);
-                const signer = provider.getSigner(); // Needed for paying eth
-                const wager = new ethers.Contract(address, Wager.abi, signer);
-                const signerAddress = await signer.getAddress();
+            var provider = null;
+            var signer = null;
+            var wager = null;
+            var signerAddress = null;
 
+            try {
+                try {
+                    /* Establish Wager contract to interact with via it's deployment address */
+                    provider = new ethers.providers.Web3Provider(window.ethereum);
+                    signer = provider.getSigner(); // Needed for paying eth
+                    wager = new ethers.Contract(address, Wager.abi, signer);
+                    signerAddress = await signer.getAddress();
+                } catch (error) {
+                    setProgressDescription("There was an issue with provider, signer, wager, signerAddress...");
+                await delay(5000);
+                }
                 /* Attempt to enter Wager contract at address given */
                 const tx = await wager.challenge(signerAddress, {
                     value: ethers.utils.parseEther(wagerAmount)
@@ -197,6 +206,7 @@ const Splash = () => {
 
             } catch (error) {
                 setProgressDescription("There was an issue with your transaction. Try again or contact a developer for help.");
+                console.log(error);
                 await delay(5000);
             }
 

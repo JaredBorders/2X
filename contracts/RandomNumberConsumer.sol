@@ -15,7 +15,7 @@ contract RandomNumberConsumer is VRFConsumerBase {
 
     /* Required addresses (Kovan Network) */
     address private VRFCoordinatorAddress = 0xdD3782915140c8f3b190B5D67eAc6dc5760C46E9;
-    address private LINKTokenAddress = 0xdD3782915140c8f3b190B5D67eAc6dc5760C46E9;
+    address private LINKTokenAddress = 0xa36085F69e2889c224210F603D836748e7dC0088;
     
     /**
      * Constructor inherits VRFConsumerBase
@@ -56,7 +56,14 @@ contract RandomNumberConsumer is VRFConsumerBase {
      */
     function fulfillRandomness(bytes32 requestId, uint256 randomness) internal override {
         // Callback to WagerFactory to set the random number that was generated
-        WagerFactory(factory).setRandomNumber(uint16(randomness % 2), requestId);
+        randomResult = randomness % 2;
+        WagerFactory(factory).setRandomNumber(uint16(randomResult), requestId);
     }
 
+    /**
+     * @return amount of LINK contract has
+     */
+    function getAmountOfLink() public view returns (uint256 amount) {
+        return LINK.balanceOf(address(this));
+    }
 }
