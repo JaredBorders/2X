@@ -27,6 +27,7 @@ import {
     Backdrop,
     CircularProgress,
 } from "@material-ui/core";
+import { Description } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
     main: {
@@ -81,7 +82,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 /* Address contract(s) was/were deployed to via $ npx hardhat run scripts/deploy.js {network} */
-const wagerFactoryAddress = "0x38361E003e5FF4f68c067a1833E14866b858A204"; // Currently network === kovan
+const wagerFactoryAddress = "0xDb4D14cDEda82657bb98f04C07aA16E91cdBbb2C"; // Currently network === kovan
 
 /* Description text for 2X */
 const description = "The Ethereum Blockchain provides a perfect ecosystem for trustless and highly secure gambling. " +
@@ -124,16 +125,31 @@ const Splash = () => {
         fetchValidWagerContracts();
     }, []);
 
+    const reportError = async (error, description) => {
+        const delay = t => new Promise(res => setTimeout(res, t));
+        setProgressDescription(description);
+        console.log(error);
+        await delay(5000);
+    }
+
     /* Fetch and filter valid Wager contracts and update wagers state variable */
     const fetchValidWagerContracts = async () => {
         if (typeof window.ethereum !== 'undefined') {
             setProgressDescription("Loading available wagers...");
             setInProgress(true);
 
-            /* Instantiate provider & signer to establish interaction with WagerFactory */
-            const provider = new ethers.providers.Web3Provider(window.ethereum);
-            const factory = new ethers.Contract(wagerFactoryAddress, WagerFactory.abi, provider);
-            const addresses = await factory.getWagers();
+            await requestAccount();
+
+            var [provider, factory, addresses] = [null, null, null];
+
+            try {
+                /* Instantiate provider & signer to establish interaction with WagerFactory */
+                provider = new ethers.providers.Web3Provider(window.ethereum);
+                factory = new ethers.Contract(wagerFactoryAddress, WagerFactory.abi, provider);
+                addresses = await factory.getWagers();
+            } catch (error) {
+                reportError(error, "Issue fetching wagers");
+            }
 
             var _wagers = []; // used to temporarily hold Wager contract data
             setWagers(_wagers); // wipe previous state variable data
@@ -165,7 +181,7 @@ const Splash = () => {
                         _wagers.push(wagerData);
                     }
                 } catch (error) {
-                    console.log("Issue fetching wagers: " + error);
+                    reportError(error, "Issue creating wager cards");
                 }
             }
             setWagers(_wagers); // set wagers state to all new data just fetched. Could NOT do this within for-loop
@@ -176,28 +192,25 @@ const Splash = () => {
 
     /* Challenge existing Wager */
     const challengeWager = async (address, wagerAmount) => {
-        const delay = t => new Promise(res => setTimeout(res, t));
-
         if (typeof window.ethereum !== 'undefined') {
             setProgressDescription("Challenging wager @ address: " + address);
             setInProgress(true);
 
-            var provider = null;
-            var signer = null;
-            var wager = null;
-            var signerAddress = null;
+            await requestAccount();
+
+            var [provider, signer, wager, signerAddress] = [null, null, null, null];
 
             try {
-                try {
-                    /* Establish Wager contract to interact with via it's deployment address */
-                    provider = new ethers.providers.Web3Provider(window.ethereum);
-                    signer = provider.getSigner(); // Needed for paying eth
-                    wager = new ethers.Contract(address, Wager.abi, signer);
-                    signerAddress = await signer.getAddress();
-                } catch (error) {
-                    setProgressDescription("There was an issue with provider, signer, wager, signerAddress...");
-                await delay(5000);
-                }
+                /* Establish Wager contract to interact with via it's deployment address */
+                provider = new ethers.providers.Web3Provider(window.ethereum);
+                signer = provider.getSigner(); // Needed for paying eth
+                wager = new ethers.Contract(address, Wager.abi, signer);
+                signerAddress = await signer.getAddress();
+            } catch (error) {
+                reportError(error, "There was an issue with provider, signer, wager, signerAddress...");
+            }
+
+            try {
                 /* Attempt to enter Wager contract at address given */
                 const tx = await wager.challenge(signerAddress, {
                     value: ethers.utils.parseEther(wagerAmount)
@@ -205,12 +218,13 @@ const Splash = () => {
                 await tx.wait();
 
             } catch (error) {
-                setProgressDescription("There was an issue with your transaction. Try again or contact a developer for help.");
-                console.log(error);
-                await delay(5000);
+                reportError(
+                    error,
+                    "There was an issue with your transaction. Try again or contact a developer for help."
+                );
             }
 
-            fetchValidWagerContracts();
+            fetchValidWagerContracts(); // pass address to not include
         }
     }
 
@@ -220,28 +234,43 @@ const Splash = () => {
             setProgressDescription("Factory creating new wager...");
             setInProgress(true);
 
-            await requestAccount(); // is this needed?
+            await requestAccount();
 
-            /* Instantiate provider & signer to establish interaction with WagerFactory */
-            const provider = new ethers.providers.Web3Provider(window.ethereum);
-            const signer = provider.getSigner(); // Needed for paying eth
-            const factory = new ethers.Contract(wagerFactoryAddress, WagerFactory.abi, signer);
+            var [provider, signer, factory, newWager] = [null, null, null, null];
 
-            /* Deploy new Wager contract from Factory and record it's deployment address */
-            const tx = await factory.createWagerContract();
-            const res = await tx.wait();
-            const wagerAddress = res.events[0].args[0]; // Event reveals deployement address
+            try {
+                /* Instantiate provider & signer to establish interaction with WagerFactory */
+                provider = new ethers.providers.Web3Provider(window.ethereum);
+                signer = provider.getSigner(); // Needed for paying eth
+                factory = new ethers.Contract(wagerFactoryAddress, WagerFactory.abi, signer);
+            } catch (error) {
+                reportError(error, "There was an issue with the provider, signer, factory...");
+            }
 
-            /* Establish Wager contract to interact with via it's deployment address */
-            const newWager = new ethers.Contract(wagerAddress, Wager.abi, signer);
+            try {
+                /* Deploy new Wager contract from Factory and record it's deployment address */
+                const tx = await factory.createWagerContract();
+                const res = await tx.wait();
+                const wagerAddress = res.events[0].args[0]; // Event reveals deployement address
 
-            setProgressDescription("Establishing wager with specified amount and duration...");
-            /* Establish the finalized wager details */
-            const tx2 = await newWager.establishWager(wagerDuration * 60 * 60, {
-                value: ethers.utils.parseEther(wagerAmount)
-            });
-            setProgressDescription("Waiting for transaction to be added to the blockchain...");
-            await tx2.wait();
+                /* Establish Wager contract to interact with via it's deployment address */
+                newWager = new ethers.Contract(wagerAddress, Wager.abi, signer);
+            } catch (error) {
+                reportError(error, "There was an issue deploying the new Wager");
+            }
+
+            try {
+                setProgressDescription("Establishing wager with specified amount and duration...");
+                /* Establish the finalized wager details */
+                const tx2 = await newWager.establishWager(wagerDuration * 60 * 60, {
+                    value: ethers.utils.parseEther(wagerAmount)
+                });
+                setProgressDescription("Waiting for transaction to be added to the blockchain...");
+                await tx2.wait();
+
+            } catch (error) {
+                reportError(error, "There was an issue establishing the new Wager");
+            }
 
             /* Update list of valid Wager contracts */
             fetchValidWagerContracts();

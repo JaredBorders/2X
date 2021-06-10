@@ -16,7 +16,7 @@ contract Wager is Pausable {
     address public wagerer; // Wager creator
     address public challenger;
     uint constant MIN_WAGER = 100000000000000 wei; // Minimum stake of wager (0.0001 ETH)
-    uint public wagerAmount; // Amount staked by wagerer
+    uint public wagerAmount = 0; // Amount staked by wagerer
     uint constant MIN_DURATION = 300; // Duration of wager >= 5 minutes
     uint public wagerExpireTime; // To be determined by Wagerer
 
@@ -27,7 +27,12 @@ contract Wager is Pausable {
 
     /* MODIFIERS */
     modifier isOwner {
-        require(msg.sender == wagerer, "Initializing a wager on another's contract is prohibited");
+        require(msg.sender == wagerer, "Must be the original wagerer");
+        _;
+    }
+
+    modifier wagerNotEstablished {
+        require(wagerAmount == 0, "Wager has already been placed");
         _;
     }
 
@@ -51,6 +56,11 @@ contract Wager is Pausable {
         _;
     }
 
+    modifier calledByFactory {
+        require(msg.sender == factory, "Only the Factory can set the randomNumber!");
+        _;
+    }
+    
     /* CONSTRUCTOR */
     /// Set wagerer address to be the contract caller
     /// @param _owner - the owner address to be recognized by this contract. Not necessarily `msg.sender` nor `tx.origin`
@@ -71,10 +81,9 @@ contract Wager is Pausable {
         validWagerAmount // is wager > MIN_WAGER
         validWagerDuration(_wagerDuration) // is duration > MIN_DURATION
         isOwner // Must be creator of contract to initialize wager
-        whenNotPaused
+        wagerNotEstablished // Only allow for two participants
         payable
     {
-        require(wagerAmount == 0, "Wager has already been placed"); // prevent more than two max participants
         wagerAmount = msg.value;
         wagerExpireTime = _wagerDuration + block.timestamp; // ex. if _wagerDuration = 300 then wagerExpireTime = currentTime + 5 minutes
     }
@@ -89,7 +98,7 @@ contract Wager is Pausable {
         whenNotPaused
         payable
     {
-        paused(); // pause contract (i.e. don't allow any more calls to establishWager nor challenge)
+        paused(); // pause contract (i.e. don't allow any more calls to challenge)
         wagerAmount += uint(msg.value);
         findWinner(_challenger);
     }
@@ -105,9 +114,10 @@ contract Wager is Pausable {
     }
 
     /// Callback function that is called once WagerFactory gets a random number generated via Chainlink's Oracle
-    function PayWinner(uint16 randomNumber) public {
-        require(msg.sender == factory, "Only the Factory can set the randomNumber!");
-
+    function PayWinner(uint16 randomNumber) 
+        public 
+        calledByFactory // Only the Factory can return random values; no other contract should be able to call PayWinner
+    {
         randomNumber == 0 ? 
             payable(wagerer).transfer(wagerAmount) : 
             payable(challenger).transfer(wagerAmount);
@@ -115,16 +125,34 @@ contract Wager is Pausable {
         wagerAmount = 0; // reset wager amount
     }
 
+    /// Withdraw wager if Wagerer
+    /// @dev way for the wagerer to get amount wagered out of contract safely
+    function withdrawFunds() 
+        external
+        isOwner
+        whenNotPaused // if paused, then the wager has already been challenged 
+    {
+        payable(wagerer).transfer(wagerAmount);
+        wagerAmount = 0;
+        removeWager();
+    }
+
     /// Get Wager data
     /// @dev an easy way to get all relevant wager data
     /// @return wagerer address, wager amount, and wager expire time
-    function getWagerData() public view returns(address, uint, uint) {
+    function getWagerData() 
+        external 
+        view 
+        returns(address, uint, uint) 
+    {
         return(wagerer, wagerAmount, wagerExpireTime);
     }
 
     /// Remove address from list of active Wager contract addresses from WagerFactory
     /// @dev convenient way for front-end to remove this contracts address from the factory
-    function removeWagerIfChallenged() public {
+    function removeWager() 
+        internal 
+    {
         WagerFactory(factory).removeAddress(
             uint(WagerFactory(factory).findIndexOfAddress(
                 address(this)

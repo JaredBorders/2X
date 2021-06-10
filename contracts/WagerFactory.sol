@@ -1,13 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/security/Pausable.sol";
 import "./Wager.sol";
 import "./RandomNumberConsumer.sol";
 
 /// @author jaredborders
 /// @title WagerFactory - Factory that creates and manages Wager contracts
-contract WagerFactory is Pausable {
+contract WagerFactory {
 
     /* STATE VARIABLES */
     address[] public wagerAddresses;
@@ -25,11 +24,10 @@ contract WagerFactory is Pausable {
     }
 
     /* FUNCTIONS */
-    /// Create a new Wager if contract is not paused
+    /// Create a new Wager
     /// @dev The new Wager is then saved in the wagerAddresses array for future reference
     function createWagerContract() 
         public 
-        whenNotPaused
         payable
     {
         Wager newWager = new Wager(msg.sender, address(this));

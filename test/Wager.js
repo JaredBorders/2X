@@ -78,7 +78,7 @@ describe("Wager contract", () => {
                 });
             } catch (error) {
                 expect(error.message).to.equal(
-                    vmException + "Initializing a wager on another's contract is prohibited"
+                    vmException + "Must be the original wagerer"
                 );
             }
         });
@@ -155,6 +155,17 @@ describe("Wager contract", () => {
             // // console.log("addr1PostBalance: " + addr1PostBalance);
             
             expect(true); // FIX: need to add LINK to RandomNumberConsumer for this to work. (Tested successfully in remix!!)
+        });
+    });
+
+    describe("Leaving Wager", () => {
+        it("allows wagerer to withdraw wager", async () => {
+            await wager.establishWager(300, {
+                value: ethers.utils.parseEther("0.001") 
+            });
+            expect(await wager.wagerAmount()).to.equal(ethers.utils.parseEther("0.001"));
+            await wager.withdrawFunds();
+            expect(await wager.wagerAmount()).to.equal(ethers.utils.parseEther("0")); // Hard to know exactly as it depends on block.timestamp
         });
     });
 });
