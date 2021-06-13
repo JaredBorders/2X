@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/security/Pausable.sol";
 import "./WagerFactory.sol";
 
 /* Change Request: getRandom() may be subject to manipulation; use ChainLink VRF Oracle */
@@ -9,9 +8,10 @@ import "./WagerFactory.sol";
 
 /// @author jaredborders
 /// @title Wager - Creates contract for 1-1 betting
-contract Wager is Pausable {
+contract Wager {
 
     /* STATE VARIABLES */
+    bool public hasBeenChallenged = false;
     address public factory;
     address public wagerer; // Wager creator
     address public challenger;
@@ -48,6 +48,11 @@ contract Wager is Pausable {
 
     modifier validWagerAvailability {
         require(block.timestamp < wagerExpireTime, "Wager has expired");
+        _;
+    }
+
+    modifier notChallenged {
+        require(hasBeenChallenged == false, "Wager has already been challenged");
         _;
     }
 
@@ -94,11 +99,11 @@ contract Wager is Pausable {
     function challenge(address _challenger) 
         external
         validWagerAvailability // Checks if wager is still available based on duration
+        notChallenged // Checks that wager hasn't previously been challenged
         matchesWagerAmount // Checks if challenger staked same amount of eth
-        whenNotPaused
         payable
     {
-        paused(); // pause contract (i.e. don't allow any more calls to challenge)
+        hasBeenChallenged = true;
         wagerAmount += uint(msg.value);
         findWinner(_challenger);
     }
@@ -130,7 +135,7 @@ contract Wager is Pausable {
     function withdrawFunds() 
         external
         isOwner
-        whenNotPaused // if paused, then the wager has already been challenged 
+        notChallenged
     {
         payable(wagerer).transfer(wagerAmount);
         wagerAmount = 0;
@@ -140,17 +145,17 @@ contract Wager is Pausable {
     /// Get Wager data
     /// @dev an easy way to get all relevant wager data
     /// @return wagerer address, wager amount, and wager expire time
-    function getWagerData() 
+    function getWagerData()
         external 
         view 
-        returns(address, uint, uint) 
+        returns(address, uint, uint, bool) 
     {
-        return(wagerer, wagerAmount, wagerExpireTime);
+        return(wagerer, wagerAmount, wagerExpireTime, hasBeenChallenged);
     }
 
     /// Remove address from list of active Wager contract addresses from WagerFactory
     /// @dev convenient way for front-end to remove this contracts address from the factory
-    function removeWager() 
+    function removeWager()
         internal 
     {
         WagerFactory(factory).removeAddress(

@@ -61,10 +61,10 @@ const AboutModal = () => {
                             }
                     </DialogContentText>
                     <DialogContentText id="Describe the smart contracts which handle logic">
-                        Two smart contracts (Wager.sol & WagerFactory.sol)
+                        Three smart contracts (Wager.sol, WagerFactory.sol, and RandomNumberConsumer.sol)
                         written in Solidity handle all of the logic behind 2X.
                         The WagerFactory contract deploys Wager contracts on behalf of
-                        the user.
+                        the user and RandomNumberConsumer provides random number generation.
                     </DialogContentText>
                     <DialogContentText id="Describe how to check deployed Wager contracts">
                         All deloyed Wager contracts can be seen on

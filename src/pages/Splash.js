@@ -27,7 +27,6 @@ import {
     Backdrop,
     CircularProgress,
 } from "@material-ui/core";
-import { Description } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
     main: {
@@ -82,7 +81,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 /* Address contract(s) was/were deployed to via $ npx hardhat run scripts/deploy.js {network} */
-const wagerFactoryAddress = "0xDb4D14cDEda82657bb98f04C07aA16E91cdBbb2C"; // Currently network === kovan
+const wagerFactoryAddress = "0x411081c38363B5C73Fe15F6eF01e19A0bb912044"; // Currently network === kovan
 
 /* Description text for 2X */
 const description = "The Ethereum Blockchain provides a perfect ecosystem for trustless and highly secure gambling. " +
@@ -118,7 +117,7 @@ const Splash = () => {
     /* Does user have a wallet? */
     useEffect(() => {
         checkConnection();
-    });
+    }, []);
 
     /* Fetches Wager addresses from factory; only called on the component's first render */
     useEffect(() => {
@@ -152,7 +151,7 @@ const Splash = () => {
             }
 
             var _wagers = []; // used to temporarily hold Wager contract data
-            setWagers(_wagers); // wipe previous state variable data
+            setWagers(_wagers); // wipe previous state
 
             for (const i in addresses) {
                 try {
@@ -166,7 +165,9 @@ const Splash = () => {
                     });
                     const timeUntilExpiration = Math.ceil((data[2].toNumber() - blockTime) / 3600);
 
-                    if (timeUntilExpiration > 0) {
+                    console.log("CHAL: " + data[3] + " -- AMT: " + ethers.utils.formatEther(data[1]));
+
+                    if (timeUntilExpiration > 0 && !data[3]) {
                         /* Create object to represent Wager information */
                         const wagerData = {
                             key: blockTime + addresses[i],
@@ -225,6 +226,8 @@ const Splash = () => {
             }
 
             fetchValidWagerContracts(); // pass address to not include
+        } else {
+            reportError("No wallet", alertText);
         }
     }
 
@@ -262,7 +265,7 @@ const Splash = () => {
             try {
                 setProgressDescription("Establishing wager with specified amount and duration...");
                 /* Establish the finalized wager details */
-                const tx2 = await newWager.establishWager(wagerDuration * 60 * 60, {
+                const tx2 = await newWager.establishWager(wagerDuration * 60 * 60 * 24, {
                     value: ethers.utils.parseEther(wagerAmount)
                 });
                 setProgressDescription("Waiting for transaction to be added to the blockchain...");
@@ -379,15 +382,20 @@ const Splash = () => {
                                         label="Amount"
                                         color="secondary"
                                         variant="filled"
-                                        type="number"
+                                        type="text"
                                         value={wagerAmount}
                                         InputProps={{
                                             startAdornment: <InputAdornment position="start">ETH</InputAdornment>,
                                         }}
-                                        onChange={handleAmountChange}
+                                        onChange={(e) => {
+                                            let input = e.target.value;
+                                            let pattern = "^[0-9]*[.]?[0-9]*$"; // s/o sushiswap
+                                            if (!input || (input.match(pattern)))
+                                                handleAmountChange(e);
+                                        }}
                                     />
                                     <FormControl color="secondary" variant="filled" className={classes.formControl}>
-                                        <InputLabel htmlFor="filled-age-native-simple">Duration (Hours)</InputLabel>
+                                        <InputLabel htmlFor="filled-age-native-simple">Duration (Days)</InputLabel>
                                         <Select
                                             native
                                             value={wagerDuration}
@@ -415,7 +423,7 @@ const Splash = () => {
                                         onClick={onCancelPressed}>
                                         Cancel
                                     </Button>
-                                    {hasWallet ? (
+                                    {hasWallet && wagerDuration && wagerDuration ? (
                                         <Button
                                             className={classes.dialogButton}
                                             variant="outlined"

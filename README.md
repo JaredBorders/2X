@@ -59,9 +59,8 @@ npx hardhat compile
 
 ## TODO
 * Open Wager cards need re-worked to include full addresses and withdraw wager button. 
-* Wager field validation needs to be a lot stricter
 * Vulnerability analysis w/ [Slither](https://github.com/crytic/slither)
-* Update tests that were written pre-oracle
+* Test new oracle related functionality
 
 ## How to Contribute?
 Read [this guide](https://opensource.guide/how-to-contribute/) first, check TODO list, and don't hesitate to reach out!

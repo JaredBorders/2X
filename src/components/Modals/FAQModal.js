@@ -49,19 +49,18 @@ const FAQModal = () => {
                             Question: Why do I need Metamask?
                         </DialogContentText>
                         <DialogContentText id="Explain the purpose of Metamask">
-                            Answer: A user needs a Metamask wallet to automatically
-                            manage their public/private keys and cryptocurrency.
-                            Metamask also asks for your explicit permission
-                            before spending your currency on gas or for making/challenging
-                            wagers.
+                            Answer: MetaMask allows users to store and manage account keys, broadcast transactions, 
+                            send and receive Ethereum-based cryptocurrencies and tokens, and 
+                            securely connect to decentralized applications through a compatible 
+                            web browser or the mobile app's built-in browser.
                         </DialogContentText>
                         <DialogContentText id="Are wagers final">
                             Question: Are wagers final?
                         </DialogContentText>
                         <DialogContentText id="Explain the way wagers work">
-                            Answer: Once placed, the wager cannot
-                            be canceled. However, after the duration period set by you expires,
-                            2X sends back funds to the address who created the wager.
+                            Answer: If your wager has been challenged, then that transaction is 
+                            irreversible. However, if your wager has not been challenged,
+                            you can withdraw the amount wagered back to your account, thereby canceling the wager.
                         </DialogContentText>
                     </div>
                 </DialogContent>

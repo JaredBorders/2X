@@ -66,6 +66,10 @@ const WagerCard = (props) => {
   const classes = useStyles();
   const theme = useTheme();
 
+  const onMatchWagerPressed = () => {
+    props.challengeWager(props.contractAddress, props.amount);
+  }
+
   //override default mui button styling 
   const StyledButton = withStyles({
     root: {
@@ -79,11 +83,6 @@ const WagerCard = (props) => {
       maxwidth: "340px",
     }
   })(Button);
-
-  const onMatchWagerPressed = () => {
-    // TODO:Ask user if they're SURE they wish to enter wager with another user!!!
-    props.challengeWager(props.contractAddress, props.amount);
-  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -104,14 +103,27 @@ const WagerCard = (props) => {
           </p>
         </Typography>
         <CardActions>
-          <StyledButton
-            className={classes.wgrBtn}
-            size="large"
-            variant="outlined"
-            onClick={onMatchWagerPressed}
-          >
-            <span className={classes.cap}>Match Wager</span>
-          </StyledButton>
+          {
+            (window.ethereum || window.web3) ? (
+              <StyledButton
+                className={classes.wgrBtn}
+                size="large"
+                variant="outlined"
+                onClick={onMatchWagerPressed}
+              >
+                <span className={classes.cap}>Match Wager</span>
+              </StyledButton>
+            ) : (
+              <StyledButton
+                className={classes.wgrBtn}
+                size="large"
+                variant="outlined"
+                disabled
+              >
+                <span className={classes.cap}>Match Wager</span>
+              </StyledButton>
+            )
+          }
         </CardActions>
         <Typography component={'span'} variant={'body2'} className={classes.textLight} gutterBottom>
           <p className={classes.smallText}>expires: {props.dateExpires}</p>{" "}
