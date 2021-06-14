@@ -41,7 +41,7 @@ npx hardhat run scripts/deploy.js --network kovan
 
 5. Once the script finishes deploying the WagerFactory, it will log the address of where the contract was deployed to. Update __src/pages/Splash.js__ with this value. (see `wagerFactoryAddress`)
 
-6. Add LINK token to the RandomNumberConsumer contract. See [here](https://docs.chain.link/docs/fund-your-contract/) to learn more about how to do this. (The public state variable stored in the WagerFactory (`randomNumberConsumerAddress`) records the address of the RandomNumberConsumer contract)
+6. Add LINK token to the RandomNumberConsumer contract. (The public state variable stored in the WagerFactory (`randomNumberConsumerAddress`) records the address of the RandomNumberConsumer contract)
 
 7. Run the app
 
@@ -56,6 +56,34 @@ npx hardhat compile
 ```
 
 9. Don't forget to update __src/pages/Splash.js__ with the current address if you redeploy your WagerFactory!
+
+## Need help adding LINK to the RandomNumberConsumer contract?
+1. Copy the WagerFactory address logged after running the deploy script 
+```sh
+npx hardhat run scripts/deploy.js --network kovan
+```
+
+2. 
+```sh
+npx hardhat console --network kovan 
+```
+
+3. 
+```sh
+const Factory = await ethers.getContractFactory("WagerFactory")
+```
+
+4. 
+```sh 
+const factory = await factory.attach("ADDRESS_LOGGED_FROM_DEPLOY_SCRIPT")
+```
+
+5.
+```sh
+await factory.randomNumberConsumerAddress()
+```
+
+6. After getting LINK from a [faucet](https://kovan.chain.link/), send it to the address `factory.randomNumberConsumerAddress()` returns
 
 ## TODO
 * Open Wager cards need re-worked to include full addresses and withdraw wager button. 
