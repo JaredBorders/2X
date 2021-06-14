@@ -57,7 +57,7 @@ npx hardhat compile
 
 9. Don't forget to update __src/pages/Splash.js__ with the current address if you redeploy your WagerFactory!
 
-## Need help adding LINK to the RandomNumberConsumer contract?
+## Adding LINK to the RandomNumberConsumer
 1. Copy the WagerFactory address logged after running the deploy script 
 ```sh
 npx hardhat run scripts/deploy.js --network kovan
