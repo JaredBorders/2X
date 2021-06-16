@@ -1,5 +1,5 @@
 # [2X](https://jaredborders.github.io/2X/)
-2X is a decentralized application (dApp) that allows users to wager ether in a 1v1 winner-take-all gamble.
+2X is a decentralized application (dApp) that allows users to wager ether in a 1v1 winner-take-all gamble. Verified randomness provided via Chainlink VRF and professional security analysis provided via [Consensys MythX](https://mythx.io/about/). Currently only available on Kovan network.
 
 ## Motivation
 Create a lean, user-friendly application that lets users safely wager varying amounts of ether by relying on randomness provided via Chainlink VRF and the proven security Ethereum provides as a platform
@@ -15,6 +15,7 @@ Create a lean, user-friendly application that lets users safely wager varying am
 * Front-End: [React](https://reactjs.org)
 * Smart Contract Language: [Solidity](https://docs.soliditylang.org/en/v0.8.0/)
 * Oracle: [Chainlink VRF](https://docs.chain.link/docs/chainlink-vrf)
+* Smart Contract Security Analysis: [Consensys MythX](https://mythx.io/about/)
 
 ## Getting Started
 1. Clone this repository
@@ -86,9 +87,8 @@ await factory.randomNumberConsumerAddress()
 6. After getting LINK from a [faucet](https://kovan.chain.link/), send it to the address `factory.randomNumberConsumerAddress()` returns
 
 ## TODO
-* Open Wager cards need re-worked to include full addresses and withdraw wager button. 
-* Vulnerability analysis w/ [Slither](https://github.com/crytic/slither)
-* Test new oracle related functionality
+* Wager cards need re-worked
+* Further contract testing is always welcome
 
 ## How to Contribute?
 Read [this guide](https://opensource.guide/how-to-contribute/) first, check TODO list, and don't hesitate to reach out!
