@@ -71,6 +71,13 @@ const AboutModal = () => {
                         Etherscan by searching the "Wager Address" provided within each
                         Wager Card.
                     </DialogContentText>
+                    <DialogContentText id="Describe why there is a fee">
+                        Randomness provided by Chainlink VRF comes at a cost. The contract which 
+                        provides users randomness must have a certain balance of LINK tokens
+                        to pay for the computational resources being used. Due to this, A 0.7% fee is taken 
+                        after a winner has been decided to pay for the services being
+                        provided to the users.
+                    </DialogContentText>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleAboutClose} variant="outlined">

@@ -84,12 +84,12 @@ const useStyles = makeStyles((theme) => ({
 const wagerFactoryAddress = "0xcAcF3D197197A1FcdFbD1Bb3975F71ae951e2E90"; // Currently network === kovan
 
 /* Description text for 2X */
-const description = "The Ethereum Blockchain provides a perfect ecosystem for trustless and highly secure gambling. " +
+const description = "The Ethereum Blockchain provides a trustless, highly secure ecosystem for transfering assets. " +
     "2X leverages this technology to allow users to make 1v1, winner-take-all wagers that can be matched " +
-    "by anybody with a Metamask wallet."
+    "by anyone with a Metamask wallet. ";
 
 /* Alert message */
-const alertText = "Wallet not detected! To use this app, please install Metamask."
+const alertText = "Wallet not detected! To use this app, please install Metamask.";
 
 const Splash = () => {
     const classes = useStyles();
@@ -124,11 +124,11 @@ const Splash = () => {
         fetchValidWagerContracts();
     }, []);
 
-    const reportError = async (error, description) => {
+    const reportEvent = async (error, description) => {
         const delay = t => new Promise(res => setTimeout(res, t));
         setProgressDescription(description);
         console.log(error);
-        await delay(5000);
+        await delay(10000);
     }
 
     /* Fetch and filter valid Wager contracts and update wagers state variable */
@@ -147,7 +147,7 @@ const Splash = () => {
                 factory = new ethers.Contract(wagerFactoryAddress, WagerFactory.abi, provider);
                 addresses = await factory.getWagers();
             } catch (error) {
-                reportError(error, "Issue fetching wagers");
+                reportEvent(error, "Issue fetching wagers");
             }
 
             var _wagers = []; // used to temporarily hold Wager contract data
@@ -156,7 +156,7 @@ const Splash = () => {
             for (const i in addresses) {
                 try {
                     /* Establish interaction with new Wager @ addresses[i] and fetch relevant data */
-                    const wager = new ethers.Contract(addresses[i], Wager.abi, provider)
+                    const wager = new ethers.Contract(addresses[i], Wager.abi, provider);
                     const data = await wager.getWagerData();
 
                     /* Used to calculate user facing duration data */
@@ -164,8 +164,6 @@ const Splash = () => {
                         return block.timestamp; // timestamp used in Wager contract when setting duration
                     });
                     const timeUntilExpiration = Math.ceil((data[2].toNumber() - blockTime) / 3600);
-
-                    console.log("CHAL: " + data[3] + " -- AMT: " + ethers.utils.formatEther(data[1]));
 
                     if (timeUntilExpiration > 0 && !data[3]) {
                         /* Create object to represent Wager information */
@@ -182,7 +180,7 @@ const Splash = () => {
                         _wagers.push(wagerData);
                     }
                 } catch (error) {
-                    reportError(error, "Issue creating wager cards");
+                    reportEvent(error, "Issue fetching wagers and displaying wager data");
                 }
             }
             setWagers(_wagers); // set wagers state to all new data just fetched. Could NOT do this within for-loop
@@ -207,7 +205,10 @@ const Splash = () => {
                 wager = new ethers.Contract(address, Wager.abi, signer);
                 signerAddress = await signer.getAddress();
             } catch (error) {
-                reportError(error, "There was an issue with provider, signer, wager, signerAddress...");
+                reportEvent(
+                    error,
+                    "There was an issue with your transaction. Try again or contact a developer for help."
+                );
             }
 
             try {
@@ -218,15 +219,13 @@ const Splash = () => {
                 await tx.wait();
 
             } catch (error) {
-                reportError(
+                reportEvent(
                     error,
                     "There was an issue with your transaction. Try again or contact a developer for help."
                 );
             }
 
             fetchValidWagerContracts(); // pass address to not include
-        } else {
-            reportError("No wallet", alertText);
         }
     }
 
@@ -246,7 +245,10 @@ const Splash = () => {
                 signer = provider.getSigner(); // Needed for paying eth
                 factory = new ethers.Contract(wagerFactoryAddress, WagerFactory.abi, signer);
             } catch (error) {
-                reportError(error, "There was an issue with the provider, signer, factory...");
+                reportEvent(
+                    error,
+                    "There was an issue with your transaction. Try again or contact a developer for help."
+                );
             }
 
             try {
@@ -258,7 +260,7 @@ const Splash = () => {
                 /* Establish Wager contract to interact with via it's deployment address */
                 newWager = new ethers.Contract(wagerAddress, Wager.abi, signer);
             } catch (error) {
-                reportError(error, "There was an issue deploying the new Wager");
+                reportEvent(error, "There was an issue deploying the new Wager");
             }
 
             try {
@@ -271,7 +273,7 @@ const Splash = () => {
                 await tx2.wait();
 
             } catch (error) {
-                reportError(error, "There was an issue establishing the new Wager");
+                reportEvent(error, "There was an issue establishing the new Wager");
             }
 
             /* Update list of valid Wager contracts */
