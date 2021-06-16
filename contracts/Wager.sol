@@ -123,7 +123,7 @@ contract Wager {
         public
         calledByFactory // Only the Factory can return random values; no other contract should be able to call PayWinner
     {
-        payable(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266).transfer(wagerAmount * 7 / 1000); // 0.7% fee for LINK
+        payable(0x53b62647d04a0c53fDfE15b729c53baa73a034F0).transfer(wagerAmount * 7 / 1000); // 0.7% fee for LINK
         wagerAmount -= (wagerAmount * 7 / 1000);
         randomNumber == 0 ? 
             payable(wagerer).transfer(wagerAmount) : 
