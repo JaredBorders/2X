@@ -81,7 +81,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 /* Address contract(s) was/were deployed to via $ npx hardhat run scripts/deploy.js {network} */
-const wagerFactoryAddress = "0xcAcF3D197197A1FcdFbD1Bb3975F71ae951e2E90"; // Currently network === kovan
+const wagerFactoryAddress = "0x9Dbd4e7AE57C9210812CFF6287841d3016Fe317d"; // Currently network === kovan
 
 /* Description text for 2X */
 const description = "The Ethereum Blockchain provides a trustless, highly secure ecosystem for transfering assets. " +

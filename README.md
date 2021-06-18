@@ -76,7 +76,7 @@ const Factory = await ethers.getContractFactory("WagerFactory")
 
 4. 
 ```sh 
-const factory = await factory.attach("ADDRESS_LOGGED_FROM_DEPLOY_SCRIPT")
+const factory = await Factory.attach("ADDRESS_LOGGED_FROM_DEPLOY_SCRIPT")
 ```
 
 5.
