@@ -3,6 +3,7 @@ import {
   Card,
   CardActions,
   Button,
+  Link,
   Typography
 } from "@material-ui/core";
 import { ThemeProvider, useTheme, withStyles } from "@material-ui/core/styles";
@@ -12,14 +13,13 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    minWidth: 300,
-    maxwidth: 300,
+    maxWidth: "300px",
     borderRadius: "1.3rem",
     margin: ".5rem auto",
     textAlign: "left",
     backgroundColor: "#1e273c",
-    border: `1px solid #d81b60`,
-    padding: '5px'
+    border: '1px solid #d81b60',
+    padding: "0 7px"
   },
   infoDisplay: {
     display: "flex",
@@ -27,20 +27,18 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifySelf: "center",
     backgroundColor: "#303645",
-    width: "300px",
+    width: "250px",
     height: "3.3rem",
     textAlign: "center",
     borderRadius: ".7rem",
     fontSize: "1.6rem",
-    margin: "1.4rem auto"
-  },
-  capitolText: {
-    textTransform: "lowercase"
+    margin: ".8rem auto"
   },
   textLight: {
     color: "#C5C5C5",
-    marginLeft: '.4rem',
-    fontWeight: '400'
+    marginLeft: ".4rem",
+    fontWeight: "400",
+    fontSize: "2rem"
   },
   marginCenter: {
     margin: "auto auto auto auto",
@@ -48,17 +46,15 @@ const useStyles = makeStyles((theme) => ({
   },
   cardLabels: {
     margin: 0,
+    textAlign: "center",
     textTransform: "capitalize",
     color: "#D81B60",
-    fontSize: '1.2rem',
-    fontWeight: '700'
+    fontSize: "1.6rem",
+    fontWeight: "700"
   },
   smallText: {
     fontSize: ".9rem",
     margin: "0"
-  },
-  cap: {
-    textTransform: "capitolize"
   }
 }));
 
@@ -66,66 +62,92 @@ const WagerCard = (props) => {
   const classes = useStyles();
   const theme = useTheme();
 
-  const onMatchWagerPressed = () => {
-    props.challengeWager(props.contractAddress, props.amount);
-  }
-
-  //override default mui button styling 
+  //override default mui button styling
   const StyledButton = withStyles({
     root: {
       color: "#fff",
       height: "4rem",
       borderRadius: ".9rem",
-      marginTop: ".8rem",
-      textTransform: "capitalize",
-      fontSize: "1.5rem",
-      minWidth: "300px",
-      maxwidth: "340px",
+      fontSize: ".8rem"
     }
   })(Button);
+
+  const onMatchWagerPressed = () => {
+    // TODO:Ask user if they're SURE they wish to enter wager with another user!!!
+    props.challengeWager(props.contractAddress, props.amount);
+  };
 
   return (
     <ThemeProvider theme={theme}>
       <Card elevation={10} className={classes.root}>
-        <Typography component={'span'} variant={'body2'} className={classes.infoDisplay}>
-          <p className={classes.marginCenter}>
-            ETH{" "}{props.amount}
+        <Typography
+          component={"span"}
+          variant={"body2"}
+          className={classes.infoDisplay}
+        >
+          <p className={classes.marginCenter}>ETH {props.amount}</p>
+        </Typography>
+        <Typography component={"span"} variant={"body2"} gutterBottom>
+          <p className={classes.cardLabels}>
+            Wagerer Address:
+            <br />{" "}
+            <span className={classes.textLight}>
+            <Link 
+              href="#" 
+              color="inherit" 
+              onClick={ () =>  navigator.clipboard.writeText(props.wagererAddress)}> 
+                {props.wagererAddress.slice(0, 7) +
+                  "..." +
+                  props.wagererAddress.slice(39)}
+              </Link>
+            </span>
           </p>
         </Typography>
-        <Typography component={'span'} variant={'body2'} gutterBottom>
+        <Typography component={"span"} variant={"body2"} gutterBottom>
           <p className={classes.cardLabels}>
-            Wagerer Address:{" "}<span className={classes.textLight}>{props.wagererAddress}</span>
-          </p>
-        </Typography>
-        <Typography component={'span'} variant={'body2'} gutterBottom>
-          <p className={classes.cardLabels}>
-            Contract Address:{" "}<span className={classes.textLight}>{props.contractAddressFormatted}</span>
+            Contract Address:
+            <br />{" "}
+            <span className={classes.textLight}>
+              <Link 
+              href="#" 
+              color="inherit" 
+              onClick={ () =>  navigator.clipboard.writeText(props.contractAddress)}>
+                {props.contractAddress.slice(0, 7) +
+                  "..." +
+                  props.contractAddress.slice(39)}
+              </Link>
+            </span>
           </p>
         </Typography>
         <CardActions>
-          {
-            (window.ethereum || window.web3) ? (
-              <StyledButton
-                className={classes.wgrBtn}
-                size="large"
-                variant="outlined"
-                onClick={onMatchWagerPressed}
-              >
-                <span className={classes.cap}>Match Wager</span>
-              </StyledButton>
-            ) : (
-              <StyledButton
-                className={classes.wgrBtn}
-                size="large"
-                variant="outlined"
-                disabled
-              >
-                <span className={classes.cap}>Match Wager</span>
-              </StyledButton>
-            )
-          }
+          <StyledButton
+            fullWidth="true"
+            className={classes.wgrBtn}
+            size="small"
+            variant="outlined"
+            onClick={onMatchWagerPressed}
+          >
+            <span className={classes.cap}>
+              Match
+              <br /> Wager
+            </span>
+          </StyledButton>
+          <StyledButton
+            fullWidth="true"
+            className={classes.wgrBtn}
+            size="small"
+            variant="outlined"
+            onClick={onMatchWagerPressed}
+          >
+            <span className={classes.cap}>Withdraw Wager</span>
+          </StyledButton>
         </CardActions>
-        <Typography component={'span'} variant={'body2'} className={classes.textLight} gutterBottom>
+        <Typography
+          component={"span"}
+          variant={"body2"}
+          className={classes.textLight}
+          gutterBottom
+        >
           <p className={classes.smallText}>expires: {props.dateExpires}</p>{" "}
         </Typography>
       </Card>
