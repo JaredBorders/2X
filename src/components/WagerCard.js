@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import {
   makeStyles,
   Card,
@@ -7,6 +8,7 @@ import {
   Typography
 } from "@material-ui/core";
 import { ThemeProvider, useTheme, withStyles } from "@material-ui/core/styles";
+import Modal from '@material-ui/core/Modal';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,12 +57,23 @@ const useStyles = makeStyles((theme) => ({
   smallText: {
     fontSize: ".9rem",
     margin: "0"
+  },
+  paper: {
+    position: 'relative',
+    margin: '150px auto 0',
+    height: "100px",
+    width: 250,
+    backgroundColor: theme.palette.background.paper,
+    border: '2px solid #000',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
   }
 }));
 
 const WagerCard = (props) => {
   const classes = useStyles();
   const theme = useTheme();
+  const [open, setOpen] = useState(false);
 
   //override default mui button styling
   const StyledButton = withStyles({
@@ -72,13 +85,23 @@ const WagerCard = (props) => {
     }
   })(Button);
 
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const handleLinkClick = (event) => {
     const { name } = event.target;
     if(name === "wagerer") {
       event.preventDefault();
+      handleOpen();
       navigator.clipboard.writeText(props.wagererAddress);
     } else {
       event.preventDefault();
+      handleOpen();
       navigator.clipboard.writeText(props.contractAddress);
     }
   }
@@ -132,6 +155,16 @@ const WagerCard = (props) => {
             </span>
           </p>
         </Typography>
+        <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+      >
+        <div className={classes.paper}>
+          <h3 style={{textAlign: 'center'}}>Full Address Copied! 👍</h3>
+        </div>
+      </Modal>
         <CardActions>
           <StyledButton
             fullWidth="true"
