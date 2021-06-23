@@ -72,6 +72,17 @@ const WagerCard = (props) => {
     }
   })(Button);
 
+  const handleLinkClick = (event) => {
+    const { name } = event.target;
+    if(name === "wagerer") {
+      event.preventDefault();
+      navigator.clipboard.writeText(props.wagererAddress);
+    } else {
+      event.preventDefault();
+      navigator.clipboard.writeText(props.contractAddress);
+    }
+  }
+
   const onMatchWagerPressed = () => {
     // TODO:Ask user if they're SURE they wish to enter wager with another user!!!
     props.challengeWager(props.contractAddress, props.amount);
@@ -93,9 +104,10 @@ const WagerCard = (props) => {
             <br />{" "}
             <span className={classes.textLight}>
             <Link 
-              href="#" 
+              href="#"
+              name="wagerer" 
               color="inherit" 
-              onClick={ () =>  navigator.clipboard.writeText(props.wagererAddress)}> 
+              onClick={handleLinkClick}> 
                 {props.wagererAddress.slice(0, 7) +
                   "..." +
                   props.wagererAddress.slice(39)}
@@ -109,9 +121,10 @@ const WagerCard = (props) => {
             <br />{" "}
             <span className={classes.textLight}>
               <Link 
-              href="#" 
+              href="#"
+              name="contract" 
               color="inherit" 
-              onClick={ () =>  navigator.clipboard.writeText(props.contractAddress)}>
+              onClick={handleLinkClick}>
                 {props.contractAddress.slice(0, 7) +
                   "..." +
                   props.contractAddress.slice(39)}
