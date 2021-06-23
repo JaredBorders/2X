@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     maxWidth: "300px",
     borderRadius: "1.3rem",
-    margin: ".5rem auto",
+    margin: "1rem auto",
     textAlign: "left",
     backgroundColor: "#1e273c",
     border: '1px solid #d81b60',
