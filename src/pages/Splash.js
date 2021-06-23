@@ -37,6 +37,9 @@ const useStyles = makeStyles((theme) => ({
     divide: {
         marginTop: 26,
     },
+    openWagerTitle: {
+        marginBottom: 26,
+    },
     button: {
         color: "white",
         height: 58,
@@ -445,7 +448,7 @@ const Splash = () => {
                         </Grid>
                     </div>
                     <Grid item xs={12}>
-                        <Typography variant="h5" >Open Wagers</Typography>
+                        <Typography variant="h5" className={classes.openWagerTitle}>Open Wagers</Typography>
                     </Grid>
                     <Grid container justify="center">
                         {wagers.map(wager => {
