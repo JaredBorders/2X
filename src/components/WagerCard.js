@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   makeStyles,
   Card,
@@ -8,26 +8,22 @@ import {
   Typography
 } from "@material-ui/core";
 import { ThemeProvider, useTheme, withStyles } from "@material-ui/core/styles";
-import Modal from '@material-ui/core/Modal';
+import AddressModal from './Modals/AddressModal';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    maxWidth: "300px",
     borderRadius: "1.3rem",
     margin: "1rem auto",
-    textAlign: "left",
     backgroundColor: "#1e273c",
     border: '1px solid #d81b60',
     padding: "0 7px"
   },
   infoDisplay: {
     display: "flex",
-    color: "#fff",
     alignItems: "center",
-    justifySelf: "center",
     backgroundColor: "#303645",
     width: "250px",
     height: "3.3rem",
@@ -48,7 +44,6 @@ const useStyles = makeStyles((theme) => ({
   },
   cardLabels: {
     margin: 0,
-    textAlign: "center",
     textTransform: "capitalize",
     color: "#D81B60",
     fontSize: "1.6rem",
@@ -57,16 +52,6 @@ const useStyles = makeStyles((theme) => ({
   smallText: {
     fontSize: ".9rem",
     margin: "0"
-  },
-  paper: {
-    position: 'relative',
-    margin: '150px auto 0',
-    height: "100px",
-    width: 250,
-    backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
   }
 }));
 
@@ -75,22 +60,18 @@ const WagerCard = (props) => {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
 
-  //override default mui button styling
   const StyledButton = withStyles({
     root: {
-      color: "#fff",
-      height: "4rem",
-      borderRadius: ".9rem",
-      fontSize: ".8rem"
+      borderRadius: ".9rem"
     }
   })(Button);
 
   const handleOpen = () => {
-    setOpen(true);
+      setOpen(true);
   };
 
   const handleClose = () => {
-    setOpen(false);
+      setOpen(false);
   };
 
   const handleLinkClick = (event) => {
@@ -155,16 +136,10 @@ const WagerCard = (props) => {
             </span>
           </p>
         </Typography>
-        <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-      >
-        <div className={classes.paper}>
-          <h3 style={{textAlign: 'center'}}>Full Address Copied! 👍</h3>
-        </div>
-      </Modal>
+        <AddressModal 
+          onClose={handleClose}
+          open={open}
+        />
         <CardActions>
           <StyledButton
             fullWidth="true"
