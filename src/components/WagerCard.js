@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   textLight: {
     color: "#C5C5C5",
     marginLeft: ".4rem",
-    fontWeight: "400",
+    fontWeight: "300",
     fontSize: "2rem"
   },
   marginCenter: {
@@ -137,7 +137,7 @@ const WagerCard = (props) => {
         <CardActions>
           <Button
             fullWidth="true"
-            className={classes.wgrBtn}
+            className={classes.wgrBtn + classes.btn}
             onClick={onMatchWagerPressed}
           >
             <span className={classes.cap}>
