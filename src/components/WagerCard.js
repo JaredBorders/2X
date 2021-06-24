@@ -12,9 +12,6 @@ import AddressModal from './Modals/AddressModal';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
     borderRadius: "1.3rem",
     margin: "1rem auto",
     backgroundColor: "#1e273c",
@@ -90,45 +87,34 @@ const WagerCard = (props) => {
     <ThemeProvider theme={theme}>
       <Card elevation={10} className={classes.root}>
         <Typography
-          component={"span"}
           variant={"body2"}
           className={classes.infoDisplay}
         >
           <p className={classes.marginCenter}>ETH {props.amount}</p>
         </Typography>
         <Typography component={"span"} variant={"body2"} gutterBottom>
-          <p className={classes.cardLabels}>
-            Wagerer Address:
-            <br />{" "}
+          <p className={classes.cardLabels}>Wagerer Address: <br /> {" "} </p>
             <span className={classes.textLight}>
             <Link 
               href="#"
               name="wagerer" 
               color="inherit" 
               onClick={handleLinkClick}> 
-                {props.wagererAddress.slice(0, 7) +
-                  "..." +
-                  props.wagererAddress.slice(39)}
+                {props.wagererAddress.slice(0, 7) + "..." + props.wagererAddress.slice(39)}
               </Link>
             </span>
-          </p>
         </Typography>
         <Typography component={"span"} variant={"body2"} gutterBottom>
-          <p className={classes.cardLabels}>
-            Contract Address:
-            <br />{" "}
+          <p className={classes.cardLabels}>Contract Address: <br /> {" "}</p>
             <span className={classes.textLight}>
               <Link 
               href="#"
               name="contract" 
               color="inherit" 
               onClick={handleLinkClick}>
-                {props.contractAddress.slice(0, 7) +
-                  "..." +
-                  props.contractAddress.slice(39)}
+                {props.contractAddress.slice(0, 7) + "..." + props.contractAddress.slice(39)}
               </Link>
             </span>
-          </p>
         </Typography>
         <AddressModal 
           onClose={handleClose}
@@ -137,24 +123,18 @@ const WagerCard = (props) => {
         <CardActions>
           <Button
             fullWidth="true"
-            className={classes.wgrBtn + classes.btn}
             onClick={onMatchWagerPressed}
           >
-            <span className={classes.cap}>
-              Match
-              <br /> Wager
-            </span>
+            Match <br /> Wager
           </Button>
           <Button
             fullWidth="true"
-            className={classes.wgrBtn}
             onClick={onMatchWagerPressed}
           >
-            <span className={classes.cap}>Withdraw Wager</span>
+            Withdraw Wager
           </Button>
         </CardActions>
         <Typography
-          component={"span"}
           variant={"body2"}
           className={classes.textLight}
           gutterBottom
