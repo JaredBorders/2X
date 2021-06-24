@@ -86,13 +86,10 @@ const WagerCard = (props) => {
   return (
     <ThemeProvider theme={theme}>
       <Card elevation={10} className={classes.root}>
-        <Typography
-          variant={"body2"}
-          className={classes.infoDisplay}
-        >
+        <Typography variant={"body2"} className={classes.infoDisplay}>
           <p className={classes.marginCenter}>ETH {props.amount}</p>
         </Typography>
-        <Typography component={"span"} variant={"body2"} gutterBottom>
+        <Typography component={"span"} variant={"body2"} gutterBottom >
           <p className={classes.cardLabels}>Wagerer Address: <br /> {" "} </p>
             <span className={classes.textLight}>
             <Link 
@@ -116,29 +113,16 @@ const WagerCard = (props) => {
               </Link>
             </span>
         </Typography>
-        <AddressModal 
-          onClose={handleClose}
-          open={open}
-        />
+        <AddressModal onClose={handleClose} open={open} />
         <CardActions>
-          <Button
-            fullWidth="true"
-            onClick={onMatchWagerPressed}
-          >
+          <Button fullWidth="true" onClick={onMatchWagerPressed}>
             Match <br /> Wager
           </Button>
-          <Button
-            fullWidth="true"
-            onClick={onMatchWagerPressed}
-          >
+          <Button fullWidth="true" onClick={onMatchWagerPressed}>
             Withdraw Wager
           </Button>
         </CardActions>
-        <Typography
-          variant={"body2"}
-          className={classes.textLight}
-          gutterBottom
-        >
+        <Typography gutterBottom variant={"body2"} className={classes.textLight}>
           <p className={classes.smallText}>expires: {props.dateExpires}</p>{" "}
         </Typography>
       </Card>
