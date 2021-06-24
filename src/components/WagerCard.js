@@ -7,6 +7,7 @@ import {
   Link,
   Typography
 } from "@material-ui/core";
+import Icon from '@material-ui/core/Icon';
 import { ThemeProvider, useTheme } from "@material-ui/core/styles";
 import AddressModal from './Modals/AddressModal';
 
@@ -92,13 +93,14 @@ const WagerCard = (props) => {
         <Typography component={"span"} variant={"body2"} gutterBottom >
           <p className={classes.cardLabels}>Wagerer Address: <br /> {" "} </p>
             <span className={classes.textLight}>
-            <Link 
+            <Link
+              underline="none" 
               href="#"
               name="wagerer" 
               color="inherit" 
               onClick={handleLinkClick}> 
-                {props.wagererAddress.slice(0, 7) + "..." + props.wagererAddress.slice(39)}
-              </Link>
+                {props.wagererAddress.slice(0, 7) + "..." + props.wagererAddress.slice(39)}{" "}<i class="fa fa-clipboard" />
+              </Link>           
             </span>
         </Typography>
         <Typography component={"span"} variant={"body2"} gutterBottom>
@@ -106,10 +108,11 @@ const WagerCard = (props) => {
             <span className={classes.textLight}>
               <Link 
               href="#"
+              underline="none" 
               name="contract" 
               color="inherit" 
               onClick={handleLinkClick}>
-                {props.contractAddress.slice(0, 7) + "..." + props.contractAddress.slice(39)}
+                {props.contractAddress.slice(0, 7) + "..." + props.contractAddress.slice(39)}{" "}<i class="fa fa-clipboard" />
               </Link>
             </span>
         </Typography>
