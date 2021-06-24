@@ -7,7 +7,7 @@ import {
   Link,
   Typography
 } from "@material-ui/core";
-import { ThemeProvider, useTheme, withStyles } from "@material-ui/core/styles";
+import { ThemeProvider, useTheme } from "@material-ui/core/styles";
 import AddressModal from './Modals/AddressModal';
 
 const useStyles = makeStyles((theme) => ({
@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
   },
   smallText: {
     fontSize: ".9rem",
-    margin: "0"
+    margin: 0
   }
 }));
 
@@ -59,12 +59,6 @@ const WagerCard = (props) => {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = useState(false);
-
-  const StyledButton = withStyles({
-    root: {
-      borderRadius: ".9rem"
-    }
-  })(Button);
 
   const handleOpen = () => {
       setOpen(true);
@@ -141,27 +135,23 @@ const WagerCard = (props) => {
           open={open}
         />
         <CardActions>
-          <StyledButton
+          <Button
             fullWidth="true"
             className={classes.wgrBtn}
-            size="small"
-            variant="outlined"
             onClick={onMatchWagerPressed}
           >
             <span className={classes.cap}>
               Match
               <br /> Wager
             </span>
-          </StyledButton>
-          <StyledButton
+          </Button>
+          <Button
             fullWidth="true"
             className={classes.wgrBtn}
-            size="small"
-            variant="outlined"
             onClick={onMatchWagerPressed}
           >
             <span className={classes.cap}>Withdraw Wager</span>
-          </StyledButton>
+          </Button>
         </CardActions>
         <Typography
           component={"span"}
