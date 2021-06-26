@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
-import {CopyOutlined} from '@ant-design/icons'
+import {CopyOutlined} from '@ant-design/icons';
+import AlertDialog from './Modals/AlertDialog';
 import {
   makeStyles,
   Card,
@@ -60,6 +61,7 @@ const WagerCard = (props) => {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = useState(false);
+  const [matchPressed, setMatchPressed] = useState(false);
 
   const handleOpen = () => {
       setOpen(true);
@@ -67,6 +69,14 @@ const WagerCard = (props) => {
 
   const handleClose = () => {
       setOpen(false);
+  };
+
+  const handleOpenAlert = () => {
+    setMatchPressed(true);
+  };
+
+  const handleCloseAlert = () => {
+    setMatchPressed(false);
   };
 
   const handleLinkClick = (event) => {
@@ -82,8 +92,11 @@ const WagerCard = (props) => {
     }
   }
 
+  const alertWager = () => {
+    handleOpenAlert();
+  }
+
   const onMatchWagerPressed = () => {
-    // TODO:Ask user if they're SURE they wish to enter wager with another user!!!
     props.challengeWager(props.contractAddress, props.amount);
   };
 
@@ -123,9 +136,10 @@ const WagerCard = (props) => {
         </Typography>
         <AddressModal onClose={handleClose} open={open} />
         <CardActions>
-          <Button fullWidth="true" onClick={onMatchWagerPressed}>
+          <Button fullWidth="true" onClick={alertWager}>
             Match <br /> Wager
           </Button>
+          <AlertDialog onClose={handleCloseAlert} userDisagrees={handleCloseAlert} userAgrees={onMatchWagerPressed} open={matchPressed}/>
           <Button fullWidth="true" onClick={onMatchWagerPressed}>
             Withdraw Wager
           </Button>
