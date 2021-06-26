@@ -139,7 +139,7 @@ const WagerCard = (props) => {
           <Button fullWidth="true" onClick={alertWager}>
             Match <br /> Wager
           </Button>
-          <AlertDialog onClose={handleCloseAlert} userDisagrees={handleCloseAlert} userAgrees={onMatchWagerPressed} open={matchPressed}/>
+          <AlertDialog onClose={handleCloseAlert} ethAmount={props.amount} userDisagrees={handleCloseAlert} userAgrees={onMatchWagerPressed} open={matchPressed}/>
           <Button fullWidth="true" onClick={onMatchWagerPressed}>
             Withdraw Wager
           </Button>
