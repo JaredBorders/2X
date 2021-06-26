@@ -10,7 +10,7 @@ const AddressModal = (props) => {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
         >
-            <DialogTitle id="alert-dialog-title">{"Full Address Copied 👍"}</DialogTitle>
+            <DialogTitle id="alert-dialog-title">{"Full Address Copied."}</DialogTitle>
 
       </Dialog>
     )

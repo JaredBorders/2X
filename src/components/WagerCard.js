@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {CopyOutlined} from '@ant-design/icons'
 import {
   makeStyles,
   Card,
@@ -7,7 +8,6 @@ import {
   Link,
   Typography
 } from "@material-ui/core";
-import Icon from '@material-ui/core/Icon';
 import { ThemeProvider, useTheme } from "@material-ui/core/styles";
 import AddressModal from './Modals/AddressModal';
 
@@ -50,6 +50,9 @@ const useStyles = makeStyles((theme) => ({
   smallText: {
     fontSize: ".9rem",
     margin: 0
+  },
+  copyIcon: {
+    fontSize: '25px'
   }
 }));
 
@@ -84,13 +87,15 @@ const WagerCard = (props) => {
     props.challengeWager(props.contractAddress, props.amount);
   };
 
+  //TODO: make withdraw wager button functional
+  //TODO: change addresses from <LINK> components to something more fitting
   return (
     <ThemeProvider theme={theme}>
       <Card elevation={10} className={classes.root}>
         <Typography variant={"body2"} className={classes.infoDisplay}>
           <p className={classes.marginCenter}>ETH {props.amount}</p>
         </Typography>
-        <Typography component={"span"} variant={"body2"} gutterBottom >
+        <Typography component={"span"} variant={"body2"} >
           <p className={classes.cardLabels}>Wagerer Address: <br /> {" "} </p>
             <span className={classes.textLight}>
             <Link
@@ -99,7 +104,7 @@ const WagerCard = (props) => {
               name="wagerer" 
               color="inherit" 
               onClick={handleLinkClick}> 
-                {props.wagererAddress.slice(0, 7) + "..." + props.wagererAddress.slice(39)}{" "}<i class="fa fa-clipboard" />
+                {props.wagererAddress.slice(0, 7) + "..." + props.wagererAddress.slice(39)}{" "}<CopyOutlined className={classes.copyIcon} />
               </Link>           
             </span>
         </Typography>
@@ -112,7 +117,7 @@ const WagerCard = (props) => {
               name="contract" 
               color="inherit" 
               onClick={handleLinkClick}>
-                {props.contractAddress.slice(0, 7) + "..." + props.contractAddress.slice(39)}{" "}<i class="fa fa-clipboard" />
+                {props.contractAddress.slice(0, 7) + "..." + props.contractAddress.slice(39)}{" "}<CopyOutlined className={classes.copyIcon} />
               </Link>
             </span>
         </Typography>
