@@ -1,25 +1,30 @@
 import React, { useState } from 'react';
 import { CopyOutlined } from '@ant-design/icons';
-import AlertDialog from './Modals/AlertDialog';
 import {
   makeStyles,
+  Grid,
   Card,
   CardActions,
   Button,
   Link,
   Typography
 } from "@material-ui/core";
-import { spacing } from '@material-ui/system';
-import { ThemeProvider, useTheme, withStyles } from "@material-ui/core/styles";
+import { ThemeProvider, withStyles } from "@material-ui/core/styles";
 import AddressModal from './Modals/AddressModal';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     borderRadius: "1.3rem",
-    margin: "1rem auto",
+    margin: "0.75rem",
     backgroundColor: "#1e273c",
     border: '1px solid #d81b60',
-    padding: "0 7px"
+    padding: "0 7px",
+    width: "280px",
+  },
+  main: {
+    justifyContent: "center",
+    textAlign: "center",
+    marginTop: 50,
   },
   infoDisplay: {
     display: "flex",
@@ -63,9 +68,7 @@ const useStyles = makeStyles((theme) => ({
 
 const WagerCard = (props) => {
   const classes = useStyles();
-  const theme = useTheme();
   const [open, setOpen] = useState(false);
-  const [matchPressed, setMatchPressed] = useState(false);
 
     //override default mui button styling 
     const StyledButton = withStyles({
@@ -87,14 +90,6 @@ const WagerCard = (props) => {
     setOpen(false);
   };
 
-  const handleOpenAlert = () => {
-    setMatchPressed(true);
-  };
-
-  const handleCloseAlert = () => {
-    setMatchPressed(false);
-  };
-
   const handleLinkClick = (event) => {
     const { name } = event.target;
     if (name === "wagerer") {
@@ -106,10 +101,6 @@ const WagerCard = (props) => {
       handleOpen();
       navigator.clipboard.writeText(props.contractAddress);
     }
-  }
-
-  const alertWager = () => {
-    handleOpenAlert();
   }
 
   const onMatchWagerPressed = () => {
@@ -151,29 +142,34 @@ const WagerCard = (props) => {
           </span>
         </Typography>
         <AddressModal onClose={handleClose} open={open} />
-        <CardActions>
+        <CardActions>  
           {
             (window.ethereum || window.web3) ? (
-                <StyledButton variant="outlined" onClick={alertWager}>
-                  <span>Match Wager</span>
-                </StyledButton>
+              <Grid container spacing={1} justify="center">
+                <Grid item>
+                  <StyledButton variant="outlined" onClick={onMatchWagerPressed}>
+                    <span>Match Wager</span>
+                  </StyledButton>
+                </Grid>
+                <Grid item>
+                  <StyledButton variant="outlined">
+                    <span>Withdraw Wager</span>
+                  </StyledButton>
+                </Grid>
+              </Grid>
             ) : (
-              <StyledButton variant="outlined" disabled>
-                <span>Match Wager</span>
-              </StyledButton>
-            )
-          }
-        </CardActions>
-        <CardActions>
-          {
-            (window.ethereum || window.web3) ? (
-              <StyledButton variant="outlined" onClick={alertWager}>
-                <span>Withdraw Wager</span>
-              </StyledButton>
-            ) : (
-              <StyledButton variant="outlined" disabled>
-                <span>Withdraw Wager</span>
-              </StyledButton>
+              <Grid container spacing={1} justify="center">
+                <Grid item>
+                  <StyledButton variant="outlined" disabled>
+                    <span>Match Wager</span>
+                  </StyledButton>
+                </Grid>
+                <Grid item>
+                  <StyledButton variant="outlined" disabled>
+                    <span>Withdraw Wager</span>
+                  </StyledButton>
+                </Grid>
+              </Grid>
             )
           }
         </CardActions>
