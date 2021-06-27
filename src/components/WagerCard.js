@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {CopyOutlined} from '@ant-design/icons';
+import React, { useState } from 'react';
+import { CopyOutlined } from '@ant-design/icons';
 import AlertDialog from './Modals/AlertDialog';
 import {
   makeStyles,
@@ -9,7 +9,8 @@ import {
   Link,
   Typography
 } from "@material-ui/core";
-import { ThemeProvider, useTheme } from "@material-ui/core/styles";
+import { spacing } from '@material-ui/system';
+import { ThemeProvider, useTheme, withStyles } from "@material-ui/core/styles";
 import AddressModal from './Modals/AddressModal';
 
 const useStyles = makeStyles((theme) => ({
@@ -25,17 +26,17 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     backgroundColor: "#303645",
     width: "250px",
-    height: "3.3rem",
+    height: "2.3rem",
     textAlign: "center",
     borderRadius: ".7rem",
-    fontSize: "1.6rem",
+    fontSize: "1rem",
     margin: ".8rem auto"
   },
   textLight: {
     color: "#C5C5C5",
     marginLeft: ".4rem",
     fontWeight: "300",
-    fontSize: "2rem"
+    fontSize: "1rem"
   },
   marginCenter: {
     margin: "auto auto auto auto",
@@ -45,16 +46,19 @@ const useStyles = makeStyles((theme) => ({
     margin: 0,
     textTransform: "capitalize",
     color: "#D81B60",
-    fontSize: "1.6rem",
+    fontSize: "1rem",
     fontWeight: "700"
   },
   smallText: {
-    fontSize: ".9rem",
+    fontSize: ".8rem",
     margin: 0
   },
   copyIcon: {
-    fontSize: '25px'
-  }
+    fontSize: '14px'
+  },
+  actionButtons: {
+    spacing: '4'
+  },
 }));
 
 const WagerCard = (props) => {
@@ -63,12 +67,24 @@ const WagerCard = (props) => {
   const [open, setOpen] = useState(false);
   const [matchPressed, setMatchPressed] = useState(false);
 
+    //override default mui button styling 
+    const StyledButton = withStyles({
+      root: {
+        color: "#fff",
+        height: "2.3rem",
+        borderRadius: ".9rem",
+        textTransform: "capitalize",
+        fontSize: "1rem",
+        width: "260px",
+      }
+    })(Button);
+
   const handleOpen = () => {
-      setOpen(true);
+    setOpen(true);
   };
 
   const handleClose = () => {
-      setOpen(false);
+    setOpen(false);
   };
 
   const handleOpenAlert = () => {
@@ -81,7 +97,7 @@ const WagerCard = (props) => {
 
   const handleLinkClick = (event) => {
     const { name } = event.target;
-    if(name === "wagerer") {
+    if (name === "wagerer") {
       event.preventDefault();
       handleOpen();
       navigator.clipboard.writeText(props.wagererAddress);
@@ -103,46 +119,63 @@ const WagerCard = (props) => {
   //TODO: make withdraw wager button functional
   //TODO: change addresses from <LINK> components to something more fitting
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider>
       <Card elevation={10} className={classes.root}>
         <Typography variant={"body2"} className={classes.infoDisplay}>
           <p className={classes.marginCenter}>ETH {props.amount}</p>
         </Typography>
         <Typography component={"span"} variant={"body2"} >
           <p className={classes.cardLabels}>Wagerer Address: <br /> {" "} </p>
-            <span className={classes.textLight}>
+          <span className={classes.textLight}>
             <Link
-              underline="none" 
+              underline="none"
               href="#"
-              name="wagerer" 
-              color="inherit" 
-              onClick={handleLinkClick}> 
-                {props.wagererAddress.slice(0, 7) + "..." + props.wagererAddress.slice(39)}{" "}<CopyOutlined className={classes.copyIcon} />
-              </Link>           
-            </span>
+              name="wagerer"
+              color="inherit"
+              onClick={handleLinkClick}>
+              {props.wagererAddress.slice(0, 19) + "..." + props.wagererAddress.slice(39)}{" "}<CopyOutlined className={classes.copyIcon} />
+            </Link>
+          </span>
         </Typography>
         <Typography component={"span"} variant={"body2"} gutterBottom>
           <p className={classes.cardLabels}>Contract Address: <br /> {" "}</p>
-            <span className={classes.textLight}>
-              <Link 
+          <span className={classes.textLight}>
+            <Link
               href="#"
-              underline="none" 
-              name="contract" 
-              color="inherit" 
+              underline="none"
+              name="contract"
+              color="inherit"
               onClick={handleLinkClick}>
-                {props.contractAddress.slice(0, 7) + "..." + props.contractAddress.slice(39)}{" "}<CopyOutlined className={classes.copyIcon} />
-              </Link>
-            </span>
+              {props.contractAddress.slice(0, 19) + "..." + props.contractAddress.slice(39)}{" "}<CopyOutlined className={classes.copyIcon} />
+            </Link>
+          </span>
         </Typography>
         <AddressModal onClose={handleClose} open={open} />
         <CardActions>
-          <Button fullWidth="true" onClick={alertWager}>
-            Match <br /> Wager
-          </Button>
-          <AlertDialog onClose={handleCloseAlert} ethAmount={props.amount} userDisagrees={handleCloseAlert} userAgrees={onMatchWagerPressed} open={matchPressed}/>
-          <Button fullWidth="true" onClick={onMatchWagerPressed}>
-            Withdraw Wager
-          </Button>
+          {
+            (window.ethereum || window.web3) ? (
+                <StyledButton variant="outlined" onClick={alertWager}>
+                  <span>Match Wager</span>
+                </StyledButton>
+            ) : (
+              <StyledButton variant="outlined" disabled>
+                <span>Match Wager</span>
+              </StyledButton>
+            )
+          }
+        </CardActions>
+        <CardActions>
+          {
+            (window.ethereum || window.web3) ? (
+              <StyledButton variant="outlined" onClick={alertWager}>
+                <span>Withdraw Wager</span>
+              </StyledButton>
+            ) : (
+              <StyledButton variant="outlined" disabled>
+                <span>Withdraw Wager</span>
+              </StyledButton>
+            )
+          }
         </CardActions>
         <Typography gutterBottom variant={"body2"} className={classes.textLight}>
           <p className={classes.smallText}>expires: {props.dateExpires}</p>{" "}

@@ -13,7 +13,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">Challenge Wager?</DialogTitle>
+        <DialogTitle id="alert-dialog-title">{props.DialogPrompt}</DialogTitle>
         <DialogActions>
         <div>
             <Button onClick={props.userAgrees} size="large" color="inherit" autoFocus>
