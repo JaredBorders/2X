@@ -37,6 +37,9 @@ const useStyles = makeStyles((theme) => ({
     divide: {
         marginTop: 26,
     },
+    openWagerTitle: {
+        marginBottom: 26,
+    },
     button: {
         color: "white",
         height: 58,
@@ -169,7 +172,7 @@ const Splash = () => {
                         /* Create object to represent Wager information */
                         const wagerData = {
                             key: blockTime + addresses[i],
-                            wagererAddress: data[0].substring(0, 10).toLowerCase() + "...",
+                            wagererAddress: data[0].substring(0, 50).toLowerCase(),
                             contractAddress: addresses[i],
                             contractAddressFormatted: addresses[i].substring(0, 10).toLowerCase() + "...",
                             wagerAmount: ethers.utils.formatEther(data[1]),
@@ -445,7 +448,7 @@ const Splash = () => {
                         </Grid>
                     </div>
                     <Grid item xs={12}>
-                        <Typography variant="h5">Open Wagers</Typography>
+                        <Typography variant="h5" className={classes.openWagerTitle}>Open Wagers</Typography>
                     </Grid>
                     <Grid container justify="center">
                         {wagers.map(wager => {
