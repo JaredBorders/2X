@@ -87,7 +87,6 @@ await factory.randomNumberConsumerAddress()
 6. After getting LINK from a [faucet](https://kovan.chain.link/), send it to the address `factory.randomNumberConsumerAddress()` returns
 
 ## TODO
-* Wager cards need re-worked
 * Further contract testing is always welcome
 
 ## How to Contribute?
