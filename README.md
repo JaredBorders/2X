@@ -1,7 +1,7 @@
 # [2X](https://jaredborders.github.io/2X/)
 <p align="center">
-  <img src="/MakeWagerDemo1.gif" width="600" height="600" alt="MakeWagerDemo"/>
-  <img src="/ChallengeWagerDemo1.gif" width="600" height="600" alt="ChallengeWagerDemo"/>
+  <img src="/MakeWagerDemo1.gif" width="525" height="371" alt="MakeWagerDemo"/>
+  <img src="/ChallengeWagerDemo1.gif" width="525" height="371" alt="ChallengeWagerDemo"/>
 </p>
 2X is a decentralized application (dApp) that allows users to wager ether in a 1v1 winner-take-all gamble. Verified randomness provided via Chainlink VRF and professional security analysis provided via [Consensys MythX](https://mythx.io/about/). Currently only available on Kovan network.
 
