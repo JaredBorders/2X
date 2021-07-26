@@ -107,6 +107,10 @@ const WagerCard = (props) => {
     props.challengeWager(props.contractAddress, props.amount);
   };
 
+  const onWithdrawWagerPressed = () => {
+    props.withdrawWager(props.contractAddress);
+  };
+
   //TODO: make withdraw wager button functional
   //TODO: change addresses from <LINK> components to something more fitting
   return (
@@ -152,7 +156,7 @@ const WagerCard = (props) => {
                   </StyledButton>
                 </Grid>
                 <Grid item>
-                  <StyledButton variant="outlined">
+                  <StyledButton variant="outlined" onClick={onWithdrawWagerPressed}>
                     <span>Withdraw Wager</span>
                   </StyledButton>
                 </Grid>
