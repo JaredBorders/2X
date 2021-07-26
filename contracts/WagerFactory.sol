@@ -12,7 +12,7 @@ contract WagerFactory {
     address[] public wagerAddresses;
     address public randomNumberConsumerAddress;
     uint16 private randomNumber;
-    mapping(bytes32 => address) rngMapping;
+    mapping(bytes32 => address) public rngMapping;
 
     /* EVENTS */
     event WagerCreated(address wagerer, address factory);
