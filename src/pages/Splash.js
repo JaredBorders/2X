@@ -233,6 +233,44 @@ const Splash = () => {
         }
     }
 
+    /* Withdraw existing Wager (only IF owner) */
+    const withdrawWager = async (address) => {
+        await requestAccount();
+        if (typeof window.ethereum !== 'undefined') {
+            setProgressDescription("Attempting to withdraw wager @ address: " + address);
+            setInProgress(true);
+
+            var [provider, signer, wager, signerAddress] = [null, null, null, null];
+
+            try {
+                /* Establish Wager contract to interact with via it's deployment address */
+                provider = new ethers.providers.Web3Provider(window.ethereum);
+                signer = provider.getSigner(); // Needed for paying eth
+                wager = new ethers.Contract(address, Wager.abi, signer);
+                signerAddress = await signer.getAddress();
+            } catch (error) {
+                reportEvent(
+                    error,
+                    "There was an issue with your transaction. Try again or contact a developer for help."
+                );
+            }
+
+            try {
+                /* Attempt to enter Wager contract at address given */
+                const tx = await wager.withdrawFunds();
+                await tx.wait();
+
+            } catch (error) {
+                reportEvent(
+                    error,
+                    "There was an issue with your transaction. Try again or contact a developer for help."
+                );
+            }
+
+            fetchValidWagerContracts(); // pass address to not include
+        }
+    }
+
     /* Deploy new wager contract */
     const createWager = async () => {
         if (typeof window.ethereum !== 'undefined') {
@@ -463,6 +501,7 @@ const Splash = () => {
                                     dateCreated={wager.contractCreated}
                                     dateExpires={wager.contractExpires}
                                     challengeWager={challengeWager}
+                                    withdrawWager={withdrawWager}
                                 />
                             )
                         })}
