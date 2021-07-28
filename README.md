@@ -91,6 +91,7 @@ await factory.randomNumberConsumerAddress()
 6. After getting LINK from a [faucet](https://kovan.chain.link/), send it to the address `factory.randomNumberConsumerAddress()` returns
 
 ## TODO
+* After wager has expired, automatically send eth back to wagerer. (May be problematic given that it costs gas to both create & remove wager)
 * Further contract testing is always welcome
 
 ## How to Contribute?

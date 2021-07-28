@@ -3,7 +3,6 @@ pragma solidity ^0.8.0;
 
 import "./WagerFactory.sol";
 
-/* Change Request: getRandom() may be subject to manipulation; use ChainLink VRF Oracle */
 /* Change Request: After duration, send eth back to wagerer */
 
 /// @author jaredborders

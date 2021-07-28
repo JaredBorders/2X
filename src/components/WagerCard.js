@@ -111,8 +111,6 @@ const WagerCard = (props) => {
     props.withdrawWager(props.contractAddress);
   };
 
-  //TODO: make withdraw wager button functional
-  //TODO: change addresses from <LINK> components to something more fitting
   return (
     <ThemeProvider>
       <Card elevation={10} className={classes.root}>
