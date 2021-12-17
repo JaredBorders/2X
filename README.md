@@ -3,7 +3,7 @@
   <img src="/MakeWagerDemo1.gif" width="420" height="296" alt="MakeWagerDemo"/>
   <img src="/ChallengeWagerDemo1.gif" width="420" height="296" alt="ChallengeWagerDemo"/>
 </p>
-2X is a decentralized application (dApp) that allows users to wager ether in a 1v1 winner-take-all gamble. Verified randomness provided via Chainlink VRF and professional security analysis provided via [Consensys MythX](https://mythx.io/about/) . Currently only available on Kovan network.
+2X is a decentralized application (dApp) that allows users to wager ether in a 1v1 winner-take-all gamble. Verified randomness provided via Chainlink VRF and professional security analysis provided via Consensys MythX. Currently only available on Kovan network.
 
 ## Motivation
 Create a lean, user-friendly application that lets users safely wager varying amounts of ether by relying on randomness provided via Chainlink VRF and the proven security Ethereum provides as a platform
